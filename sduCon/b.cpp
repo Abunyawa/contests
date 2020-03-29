@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n;
+    string a;
+    cin>>n>>a;
+    int carry = 1;
+    int ans= 0;
+    for(int i =0;i<n;i++){
+        if(carry == 1){
+            ans++;
+            if(a[i]=='0'){
+                carry = 0;
+            }
+        }
+        
+    }
+
+    cout<<ans<<endl;
+    return 0;
+}
