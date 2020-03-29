@@ -24,14 +24,14 @@ void no(){
 void solve(){
     int n;
     cin>>n;
-    vi v(n+1);
-    vi pS(n+1,0);
+    vl v(n+1);
+    vl pS(n+1,0);
     for(int i=1;i<=n;i++){
         cin>>v[i];
         pS[i] = pS[i-1]+v[i];
     }
     sort(all(v));
-    vi pS2(n+1,0);
+    vl pS2(n+1,0);
     for(int i=1;i<=n;i++){
         pS2[i] = pS2[i-1]+v[i];
     }
