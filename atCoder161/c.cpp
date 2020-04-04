@@ -14,17 +14,18 @@
 using namespace std;
 
 void yes(){
-    cout<<"YES"<<'\n';
+    cout<<"Yes"<<'\n';
 }
 
 void no(){
-    cout<<"NO"<<'\n';
+    cout<<"No"<<'\n';
 }
 
 void solve(){
-    int x,y,z;
-    cin>>x>>y>>z;
-    cout<<z<<' '<<x<<' '<<y<<'\n';
+    ll n,k;
+    cin>>n>>k;
+    n = n%k;
+    cout<<min(n,k-n)<<'\n';
 }
 
 int main(){

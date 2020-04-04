@@ -14,17 +14,35 @@
 using namespace std;
 
 void yes(){
-    cout<<"YES"<<'\n';
+    cout<<"Yes"<<'\n';
 }
 
 void no(){
-    cout<<"NO"<<'\n';
+    cout<<"No"<<'\n';
 }
 
 void solve(){
-    int x,y,z;
-    cin>>x>>y>>z;
-    cout<<z<<' '<<x<<' '<<y<<'\n';
+    int n;
+    double m;
+    cin>>n>>m;
+    vector<double> a(n);
+    double sm =0;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        sm+=a[i];
+    }
+    sort(all(a));
+    int ctr = 0;
+    for(int i=n-1;ctr<m && i>=0;i--){
+        if(a[i]/sm>=1/(4*m)){
+            ctr++;
+        }
+    }
+    if(ctr==m){
+        yes();
+    }else{
+        no();
+    }
 }
 
 int main(){
