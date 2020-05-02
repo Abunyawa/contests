@@ -34,27 +34,17 @@ void solve(){
         for(int j=0;j<s.length();j++){
             let.insert(s[j]);
         }
-        int l = (int)log10(q);
-        if(l+1==s.length()){
-            for(int j=0;j<l;j++){
-                q/=10;
-            }
-            if(m.find(s[0])!=m.end()){
-                if(m[s[0]]>q){
-                    m[s[0]]=q;
-                }
-            }else{
-                m[s[0]]=q;            
-            }
-        }
+        m[s[0]]++;
     }
     
-    vector<char> ans(10);
+    vector<pair<int,char>> ans;
     for(auto i = let.begin();i!=let.end();i++){
-        ans[m[*i]] = *i;
+        ans.pb({m[*i],*i});
     }
-    for(auto e: ans){
-        cout<<e;
+    sort(all(ans));
+    cout<<ans[0].S;
+    for(int i=9;i>=1;i--){
+        cout<<ans[i].S;
     }
     cout<<'\n';
 }
