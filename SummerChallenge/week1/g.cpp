@@ -45,7 +45,7 @@ void solve(){
     }
 
     for(int i=0;i<n;i++){
-        int pos = upper_bound(all(b),a[i])-b.begin();
+        int pos = lower_bound(all(b),a[i])-b.begin();
         if(pos>0)
             cout<<pref[min(pos-1,m-1)]<<' ';
         else
