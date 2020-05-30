@@ -15,6 +15,7 @@
 using namespace std;
 ll const MOD = 998244353;
 
+
 void yes(){
     cout<<"YES"<<'\n';
 }
@@ -22,6 +23,7 @@ void yes(){
 void no(){
     cout<<"NO"<<'\n';
 }
+
 
 ll fact(int n){
     ll ans = 1;
@@ -58,14 +60,22 @@ ll A(int n, int k){
 
 
 void solve(){
+    int n,k;
+    cin>>n>>k;
+    ll ans = 0;
+    for(int i=1;i<=n/k;i++){
+        ans += C(n/i-1,k-1);
+        ans%=MOD;
+    }
 
+    cout<<ans<<'\n';
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }
