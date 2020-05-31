@@ -58,34 +58,39 @@ ll A(int n, int k){
 
 
 void solve(){
-    int n;
-    cin>>n;
-    vi dp(3);
-    int a[n][3];
-    for(int i=0;i<n;i++){
-        vi ndp(3,-10000000);
-        cin>>a[i][0]>>a[i][1]>>a[i][2];
-
-        for(int j=0;j<3;j++){
-            for(int k=0;k<3;k++){
-                if(k!=j){
-                    ndp[k] = max(ndp[k],dp[j]+a[i][k]);
-                }
-            }
+    string s;
+    cin>>s;
+    int n = s.length();
+    s = '#' + s;
+    vi pref(n+1);
+    pref[0] = 0;
+    for(int i = 1;i<=n;i++){
+        if(s[i] == '0'){
+            pref[i] = pref[i-1];
+        }else{
+            pref[i] = pref[i-1]+1;
         }
-
-        dp = ndp;
+        
     }
-    
 
-    cout<<max(dp[0],max(dp[1],dp[2]))<<'\n';
+    vi dp(n+1);
+    int minA = 999999999;
+    for(int i=1;i<=n;i++){
+        dp[i] = min(i-pref[i]+pref[n]-pref[i],pref[i]+(n-i-pref[n]+pref[i]));
+        if(dp[i]<minA){
+            minA = dp[i];
+        }
+    }
+
+    cout<<minA<<'\n';
+
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    //cin>>t;
+    cin>>t;
     while(t--){
         solve();
     }

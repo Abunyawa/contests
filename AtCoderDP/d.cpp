@@ -56,29 +56,25 @@ ll A(int n, int k){
     return (fact(n) * powM(fact(n-k)%MOD,MOD-2))%MOD;
 }
 
+ll dp[100100];
+
 
 void solve(){
-    int n;
-    cin>>n;
-    vi dp(3);
-    int a[n][3];
+    ll n,W;
+    cin>>n>>W;
     for(int i=0;i<n;i++){
-        vi ndp(3,-10000000);
-        cin>>a[i][0]>>a[i][1]>>a[i][2];
-
-        for(int j=0;j<3;j++){
-            for(int k=0;k<3;k++){
-                if(k!=j){
-                    ndp[k] = max(ndp[k],dp[j]+a[i][k]);
-                }
-            }
+        int v,w;
+        cin>>w>>v;
+        for(int i = W-w;i>=0;i--){
+            dp[i+w] = max(dp[i+w],dp[i]+v); 
         }
-
-        dp = ndp;
     }
-    
 
-    cout<<max(dp[0],max(dp[1],dp[2]))<<'\n';
+    ll mx = 0;
+    for(int i=0;i<=W;i++){
+        mx = max(dp[i],mx);
+    }
+    cout<<mx<<'\n';
 }
 
 int main(){

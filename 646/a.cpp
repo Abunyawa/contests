@@ -59,33 +59,60 @@ ll A(int n, int k){
 
 void solve(){
     int n;
-    cin>>n;
-    vi dp(3);
-    int a[n][3];
+    int x;
+
+    cin>>n>>x;
+    int odd= 0 ;
+    int even = 0;
+    vi a(n);
     for(int i=0;i<n;i++){
-        vi ndp(3,-10000000);
-        cin>>a[i][0]>>a[i][1]>>a[i][2];
-
-        for(int j=0;j<3;j++){
-            for(int k=0;k<3;k++){
-                if(k!=j){
-                    ndp[k] = max(ndp[k],dp[j]+a[i][k]);
-                }
-            }
+        cin>>a[i];
+        if(a[i]%2==0){
+            even++;
+        }else{
+            odd++;
         }
-
-        dp = ndp;
     }
-    
 
-    cout<<max(dp[0],max(dp[1],dp[2]))<<'\n';
+    bool is = false;
+    if(odd==0){
+        no();
+        return;
+    }
+    odd--;
+    x--;
+    if(x<=even){
+        yes();
+    }else{
+        if((x-even)%2==0){
+            yes();
+            return;
+        }else if(x%2==0){
+            if(x-min(x,odd/2*2)<=even){
+                yes();
+                return;
+            }else{
+                no();
+            }
+        }else if(x%2==1){
+            if(x-min(x-1,odd/2*2)<=even){
+                yes();
+                return;
+            }else{
+                no();
+            }
+        }else{
+            no();
+            return;
+        }
+    }
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    //cin>>t;
+    cin>>t;
     while(t--){
         solve();
     }

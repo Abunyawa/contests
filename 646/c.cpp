@@ -56,36 +56,56 @@ ll A(int n, int k){
     return (fact(n) * powM(fact(n-k)%MOD,MOD-2))%MOD;
 }
 
+vi g[10000];
+bool used[10000];
+int cnt[10000];
+
+
+void dfs(int v){
+    used[v] = true;
+    cnt[v] = 1;
+    for(int i=0;i<g[v].size();i++){
+        if(!used[g[v][i]]){
+            dfs(g[v][i]);
+            cnt[v] +=cnt[g[v][i]];
+        }
+    }
+}
 
 void solve(){
-    int n;
-    cin>>n;
-    vi dp(3);
-    int a[n][3];
-    for(int i=0;i<n;i++){
-        vi ndp(3,-10000000);
-        cin>>a[i][0]>>a[i][1]>>a[i][2];
-
-        for(int j=0;j<3;j++){
-            for(int k=0;k<3;k++){
-                if(k!=j){
-                    ndp[k] = max(ndp[k],dp[j]+a[i][k]);
-                }
-            }
-        }
-
-        dp = ndp;
+    int n,x;
+    cin>>n>>x;
+    for(int i=1;i<=n;i++){
+        used[i] = false;
+        cnt[i] = 0;
+        g[i].clear();
     }
-    
-
-    cout<<max(dp[0],max(dp[1],dp[2]))<<'\n';
+    vi  deg(n+1,0);  
+    for(int i=0;i<n-1;i++){
+        int u,v;
+        cin>>u>>v;
+        deg[u]++;
+        deg[v]++;
+        g[u].pb(v);
+        g[v].pb(u);
+    }
+    if(deg[x]<=1){
+        cout<<"Ayush\n";
+    }else{
+        dfs(x);
+        if((cnt[x]-1)%2==0){
+            cout<<"Ashish\n";
+        }else{
+            cout<<"Ayush\n";            
+        }
+    }
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    //cin>>t;
+    cin>>t;
     while(t--){
         solve();
     }
