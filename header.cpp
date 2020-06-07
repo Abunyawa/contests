@@ -56,6 +56,21 @@ ll A(int n, int k){
     return (fact(n) * powM(fact(n-k)%MOD,MOD-2))%MOD;
 }
 
+void add_self(int &a, int b){
+    a += b;
+    if(a>=MOD){
+        a-=MOD;
+    }
+}
+
+void sub_self(int &a, int b){
+    a -= b;
+    if(a<0){
+        a+=MOD;
+    }
+}
+
+
 
 void solve(){
 

@@ -1,0 +1,26 @@
+a done
+b done
+c done
+d done
+e done
+f done
+g done
+h done
+i done
+j done
+k done
+l done
+m done
+n done
+o
+p
+q done
+r
+s
+t
+u
+v
+w
+x
+y
+z

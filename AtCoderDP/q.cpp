@@ -70,37 +70,76 @@ void sub_self(int &a, int b){
     }
 }
 
+ll const MAXN = 300100;
+long long t[4*MAXN],a[MAXN+10];
+
+
+void build(int v, int tl, int tr){
+    if(tl==tr){
+        t[v] = a[tl];
+        return;
+    }else{
+        int tm = (tl+tr)/2;
+        build(2*v,tl,tm);
+        build(2*v+1,tm+1,tr);
+        t[v] = max(t[2*v],t[2*v+1]);
+        return;
+    }
+}
+
+void change(int v, int tl, int tr, int pos, ll x){
+    if(tr<pos || pos < tl){
+        return;
+    }
+    if(tl==tr){
+        a[tl]=x;
+        t[v]=x;
+        return; 
+    }
+    int tm = (tl+tr)/2;
+    change(v*2,tl, tm,pos,x);
+    change(v*2+1,tm+1,tr,pos,x);
+    t[v] = max(t[v*2],t[v*2+1]);
+}
+
+long long sum(int v, int tl, int tr, int l, int r){
+    if(tr<l || r<tl){
+        return -999999999999;
+    }
+    if(l <= tl && tr <= r){
+        return t[v];  
+    }   
+    //push(v,tl,tr);
+    int tm = (tl+tr)/2;
+    long long sl = sum(v*2,tl,tm,l,r);
+    long long sr = sum(v*2+1,tm+1,tr,l,r);
+    return max(sl,sr);
+    
+}
+
+
+
 
 
 void solve(){
-    int n,k;
-    cin>>n>>k;
-    vi dp(k+1);
-    dp[0] = 1;
-
-    for(int i=0;i<n;i++){
-        int u;
-        cin>>u;
-        vi pref(k+1);
-        for(int j = k;j>=0;j--){
-            int val = dp[j];
-            int l = j+1;
-            int r = j + min(u,k-j);
-            if(l<=r){
-                add_self(pref[l],val);
-                if(r+1<=k){
-                    sub_self(pref[r+1],val);
-                }
-            }
-        }
-        int pre = 0;
-        for(int j = 0;j<=k;j++){
-            add_self(pre,pref[j]);
-            add_self(dp[j],pre);
-        }
+    int n;
+    cin>>n;
+    vl h(n+1);
+    for(int i=1;i<=n;i++){
+        cin>>h[i];
     }
+    vl b(n+1);
+    for(int i=1;i<=n;i++){
+        cin>>b[i];
+    }
+    build(1,0,n);
+    for(int i=1;i<=n;i++){
+        ll best = sum(1,0,n,0,h[i]-1);
+        change(1,0,n,h[i],best+b[i]);
+        
+    }
+    cout<<sum(1,0,n,1,n)<<'\n';
 
-    cout<<dp[k]<<'\n';
 }
 
 int main(){
