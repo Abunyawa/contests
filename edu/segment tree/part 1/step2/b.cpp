@@ -70,18 +70,19 @@ void sub_self(int &a, int b){
     }
 }
 
-
 struct segtree {
-
-    vl tree;
+    
+    vector<int> tree;
     int size;
+
+
 
     void init(int n){
         size = 1;
         while(size < n) size*=2;
         tree.assign(2*size-1,0);
     }
-    void build(vi &a,int x, int lx, int rx){
+    void build(vl &a,int x, int lx, int rx){
         if(rx-lx == 1){
             if(lx<a.size())
                 tree[x] = a[lx];
@@ -93,58 +94,80 @@ struct segtree {
         }
     }
 
-    void build(vi &a){
+    void build(vl &a){
         init(a.size());
         build(a,0,0,size);
     }
 
-    void set(int i, int v, int x, int lx, int rx){
+    void set(int i, int x, int lx, int rx){
         if(rx-lx==1){
-            tree[x] = v;
+            tree[x] ^= 1; 
             return;
         }
         int m = (lx+rx)/2;
         if(i<m){
-            set(i,v,2*x+1,lx,m);
+            set(i,2*x+1,lx,m);
         }else{
-            set(i,v,2*x+2,m,rx);
+            set(i,2*x+2,m,rx);
         }
         tree[x] = tree[2*x+1] + tree[2*x+2];
+
     }
 
-    void set(int i, int v){
-        set(i,v,0,0,size);
+    void set(int i){
+        set(i,0,0,size);
     }
 
-    ll sum(int l, int r, int x, int lx, int rx){
-        if(l>=rx || lx>=r){
-            return 0;
+
+    int find(int k, int x, int lx, int rx){
+        if(rx-lx==1){
+            return lx;
         }
-        if(lx>=l && rx<=r){
-            return tree[x];
+        if(tree[2*x+1]>k){
+            return find(k,2*x+1,lx,(lx+rx)/2);
+        }else{
+            return find(k-tree[2*x+1],2*x+2,(lx+rx)/2,rx);
         }
-        int m = (rx+lx)/2;
-        ll s1 = sum(l,r,2*x+1,lx,m);
-        ll s2 = sum(l,r,2*x+2,m,rx);
-        return s1+s2;
     }
 
-    ll sum (int l,int r){
-        return sum(l,r,0,0,size);
+
+    int find(int k){
+        return find(k,0,0,size);
     }
 
 };
 
 
-void solve(){
 
+void solve(){
+    int n,m;
+    cin>>n>>m;
+    segtree st;
+    vl a(n);
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    st.build(a);
+    for(int i=0;i<m;i++){
+        int c;
+        cin>>c;
+        if(c==1){
+            int pos;
+            cin>>pos;
+            st.set(pos);
+        }else{
+            int k;
+            cin>>k;
+            cout<<st.find(k)<<'\n';
+        }
+    }
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

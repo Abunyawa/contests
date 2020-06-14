@@ -70,37 +70,60 @@ void sub_self(int &a, int b){
     }
 }
 
-
 struct segtree {
+    struct node{
+        ll seg,pref,suf,sum;
+    };
+    node const ZERO = {0,0,0,0};
 
-    vl tree;
+    vector<node> tree;
     int size;
+
+    node combine(node a, node b){
+        return {
+            max(a.seg,max(b.seg,a.suf+b.pref)),
+            max(a.pref,a.sum+b.pref),
+            max(b.suf,b.sum+a.suf),
+            a.sum+b.sum
+        };
+    }
+
 
     void init(int n){
         size = 1;
         while(size < n) size*=2;
-        tree.assign(2*size-1,0);
+        tree.assign(2*size-1,ZERO);
     }
-    void build(vi &a,int x, int lx, int rx){
+    void build(vl &a,int x, int lx, int rx){
         if(rx-lx == 1){
             if(lx<a.size())
-                tree[x] = a[lx];
+                tree[x] = {
+                    max(a[lx],0ll),
+                    max(a[lx],0ll),
+                    max(a[lx],0ll),
+                    a[lx]
+                };
         }else{
             int m = (lx+rx)/2;
             build(a,2*x+1,lx,m);
             build(a,2*x+2,m,rx);
-            tree[x] = tree[2*x+1]+tree[2*x+2];
+            tree[x] = combine(tree[2*x+1],tree[2*x+2]);
         }
     }
 
-    void build(vi &a){
+    void build(vl &a){
         init(a.size());
         build(a,0,0,size);
     }
 
-    void set(int i, int v, int x, int lx, int rx){
+    void set(int i, ll v, int x, int lx, int rx){
         if(rx-lx==1){
-            tree[x] = v;
+            tree[x] = {
+                max(v,0ll),
+                max(v,0ll),
+                max(v,0ll),
+                v
+            };
             return;
         }
         int m = (lx+rx)/2;
@@ -109,42 +132,59 @@ struct segtree {
         }else{
             set(i,v,2*x+2,m,rx);
         }
-        tree[x] = tree[2*x+1] + tree[2*x+2];
+        tree[x] = combine(tree[2*x+1],tree[2*x+2]);
+
     }
 
-    void set(int i, int v){
+    void set(int i, ll v){
         set(i,v,0,0,size);
     }
 
-    ll sum(int l, int r, int x, int lx, int rx){
+    node sum(int l, int r, int x, int lx, int rx){
         if(l>=rx || lx>=r){
-            return 0;
+            return ZERO;
         }
         if(lx>=l && rx<=r){
             return tree[x];
         }
         int m = (rx+lx)/2;
-        ll s1 = sum(l,r,2*x+1,lx,m);
-        ll s2 = sum(l,r,2*x+2,m,rx);
-        return s1+s2;
+        node s1 = sum(l,r,2*x+1,lx,m);
+        node s2 = sum(l,r,2*x+2,m,rx);
+        return combine(s1,s2);
     }
 
-    ll sum (int l,int r){
+    node sum (int l,int r){
         return sum(l,r,0,0,size);
     }
 
 };
 
 
-void solve(){
 
+void solve(){
+    int n,m;
+    cin>>n>>m;
+    segtree st;
+    vl a(n);
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    st.build(a);
+    cout<<st.sum(0,n).seg<<'\n';
+    for(int i=0;i<m;i++){
+        int j;
+        ll v;
+        cin>>j>>v;
+        st.set(j,v);
+        cout<<st.sum(0,n).seg<<'\n';
+    }
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

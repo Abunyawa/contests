@@ -135,9 +135,27 @@ struct segtree {
 
 };
 
-
 void solve(){
-
+    int n,m;
+    cin>>n>>m;
+    vi ones(n+m-1,0);
+    vi zeroes(n+m-1,0);
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            int x;
+            cin>>x;
+            if(x==1){
+                zeroes[i+j]++;
+            }else{
+                ones[i+j]++;
+            }
+        }
+    }
+    int ans =0;
+    for(int i=0;i<(n+m-1)/2;i++){
+        ans += min(ones[i]+ones[ones.size()-1-i],zeroes[i]+zeroes[ones.size()-1-i]);
+    }
+    cout<<ans<<'\n';
 }
 
 int main(){

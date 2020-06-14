@@ -135,9 +135,16 @@ struct segtree {
 
 };
 
-
 void solve(){
-
+    ll a,b;
+    cin>>a>>b;
+    ll ta = min(a,b);
+    ll tb = max(a,b);
+    if(tb>=2*ta){
+        cout<<ta<<'\n';
+    }else{
+        cout<<(ta+tb)/3<<'\n';
+    }
 }
 
 int main(){

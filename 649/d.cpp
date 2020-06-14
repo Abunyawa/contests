@@ -134,9 +134,26 @@ struct segtree {
     }
 
 };
+vi g[200100];
+bool used[200100];
+bool usedInA[200100];
+
+void bfs(int v){
+    used[v] = true;
+
+    for(int i)
+}
 
 
 void solve(){
+    int n,m,k;
+    cin>>n>>m>>k;
+    for(int i=0;i<m;i++){
+        int u,v;
+        cin>>u>>v;
+        g[u].pb(v);
+        g[v].pb(u);
+    }
 
 }
 
@@ -144,7 +161,7 @@ int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

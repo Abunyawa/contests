@@ -135,9 +135,25 @@ struct segtree {
 
 };
 
-
 void solve(){
+    ll n,x,m;
+    cin>>n>>x>>m;
+    int l = x;
+    int r = x;
+    for(int i=0;i<m;i++){
+        int tl, tr;
+        cin>>tl>>tr;
+        if(tl<l && tr>r){
+            l = tl;
 
+            r = tr;
+        }else if(tl<=r && tr>r){
+            r = tr;
+        }else if(tl<l && tr>=l){
+            l=tl;
+        }
+    }
+    cout<<r-l+1<<'\n';
 }
 
 int main(){

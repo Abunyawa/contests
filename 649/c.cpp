@@ -135,8 +135,43 @@ struct segtree {
 
 };
 
+int pos[200100];
 
 void solve(){
+    int n;
+    cin>>n;
+    vl a(n+1),b(n+2);
+    bool flag = true;
+    for(int i=1;i<=n;i++){
+        cin>>a[i];
+        b[i] = i-1;
+        pos[i-1] = i;
+        if(a[i]>i+1){
+            flag = false;
+        }
+    }
+    b[n+1] = n;
+    pos[n] = n+1;
+    int curMex = 1;
+    for(int i=1;i<=n;i++){
+        if(i!=a[i]){
+            int tmp = b[pos[i]];
+            b[pos[i]] = b[pos[a[i]]];
+            b[pos[a[i]]] = tmp;
+            tmp = pos[i];
+            pos[i] = pos[a[i]];
+            pos[a[i]] = tmp;
+        } 
+    }
+    if(flag == false){
+        cout<<-1<<'\n';
+        return;
+    }else{
+        for(int i=1;i<=n;i++){
+            cout<<b[i]<<' ';
+        }
+        cout<<'\n';
+    }
 
 }
 
@@ -144,7 +179,7 @@ int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

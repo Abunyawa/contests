@@ -137,7 +137,42 @@ struct segtree {
 
 
 void solve(){
-
+    int n;
+    cin>>n;
+    vi a(n);
+    vi pos(n+1);
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        pos[a[i]] = i;
+    }    
+    int cur = -1;
+    int l = 1;
+    int r = n;
+    int  k = 0;
+    vi ans;
+    for(int i=1;i<n;i++){
+        if(a[i]>a[i-1]){
+            int fr = i-1;
+            while(a[i]>a[i-1] && i<n){
+                i++;
+            }
+            ans.pb(a[fr]);
+            i--;
+        }else{
+            int fr = i-1;
+            while(a[i]<a[i-1] && i<n){
+                i++;
+            }
+            ans.pb(a[fr]);
+            i--;
+        }
+    }
+    ans.pb(a[n-1]);
+    cout<<ans.size()<<'\n';
+    for(auto x: ans){
+        cout<<x<<' '; 
+    }
+    cout<<'\n';
 }
 
 int main(){

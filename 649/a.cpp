@@ -137,6 +137,36 @@ struct segtree {
 
 
 void solve(){
+    int n, x;
+    cin>>n>>x;
+    vi a(n);
+    ll sum = 0;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        sum+=a[i];
+    }
+    if(sum%x!=0){
+        cout<<n<<'\n';
+    }else{
+        int sm1 = 0;
+        int l =0 ;
+        int r = n-1;
+        while(l<n && sm1%x==0){
+            sm1+=a[l++];
+        }
+        int sm2 = 0;
+        while(r>=0 && sm2%x==0){
+            sm2+=a[r--];
+        }
+        if(sm1%x==0 && sm2%x==0){
+            cout<<-1<<'\n';
+        }else{
+            cout<<max(max(l,n-l),max(n-r-1,r+1))<<'\n';            
+        }
+       
+    }
+
+
 
 }
 
