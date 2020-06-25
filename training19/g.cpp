@@ -134,41 +134,88 @@ struct segtree {
     }
 
 };
+ll ans = 1;
+int mX[] = {1,-1,0,0};
+int mY[] = {0,0,1,-1};
+int n,m;
+
+char g[2010][2010];
+pair<ll,ll> was[2010][2010];
+bool used[2010][2010];
+
+void bfs(int x, int y,ll l, ll r){
+    used[x][y] = true;
+    priority_queue<pair<pll,pii>> q;
+    q.push({{l,r},{x,y}});
+
+    while(!q.empty()){
+        int curX = q.top().S.F;
+        int curY = q.top().S.S;
+        ll stepL = q.top().F.F;
+        ll stepR = q.top().F.S;
+        q.pop();
+        g[curX][curY] = '+';
+        for(int i = 0;i<4;i++){
+            int toX = curX+mX[i];
+            int toY = curY+mY[i];
+            if(i==2){
+                if(stepR<=0){
+                    continue;
+                }
+            }
+            if(i==3){
+                if(stepL<=0){
+                    continue;
+                }
+            }
+            if(i==2){
+                if(toX>=0 && toX<n && toY>=0 && toY<m && !used[toX][toY] && g[toX][toY]=='.'){
+                    if(!used[toX][toY]){
+                        used[toX][toY]=true;
+                        ans++;
+                    }
+                    q.push({{stepL,stepR-1},{toX,toY}});
+                }
+            }else if(i==3){
+                if(toX>=0 && toX<n && toY>=0 && toY<m && !used[toX][toY] && g[toX][toY]=='.'){
+                    if(!used[toX][toY]){
+                        used[toX][toY]=true;
+                        ans++;
+                    }
+                    q.push({{stepL-1,stepR},{toX,toY}});
+                }
+            }else{
+                if(toX>=0 && toX<n && toY>=0 && toY<m && !used[toX][toY] && g[toX][toY]=='.'){
+                    if(!used[toX][toY]){
+                        used[toX][toY]=true;
+                        ans++;
+                    }
+                    q.push({{stepL,stepR},{toX,toY}});
+                }
+            }
+              
+        }
+    }
+
+}
 
 
 void solve(){
-    int n,k,m,t;
-    cin>>n>>k>>m>>t;
-    int l = n;
-    for(int i=0;i<t;i++){
-        int c;
-        cin>>c;
-        if(c==0){
-            int p;
-            cin>>p;
-            if(p>=k){
-                l = p;
-            }else{
-                k = k - p;
-                l = l - p;
-            }
-        }else{
-            int p;
-            cin>>p;
-            if(p==1){
-                k++;
-                l++;
-            }else if(p==l+1){
-                l++;
-            }else if(p<=k){
-                k++;
-                l++;
-            }else{
-                l++;
-            }
+    int r,c;
+    cin>>n>>m;
+    cin>>r>>c;
+    r--;
+    c--;
+    ll li,ri;
+    cin>>li>>ri;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            cin>>g[i][j];
         }
-        cout<<l<<' '<<k<<'\n';
     }
+    bfs(r,c,li,ri);
+    cout<<ans<<'\n';
+
 }
 
 int main(){

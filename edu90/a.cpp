@@ -137,45 +137,14 @@ struct segtree {
 
 
 void solve(){
-    int n,k,m,t;
-    cin>>n>>k>>m>>t;
-    int l = n;
-    for(int i=0;i<t;i++){
-        int c;
-        cin>>c;
-        if(c==0){
-            int p;
-            cin>>p;
-            if(p>=k){
-                l = p;
-            }else{
-                k = k - p;
-                l = l - p;
-            }
-        }else{
-            int p;
-            cin>>p;
-            if(p==1){
-                k++;
-                l++;
-            }else if(p==l+1){
-                l++;
-            }else if(p<=k){
-                k++;
-                l++;
-            }else{
-                l++;
-            }
-        }
-        cout<<l<<' '<<k<<'\n';
-    }
+
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    //cin>>t;
+    cin>>t;
     while(t--){
         solve();
     }
