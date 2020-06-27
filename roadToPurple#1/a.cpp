@@ -137,21 +137,6 @@ struct segtree {
 
 
 void solve(){
-    ll a,b,c;
-    cin>>a>>b>>c;
-    if(c<=a){
-        cout<<-1<<' ';
-        cout<<2<<'\n';
-    }else{
-        cout<<1<<' ';
-        if(a*b<=c){
-            cout<<-1<<'\n';
-        }else{
-            cout<<b<<'\n';
-        }
-    }
-
-
 
 }
 

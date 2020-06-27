@@ -137,22 +137,70 @@ struct segtree {
 
 
 void solve(){
-    ll a,b,c;
-    cin>>a>>b>>c;
-    if(c<=a){
-        cout<<-1<<' ';
-        cout<<2<<'\n';
-    }else{
-        cout<<1<<' ';
-        if(a*b<=c){
-            cout<<-1<<'\n';
+    string s;
+    cin>>s;
+    int n = s.length();
+    int pl = 0;
+    ll ans = 0;
+    for(int i = 0;i<n;i++){
+        if(i==n-1){
+            if(s[i]=='-'){
+                if(pl>0){
+                    ans+=n;
+                }else{
+                    ans+=2*n;
+                }
+            }else{
+                ans+=n;
+            }
+            break;
+        }
+        if(s[i]=='+'){
+            pl++;
         }else{
-            cout<<b<<'\n';
+            if(pl<1){
+                ans+= i+1;
+            }else{
+                pl--;
+            }
         }
     }
-
-
-
+    cout<<ans<<'\n';
+    /*
+    vi a(n+1);
+    int cur = 0;
+    a[0] = 0;
+    for(int i = 1;i<=n;i++){
+        if(s[i-1]=='-'){
+            cur--;
+            a[i] = cur; 
+        }else{
+            cur++;
+            a[i] = cur;
+        }
+    }
+    int prev = 0;
+    ll ans = 0;
+    cur = 0;
+    for(int i=1;i<=n;i++){
+        if(a[i]<0 && a[i]<a[i-1]){
+            ans += i-prev;
+            cur++;
+            if(i==n){
+                if(abs(a[n])>=cur){
+                    ans+=n;
+                }
+            }
+        }else{
+            if(i==n){
+                ans+=n;
+            }else{
+                continue;
+            }
+        }
+    }
+    cout<<ans<<'\n';
+    */
 }
 
 int main(){

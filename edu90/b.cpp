@@ -137,20 +137,64 @@ struct segtree {
 
 
 void solve(){
-    ll a,b,c;
-    cin>>a>>b>>c;
-    if(c<=a){
-        cout<<-1<<' ';
-        cout<<2<<'\n';
-    }else{
-        cout<<1<<' ';
-        if(a*b<=c){
-            cout<<-1<<'\n';
-        }else{
-            cout<<b<<'\n';
+    string s;
+    cin>>s;
+    int n = s.length();
+    vector<char> a;
+    for(int i=0;i<n;i++){
+        a.pb(s[i]);
+    }
+    for(int i=0;i<n+20;i++){
+        int mb = -1;
+        bool flag = false;
+        if(a.size()==0){
+            if(i%2==0){
+                cout<<"NET\n";
+            }else{
+                cout<<"DA\n";                
+            }
+            return;
+        }
+        
+        for(int j = 0;j<a.size()-1;j++){
+
+            if(a[j]!=a[j+1]){
+                if(j==0){
+                    a.erase(a.begin()+j);
+                    a.erase(a.begin()+j);
+                    flag = true;
+                    break;
+                }else if(j==a.size()-2){
+                    a.erase(a.begin()+j);
+                    a.erase(a.begin()+j);
+                    flag = true;
+                    break;
+                }else if(a[j-1]==a[j+2]){
+                    a.erase(a.begin()+j);
+                    a.erase(a.begin()+j);
+                    flag = true;
+                    break;
+                }else{
+                    mb = j;
+                }
+            }
+        }
+        if(!flag){
+            if(mb==-1){
+                if(i%2==0){
+                    cout<<"NET\n";
+                }else{
+                    cout<<"DA\n";                
+                }
+                return;
+            }else{
+                
+                a.erase(a.begin()+mb);
+                a.erase(a.begin()+mb);
+                
+            }
         }
     }
-
 
 
 }

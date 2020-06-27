@@ -137,21 +137,43 @@ struct segtree {
 
 
 void solve(){
-    ll a,b,c;
-    cin>>a>>b>>c;
-    if(c<=a){
-        cout<<-1<<' ';
-        cout<<2<<'\n';
-    }else{
-        cout<<1<<' ';
-        if(a*b<=c){
-            cout<<-1<<'\n';
-        }else{
-            cout<<b<<'\n';
+    int n;
+    cin>>n;
+    vl a(n+1);
+    ll cur = 0;
+    ll sm = 0;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        if(i%2==0){
+            sm+=a[i];
         }
     }
 
+    vl dif;
+    for(int i=0;i+1<n;i+=2){
+        dif.pb(a[i+1]-a[i]);
+    }
+    ll best_sum = 0;
+    ll cur_sum =0;
+    for(int i = 0;i<dif.size();i++){
+        cur_sum = max(0ll,cur_sum+dif[i]);
+        best_sum = max(best_sum,cur_sum);
+    }
 
+    ll ans = max(sm,sm+best_sum);
+    dif.clear();
+    for(int i=2;i<n;i+=2){
+        dif.pb(a[i-1]-a[i]);
+    }
+    best_sum = 0;
+    cur_sum = 0;
+    for(int i = 0;i<dif.size();i++){
+        cur_sum = max(0ll,cur_sum+dif[i]);
+        best_sum = max(best_sum,cur_sum);
+    }
+
+    ans = max(ans,max(sm,sm+best_sum));
+    cout<<ans<<'\n';
 
 }
 
