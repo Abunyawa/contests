@@ -135,61 +135,49 @@ struct segtree {
 
 };
 
-vi g[200100];
-vi type[110];
-bool used[110][200100];
-int d[200100][110];
-
-
-void bfs(int tp){
-    queue<int> q;
-    for(int i=0;i<type[tp].size();i++){
-        used[tp][type[tp][i]] = true;
-        q.push(type[tp][i]);
-        d[type[tp][i]][tp] = 0;
-    }
-    while(!q.empty()){
-        int cur = q.front();
-        q.pop();
-        for(int i=0;i<g[cur].size();i++){
-            if(!used[tp][g[cur][i]]){
-                d[g[cur][i]][tp] = d[cur][tp]+1;
-                //cout<<d[g[cur][i]][tp]<<' '<<tp<<'\n';
-
-                used[tp][g[cur][i]] = true;
-                q.push(g[cur][i]);
+bool used[200100];
+void solve(){
+    int n,k;
+    cin>>n>>k;
+    ll at = 0;
+    ll bt = 0;
+    vl left;
+    vl right;
+    vector<pair<ll,pll>> d; 
+    for(int i=0;i<n;i++){
+        ll t,a,b;
+        cin>>t>>a>>b;
+        if(a==0 && b==0){
+            continue;
+        }
+        at+=a;
+        bt+=b;
+        if(a==1 && b==1){
+            d.pb({t,{1,1}});
+        }else{
+            if(a==1){
+                left.pb(t);
+            }else{
+                right.pb(t);
             }
         }
     }
-}
-
-
-void solve(){
-    int n,m,k,s;
-    cin>>n>>m>>k>>s;
-    for(int i=0;i<n;i++){
-        int tp;
-        cin>>tp;
-        type[tp].pb(i+1);
+    if(at<k || bt<k){
+        cout<<-1<<'\n';
+        return;
     }
-    for(int i=0;i<m;i++){
-        int u,v;
-        cin>>u>>v;
-        g[u].pb(v);
-        g[v].pb(u);
+    sort(all(left));
+    sort(all(right));
+    for(int i=0;i<min(left.size(),right.size());i++){
+        d.pb({left[i]+right[i],{1,1}});
     }
-    for(int i=1;i<=k;i++){
-        bfs(i);
+    sort(all(d));
+    ll sm = 0;
+    for(int i=0;i<k;i++){
+        sm+=d[i].F;
     }
-    for(int i=1;i<=n;i++){
-        sort(d[i],d[i]+k+1);
-        ll sm = 0;
-        for(int j=1;j<=s;j++){
-            sm+=d[i][j];
-        }
-        cout<<sm<<' ';
-    }
-
+    
+    cout<<sm<<'\n';
 }
 
 int main(){

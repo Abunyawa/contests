@@ -135,60 +135,8 @@ struct segtree {
 
 };
 
-vi g[200100];
-vi type[110];
-bool used[110][200100];
-int d[200100][110];
-
-
-void bfs(int tp){
-    queue<int> q;
-    for(int i=0;i<type[tp].size();i++){
-        used[tp][type[tp][i]] = true;
-        q.push(type[tp][i]);
-        d[type[tp][i]][tp] = 0;
-    }
-    while(!q.empty()){
-        int cur = q.front();
-        q.pop();
-        for(int i=0;i<g[cur].size();i++){
-            if(!used[tp][g[cur][i]]){
-                d[g[cur][i]][tp] = d[cur][tp]+1;
-                //cout<<d[g[cur][i]][tp]<<' '<<tp<<'\n';
-
-                used[tp][g[cur][i]] = true;
-                q.push(g[cur][i]);
-            }
-        }
-    }
-}
-
 
 void solve(){
-    int n,m,k,s;
-    cin>>n>>m>>k>>s;
-    for(int i=0;i<n;i++){
-        int tp;
-        cin>>tp;
-        type[tp].pb(i+1);
-    }
-    for(int i=0;i<m;i++){
-        int u,v;
-        cin>>u>>v;
-        g[u].pb(v);
-        g[v].pb(u);
-    }
-    for(int i=1;i<=k;i++){
-        bfs(i);
-    }
-    for(int i=1;i<=n;i++){
-        sort(d[i],d[i]+k+1);
-        ll sm = 0;
-        for(int j=1;j<=s;j++){
-            sm+=d[i][j];
-        }
-        cout<<sm<<' ';
-    }
 
 }
 
@@ -196,7 +144,7 @@ int main(){
     abu;
     said;
     int t = 1;
-    //cin>>t;
+    cin>>t;
     while(t--){
         solve();
     }
