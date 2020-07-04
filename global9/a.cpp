@@ -137,9 +137,7 @@ struct segtree {
 
 
 void solve(){
-    ll n;
-    cin>>n;
-    cout<<(n+1)/2<<'\n';
+
 }
 
 int main(){

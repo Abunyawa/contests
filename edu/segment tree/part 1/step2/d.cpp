@@ -89,7 +89,7 @@ struct segtree {
             int m = (lx+rx)/2;
             build(a,2*x+1,lx,m);
             build(a,2*x+2,m,rx);
-            tree[x] = tree[2*x+1]+tree[2*x+2];
+            tree[x] = max(tree[2*x+1],tree[2*x+2]);
         }
     }
 
@@ -109,7 +109,7 @@ struct segtree {
         }else{
             set(i,v,2*x+2,m,rx);
         }
-        tree[x] = tree[2*x+1] + tree[2*x+2];
+        tree[x] = max(tree[2*x+1],tree[2*x+2]);
     }
 
     void set(int i, int v){
@@ -118,7 +118,7 @@ struct segtree {
 
     ll sum(int l, int r, int x, int lx, int rx){
         if(l>=rx || lx>=r){
-            return 0;
+            return -99999999999;
         }
         if(lx>=l && rx<=r){
             return tree[x];
@@ -126,27 +126,60 @@ struct segtree {
         int m = (rx+lx)/2;
         ll s1 = sum(l,r,2*x+1,lx,m);
         ll s2 = sum(l,r,2*x+2,m,rx);
-        return s1+s2;
+        return max(s1,s2);
     }
 
     ll sum (int l,int r){
         return sum(l,r,0,0,size);
     }
 
-};
+    int findX(int s,int l, int x, int lx, int rx){
+        if(tree[x]<s) return -1;
+        if(rx<=l) return -1;
+        if(rx==lx+1) return lx;
+        int m = (rx+lx)/2;
+        int res = findX(s,l,2*x+1,lx,m);
+        if(res==-1){
+            res = findX(s,l,2*x+2,m,rx);
+        }
+        return res;
+    }
 
+    int findX(int s, int l){
+        return findX(s,l,0,0,size);
+    }
+};
+ 
 
 void solve(){
-    ll n;
-    cin>>n;
-    cout<<(n+1)/2<<'\n';
+    int n,m;
+    cin>>n>>m;
+    vi a(n);
+    for(int i = 0;i<n;i++){
+        cin>>a[i];
+    }
+    segtree st;
+    st.build(a);
+    for(int i=0;i<m;i++){
+        int v;
+        cin>>v;
+        if(v==1){
+            int u,x;
+            cin>>u>>x;
+            st.set(u,x);
+        }else{
+            int x,l;
+            cin>>x>>l;
+            cout<<st.findX(x,l)<<'\n';
+        }
+    }
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

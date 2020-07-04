@@ -135,16 +135,29 @@ struct segtree {
 
 };
 
+ll ans[5000001];
 
 void solve(){
-    ll n;
-    cin>>n;
-    cout<<(n+1)/2<<'\n';
+    
+    ll n,r;
+    cin>>n>>r;
+    ll ans1 = 0;
+    if(n<=r){
+        r = n-1;
+        ans1 = 1;
+        ans1 += (r+1)*r/2;
+    }else{
+        ans1 += (r+1)*r/2;
+    }
+    cout<<ans1<<'\n';
 }
 
 int main(){
     abu;
     said;
+    for(int i=1;i<=5000000;i++){
+        ans[i] = ans[i-1]+i;
+    }
     int t = 1;
     cin>>t;
     while(t--){

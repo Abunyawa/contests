@@ -135,16 +135,65 @@ struct segtree {
 
 };
 
+ll ans[5000001];
 
 void solve(){
-    ll n;
-    cin>>n;
-    cout<<(n+1)/2<<'\n';
+    int n,k;
+    cin>>n>>k;
+    int d[n][n];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            d[i][j] = 0;
+        }
+    }    
+    int st = 0;
+    vi r(n);
+    vi c(n);
+    while(k>0){
+        int cur = st;
+        st++;
+        for(int j = 0;j<n && k>0;j++){
+            d[j][cur++] = 1;
+            r[j]++;
+            c[cur-1]++;
+            k--;
+            if(cur>=n){
+                cur=0;
+            }
+        }
+    }
+    int mxr=0,mnr=n+1;
+    int mxc=0,mnc=n+1;
+    for(int i=0;i<n;i++){
+        if(r[i]>mxr){
+            mxr=r[i];
+        }
+        if(r[i]<mnr){
+            mnr = r[i];
+        }
+        if(c[i]>mxc){
+            mxc=c[i];
+        }
+        if(c[i]<mnc){
+            mnc = c[i];
+        }
+    }
+    cout<<(mxr-mnr)*(mxr-mnr)+(mxc-mnc)*(mxc-mnc)<<'\n';
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cout<<d[i][j];
+        }
+        cout<<'\n';
+    }   
+
 }
 
 int main(){
     abu;
     said;
+    for(int i=1;i<=5000000;i++){
+        ans[i] = ans[i-1]+i;
+    }
     int t = 1;
     cin>>t;
     while(t--){
