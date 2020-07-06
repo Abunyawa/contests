@@ -137,33 +137,54 @@ struct segtree {
 
 
 void solve(){
-    int n;
-    cin>>n;
-    vi a(n);
+    int n,m;
+    cin>>n>>m;
+    int d[n][m];
     for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-    int cur = 0;
-    if(max(a[0],-a[0])>max(a[1],-a[1])){
-        a[0] = max(a[0],-a[0]);
-        cur = 0;
-    }else{
-        a[0] = min(a[0],-a[0]);
-        cur = 1;
-    }
-    for(int i=0;i<n;i++){
-        if(i%2==0){
-            a[i] = min(a[i],-a[i]);
-        }else{
-            a[i] = max(a[i],-a[i]);
+        for(int j=0;j<m;j++){
+            cin>>d[i][j];
         }
     }
 
     for(int i=0;i<n;i++){
-        cout<<a[i]<<' ';
-    }
+        for(int j=0;j<m;j++){
+            if(d[i][j]!=0){
+                if(d[i][j]>4){
+                    no();
+                    return;
+                }
+                if(i==0 || j==0 || i==n-1 || j==m-1){
+                    if(d[i][j]>3){
+                        no();
+                        return;
+                    }
+                    if((i==0 && j==0) || (i==0 && j==m-1) || (i==n-1 && j==m-1) || (i==n-1 && j==0)){
+                        if(d[i][j]>2){
+                            no();
+                            return;
+                        }
+                    }
+                }
 
-    cout<<'\n';
+            }
+        }
+    }
+    yes();
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(i==0 || j==0 || i==n-1 || j==m-1){
+                if((i==0 && j==0) || (i==0 && j==m-1) || (i==n-1 && j==m-1) || (i==n-1 && j==0)){
+                    d[i][j]=2;
+                }else{
+                    d[i][j] = 3;
+                }
+            }else{
+                d[i][j] = 4;
+            }
+            cout<<d[i][j]<<' ';
+        }
+        cout<<'\n';
+    }
 }
 
 int main(){

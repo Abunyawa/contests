@@ -137,40 +137,75 @@ struct segtree {
 
 
 void solve(){
-    int n;
-    cin>>n;
-    vi a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-    int cur = 0;
-    if(max(a[0],-a[0])>max(a[1],-a[1])){
-        a[0] = max(a[0],-a[0]);
-        cur = 0;
-    }else{
-        a[0] = min(a[0],-a[0]);
-        cur = 1;
-    }
-    for(int i=0;i<n;i++){
-        if(i%2==0){
-            a[i] = min(a[i],-a[i]);
-        }else{
-            a[i] = max(a[i],-a[i]);
+    vector<pair<ll,int>> a(3);
+    cin>>a[0].F>>a[1].F>>a[2].F;
+    a[0].S = 1;
+    a[1].S = 2;
+    a[2].S = 3;
+    sort(all(a));
+    ll y = 2*a[2].F-a[0].F-a[1].F;
+    cout<<"First"<<endl;
+    fflush(stdout);
+    cout<<y<<endl;
+    fflush(stdout);
+    int x;
+    cin>>x;
+    /*
+    a b c
+    y = 2c-a-b
+    if a:
+        2c-b b c
+        y = c-b    
+    if b:
+        a 2c-a c
+        y = c-a
+    */
+    for(int i=0;i<3;i++){
+        if(a[i].S==x){
+            if(i==0){
+                y = a[2].F-a[1].F;
+                cout<<y<<endl;
+                fflush(stdout);
+                cin>>x;
+                return;
+            }
+            if(i==1){
+                y = a[2].F-a[0].F;
+                cout<<y<<endl;
+                fflush(stdout);
+                cin>>x;
+                return;
+            }
+            if(i==2){
+                a[2].F += y;
+                y = 2*a[2].F-a[0].F-a[1].F;
+                cout<<y<<endl;
+                fflush(stdout);
+                cin>>x;
+                if(x==a[0].S){
+                    y = a[2].F-a[1].F;
+                    cout<<y<<endl;
+                    fflush(stdout);
+                    cin>>x;
+                    return;
+                }else{
+                    y = a[2].F-a[0].F;
+                    cout<<y<<endl;
+                    fflush(stdout);
+                    cin>>x;
+                    return;
+                }
+            }
         }
     }
-
-    for(int i=0;i<n;i++){
-        cout<<a[i]<<' ';
-    }
-
-    cout<<'\n';
+    
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

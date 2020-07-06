@@ -140,30 +140,37 @@ void solve(){
     int n;
     cin>>n;
     vi a(n);
+    stack<int> st;
+    int mx = -1;
+    int mn = -1;
     for(int i=0;i<n;i++){
         cin>>a[i];
-    }
-    int cur = 0;
-    if(max(a[0],-a[0])>max(a[1],-a[1])){
-        a[0] = max(a[0],-a[0]);
-        cur = 0;
-    }else{
-        a[0] = min(a[0],-a[0]);
-        cur = 1;
-    }
-    for(int i=0;i<n;i++){
-        if(i%2==0){
-            a[i] = min(a[i],-a[i]);
-        }else{
-            a[i] = max(a[i],-a[i]);
+        if(a[i]==n){
+            mx = i;
+        }
+        if(a[i]==1){
+            mn = i;
+
         }
     }
-
-    for(int i=0;i<n;i++){
-        cout<<a[i]<<' ';
+    if(mx==0){
+        no();
+        return;
+    }
+    if(mn==n-1){
+        no();
+        return;
     }
 
-    cout<<'\n';
+    if(mn==0 || mx==n-1){
+        yes();
+        return;
+    }
+    if(a[0]<a[n-1]){
+        yes();
+    }else{
+        no();
+    }
 }
 
 int main(){

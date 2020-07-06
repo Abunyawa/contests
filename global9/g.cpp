@@ -134,43 +134,43 @@ struct segtree {
     }
 
 };
+vi g[200100];
+int col[200100];
+int r=0,b=0;
 
+void dfs(int v, int p){
+    if(col[v]==1){
+        r++;
+    }else{
+        b++;
+    }
+    for(int i=0;i<g[v].size();i++){
+        if(g[v][i]!=p){
+            col[g[v][i]] =  col[v]==1 ? 2 : 1;
+            dfs(g[v][i],v);
+        }
+    }
+}
 
 void solve(){
     int n;
     cin>>n;
-    vi a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+    for(int i=1;i<n;i++){
+        int u,v;
+        cin>>u>>v;
+        g[u].pb(v);
+        g[v].pb(u);
     }
-    int cur = 0;
-    if(max(a[0],-a[0])>max(a[1],-a[1])){
-        a[0] = max(a[0],-a[0]);
-        cur = 0;
-    }else{
-        a[0] = min(a[0],-a[0]);
-        cur = 1;
-    }
-    for(int i=0;i<n;i++){
-        if(i%2==0){
-            a[i] = min(a[i],-a[i]);
-        }else{
-            a[i] = max(a[i],-a[i]);
-        }
-    }
-
-    for(int i=0;i<n;i++){
-        cout<<a[i]<<' ';
-    }
-
-    cout<<'\n';
+    col[1]==1;
+    dfs(1,-1);
+    cout<<min(r,b)-1<<'\n';
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

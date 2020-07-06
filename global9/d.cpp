@@ -136,34 +136,70 @@ struct segtree {
 };
 
 
+
 void solve(){
     int n;
     cin>>n;
+    vector<int> used(n+1,false);
     vi a(n);
     for(int i=0;i<n;i++){
         cin>>a[i];
+        used[a[i]]++;
     }
-    int cur = 0;
-    if(max(a[0],-a[0])>max(a[1],-a[1])){
-        a[0] = max(a[0],-a[0]);
-        cur = 0;
-    }else{
-        a[0] = min(a[0],-a[0]);
-        cur = 1;
-    }
-    for(int i=0;i<n;i++){
-        if(i%2==0){
-            a[i] = min(a[i],-a[i]);
-        }else{
-            a[i] = max(a[i],-a[i]);
+
+    int mex = -1;
+    for(int i=0;i<=n;i++){
+        if(used[i]==0){
+            mex = i;
+            break;
         }
     }
+    vi ans;
 
     for(int i=0;i<n;i++){
-        cout<<a[i]<<' ';
+        if(used[a[i]]>1){
+            used[a[i]]--;
+            ans.pb(i);
+            a[i]=mex;
+            used[mex]++;
+            for(int j=0;j<=n;j++){
+                if(used[j]==0){
+                    mex = j;
+                    break;
+                }
+            }
+        }
     }
-
+    
+    for(int i=0;i<n;i++){
+        if(mex==n){
+            for(int j=0;j<n;j++){
+                if(a[j]!=j){
+                    ans.pb(j);
+                    used[a[j]]--;
+                    int tmp = a[j];
+                    a[j]=mex;
+                    used[mex]++;
+                    mex = tmp;
+                    break;
+                }
+            }
+            if(mex==n) break;
+        }
+        ans.pb(mex);
+        used[a[mex]]--;
+        int tmp = a[mex];
+        a[mex] = mex;
+        used[mex]++;
+        mex = tmp;
+        
+    }
+    cout<<ans.size()<<'\n';
+    for(auto x: ans){
+        cout<<x+1<<' ';
+    }
     cout<<'\n';
+
 }
 
 int main(){

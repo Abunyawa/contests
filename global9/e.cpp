@@ -134,43 +134,48 @@ struct segtree {
     }
 
 };
+vl a(200100);
+
+bool cmp(pll x,pll y){
+    if(x.S==y.S){
+        if(a[x.F]==a[y.F]){
+            return x.F<y.F;
+        }else{
+            return a[x.F]<a[y.F];
+        }
+    }else{
+        return x.S>y.S;
+    } 
+}
 
 
 void solve(){
     int n;
     cin>>n;
-    vi a(n);
+    vector<pll> ans;
     for(int i=0;i<n;i++){
         cin>>a[i];
     }
-    int cur = 0;
-    if(max(a[0],-a[0])>max(a[1],-a[1])){
-        a[0] = max(a[0],-a[0]);
-        cur = 0;
-    }else{
-        a[0] = min(a[0],-a[0]);
-        cur = 1;
-    }
-    for(int i=0;i<n;i++){
-        if(i%2==0){
-            a[i] = min(a[i],-a[i]);
-        }else{
-            a[i] = max(a[i],-a[i]);
+    for(int i=1;i<n;i++){
+        for(int j =0;j<i;j++){
+            if(a[j]>a[i]){
+                ans.pb({j,i});
+            }
         }
     }
-
-    for(int i=0;i<n;i++){
-        cout<<a[i]<<' ';
+    sort(all(ans),cmp);
+    cout<<ans.size()<<'\n';
+    for(auto x: ans){
+        cout<<x.F+1<<' '<<x.S+1<<'\n';
     }
 
-    cout<<'\n';
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }
