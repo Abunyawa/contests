@@ -134,22 +134,69 @@ struct segtree {
     }
 
 };
+vi g[300100];
+bool used[300100];
+ll d[300100];
 
+void bfs(int v){
+    used[v] = true;
+    d[v] = 1;
+    queue<int> q;
+    q.push(v);
+    while(!q.empty()){
+        int cur = q.front();
+        q.pop();
+        for(int i = 0;i<g[cur].size();i++){
+            int x = g[cur][i];
+            if(!used[x]){
+                q.push(x);
+                used[x] = true;
+                d[x] = d[cur]+1;
+            }
+        }
+    }
+}
 
 void solve(){
     int n;
-    cin>>n;
+    ll x;
+    cin>>n>>x;
+    vector<pll> s(n);
     for(int i=0;i<n;i++){
-        cout<<1<<' ';
+        cin>>s[i].F>>s[i].S;
     }
-    cout<<'\n';
+    for(int i=0;i<n;i++){
+        ll l = s[i].F+x;
+        ll r = s[i].S+x;
+        int cur = i+1;
+        while(cur<n && s[cur].F<=r){
+            if(!(s[cur].F>r || s[cur].S<l)){
+                g[i].pb(cur);
+                g[cur].pb(i);
+            }
+            cur++;
+        }
+        
+    }
+    d[0]=-1;
+    bfs(n-1);
+    /*
+    for(int i=0;i<n;i++){
+        for(auto x: g[i]){
+            cout<<i<<' '<<x<<'\n';
+        }
+    }*/
+    
+    cout<<d[0]<<'\n';
+    
+
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

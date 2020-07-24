@@ -137,12 +137,30 @@ struct segtree {
 
 
 void solve(){
-    int n;
-    cin>>n;
+    int n,m;
+    cin>>n>>m;
+    vector<bool> used(1010,false);
+    vi a(n);
+    int ans = -1;
     for(int i=0;i<n;i++){
-        cout<<1<<' ';
+        cin>>a[i];
+        used[a[i]] = true;
     }
-    cout<<'\n';
+
+    for(int i=0;i<m;i++){
+        int x;
+        cin>>x;
+        if(used[x]){
+            ans = x;
+        }
+    }
+
+    if(ans==-1){
+        no();
+    }else{
+        yes();
+        cout<<1<<' '<<ans<<'\n';
+    }
 }
 
 int main(){

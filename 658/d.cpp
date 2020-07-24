@@ -139,10 +139,40 @@ struct segtree {
 void solve(){
     int n;
     cin>>n;
-    for(int i=0;i<n;i++){
-        cout<<1<<' ';
+    vi a(2*n);
+    vl dp(20000);
+    vi f;
+    vi s;
+    for(int i=0;i<2*n;i++){
+        cin>>a[i];
     }
-    cout<<'\n';
+    int cur = 0;
+    vi sms;
+    for(int i=1;i<2*n;i++){
+        if(a[i]>a[cur]){
+            sms.pb(i-cur);
+            cur = i;
+        }
+    }
+    sms.pb(2*n-cur);
+    
+    sort(all(sms));
+    int curs = 0;
+    int l =0;
+    int r = 0;
+    dp[0] = 1;
+    for(int i=0;i<sms.size();i++){
+        for(int j=2000;j>=0;j--){
+            if(dp[j]==1){
+                dp[j+sms[i]] = 1;
+            }
+        }
+    }
+    if(dp[n]==1){
+        yes();
+    }else{
+        no();
+    }
 }
 
 int main(){

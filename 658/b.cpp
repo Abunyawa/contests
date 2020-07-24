@@ -139,10 +139,41 @@ struct segtree {
 void solve(){
     int n;
     cin>>n;
+    vl a(n);
+    int left = 0;
     for(int i=0;i<n;i++){
-        cout<<1<<' ';
+        cin>>a[i];
+        if(i==n-1) break;
+        if(a[i]==1){
+            left++;
+        }
     }
-    cout<<'\n';
+    int cur = 1;
+    for(int i=0;i<n-1;i++){
+        if(a[i]==1){
+            cur^=1;
+        }else{
+            if(i+1!=n-1){
+                if(a[i+1]==1){
+                    int len = 0;
+                    int j = i+1;
+                    while(j<n-1 && a[j]==1){
+                        j++;
+                        len++;
+                    }
+                    if(len%2==1){
+                        cur^=1;
+                    }
+                }
+            }
+        }
+
+    }
+    if(cur%2==1){
+        cout<<"First\n";
+    }else{
+        cout<<"Second\n";
+    }
 }
 
 int main(){
