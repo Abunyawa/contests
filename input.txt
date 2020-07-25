@@ -1,5 +1,16 @@
-4 5
-1 2
-3 4
-6 8
-9 10
+5
+3
+aab
+bcc
+4
+cabc
+abcb
+4
+abbd
+bcde
+5
+aabda
+cccdb
+5
+abcbd
+bcdda
