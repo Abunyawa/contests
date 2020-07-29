@@ -38,7 +38,10 @@
         },
         "problemMatcher": {
           "owner": "cpp",
-          "fileLocation": ["relative", "${workspaceRoot}"],
+          "fileLocation": [
+            "relative",
+            "${workspaceRoot}"
+          ],
           "pattern": {
             "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
             "file": 1,
