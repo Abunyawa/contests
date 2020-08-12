@@ -13,7 +13,7 @@
 #define abu ios_base::sync_with_stdio(0)
 #define said cin.tie(0)
 using namespace std;
-ll const MOD = 998244353;
+ll const MOD = 1e9+7;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -137,17 +137,24 @@ struct segtree {
 
 
 void solve(){
-    ll n;
-    cin>>n;
-    if(n==1){
-        cout<<1<<'\n';
-        return;
+    int n,m;
+    cin>>n>>m;
+    char d[n][m];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            cin>>d[i][j];
+        }
     }
-    if(n%2==0){
-        cout<<((n)/2)+1<<'\n';
-    }else{
-        cout<<(n+1)/2<<'\n';        
+
+    int ctr = 0;
+    for(int i=0;i<n-1;i++){
+        if(d[i][m-1]!='D') ctr++;
     }
+    for(int i=0;i<m-1;i++){
+        if(d[n-1][i]!='R') ctr++;
+    }
+
+    cout<<ctr<<'\n';
 }
 
 int main(){

@@ -137,16 +137,62 @@ struct segtree {
 
 
 void solve(){
-    ll n;
+    int n;
     cin>>n;
-    if(n==1){
-        cout<<1<<'\n';
-        return;
+    map<ll,int> m;
+    int num4=0,num2=0;
+    for(int i=0;i<n;i++){
+        ll x;
+        cin>>x;
+        m[x]++;
+        if(m[x]%4==0){
+            num4++;
+            num2--;
+        }
+        if(m[x]%4==2){
+            num2++;
+        }
     }
-    if(n%2==0){
-        cout<<((n)/2)+1<<'\n';
-    }else{
-        cout<<(n+1)/2<<'\n';        
+
+    int p;
+    cin>>p;
+    for(int i=0;i<p;i++){
+        char tp;
+        ll x;
+        cin>>tp>>x;
+        if(tp=='-'){
+            m[x]--;
+            if(m[x]%4==3){
+                num4--;
+                num2++;
+            }
+            if(m[x]%4==1){
+                num2--;
+            }
+        }else{
+            m[x]++;
+            if(m[x]%4==0){
+                num4++;
+                num2--;
+            }
+            if(m[x]%4==2){
+                num2++;
+            }
+        }
+        bool flag = true;
+        if(num4==0){
+            flag=false;
+        }else{
+            if(num2<2 && num4-1<1){
+                flag = false;
+            }
+        }
+
+        if(flag){
+            yes();
+        }else{
+            no();
+        }
     }
 }
 
@@ -154,7 +200,7 @@ int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

@@ -13,7 +13,7 @@
 #define abu ios_base::sync_with_stdio(0)
 #define said cin.tie(0)
 using namespace std;
-ll const MOD = 998244353;
+ll const MOD = 1e9+7;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -48,9 +48,7 @@ ll powM(int n, int x){
     }
 }
 
-ll C(int n, int k){
-    return (fact(n) * powM((fact(k)*fact(n-k))%MOD,MOD-2))%MOD;
-}
+
 
 ll A(int n, int k){
     return (fact(n) * powM(fact(n-k)%MOD,MOD-2))%MOD;
@@ -135,19 +133,23 @@ struct segtree {
 
 };
 
+ll dp[1000100];
+ll fct[1000100];
+
+ll C(int n, int k){
+    return (fct[n] * powM((fct[k]*fct[n-k])%MOD,MOD-2))%MOD;
+}
 
 void solve(){
-    ll n;
+    int n;
     cin>>n;
-    if(n==1){
-        cout<<1<<'\n';
-        return;
+    ll ans = fct[n];
+    for(int i=1;i<=n;i++){
+        ans-= C(n-1,i-1);
+        if(ans<0) ans+=MOD;
     }
-    if(n%2==0){
-        cout<<((n)/2)+1<<'\n';
-    }else{
-        cout<<(n+1)/2<<'\n';        
-    }
+    cout<<ans<<'\n';
+
 }
 
 int main(){
@@ -155,6 +157,11 @@ int main(){
     said;
     int t = 1;
     cin>>t;
+    dp[3] = 2;
+    fct[0]=1;
+    for(int i=1;i<=1000000;i++){
+        fct[i] = (fct[i-1]*(i*1ll))%MOD;
+    }
     while(t--){
         solve();
     }

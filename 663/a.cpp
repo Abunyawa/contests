@@ -137,17 +137,12 @@ struct segtree {
 
 
 void solve(){
-    ll n;
+    int n;
     cin>>n;
-    if(n==1){
-        cout<<1<<'\n';
-        return;
+    for(int i=1;i<=n;i++){
+        cout<<i<<' ';
     }
-    if(n%2==0){
-        cout<<((n)/2)+1<<'\n';
-    }else{
-        cout<<(n+1)/2<<'\n';        
-    }
+    cout<<'\n';
 }
 
 int main(){

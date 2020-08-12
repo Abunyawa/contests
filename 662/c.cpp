@@ -136,18 +136,64 @@ struct segtree {
 };
 
 
+
 void solve(){
-    ll n;
+    int n;
     cin>>n;
-    if(n==1){
-        cout<<1<<'\n';
-        return;
+
+    vi m(n+1,0);
+    for(int i=0;i<n;i++){
+        int x;
+        cin>>x;
+        m[x]++;
     }
-    if(n%2==0){
-        cout<<((n)/2)+1<<'\n';
-    }else{
-        cout<<(n+1)/2<<'\n';        
+    int mn = n+1;
+    vi was(n+1,0);
+    for(int i=1;i<=n;i++){
+        if(m[i]>1){
+            int may = (n+m[i]-2)/(m[i]-1)-2;
+            was[may]++;
+        }
     }
+    for(int i=0;i<n;i++){
+        if(was[i]>=1){
+            if(i-was[i]+1<mn) mn = i-was[i]+1; 
+        }
+    }
+
+    cout<<max(0,mn)<<'\n';
+    /*
+    priority_queue<pair<double,int>> q;
+    for(int i=1;i<=n;i++){
+        if(m[i]!=0){
+            q.push({(double)n/(double)m[i],i});
+        }
+    }
+    vi last(n+1,-1);
+    int ind = 0;
+    int mn = n+1;
+    vi ans;
+    while(!q.empty()){
+        int cur = q.top().S;
+        int fr = m[q.top().S];
+        int ls = last[q.top().S];
+        m[q.top().S]--;
+        ans.pb(cur);
+        q.pop();
+        if(ls!=-1){
+            if(ind-ls-1<mn){
+                mn = ind-ls-1;
+            }
+        }
+        if(fr-1>0) q.push({(double)(n-ind)/(double)(fr-1),cur});
+        ind++;
+    }
+    
+    for(auto x: ans){
+        cout<<x<<' ';
+    }
+    cout<<'\n';
+    cout<<mn<<'\n';*/
 }
 
 int main(){
