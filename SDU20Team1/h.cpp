@@ -137,7 +137,28 @@ struct segtree {
 };
 
 
+
+ll f(ll t,ll x1,ll x2, ll y1, ll y2){
+    return (t+y1)/(x1+y1) + (t+y2)/(x2+y2);
+}
+
 void solve(){
+    ll x1, y1, x2, y2;
+    ll n;
+    cin>>n>>x1>>y1>>x2>>y2;
+    ll l = 0;
+    ll r = 1e18;
+
+    while(l<r){
+        ll m = (l+r)/2;
+        if(f(m,x1,x2,y1,y2)>=n){
+            r = m;
+        }else{
+            l = m+1;
+        }
+    }
+
+    cout<<l<<'\n';
 
 }
 
@@ -145,7 +166,7 @@ int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

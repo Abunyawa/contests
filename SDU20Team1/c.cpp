@@ -136,16 +136,33 @@ struct segtree {
 
 };
 
-
+bool is[26];
 void solve(){
+    string s;
+    cin>>s;
+    int n = s.length();
+    int best = 1;
+    int cur = 1;
+    int l=0;
+    int r=0;
+    while(r<n){
+        while(r<n && !is[s[r]-'a']){
+            is[s[r++]-'a']=true;
+        }
+        if(r-l>best) best = r-l;
+        while(r<n && l<r && is[s[r]-'a']){
+            is[s[l++]-'a'] = false;
+        }
+    }
 
+    cout<<best<<'\n';
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

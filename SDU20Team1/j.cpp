@@ -136,16 +136,35 @@ struct segtree {
 
 };
 
-
+bool is[26];
 void solve(){
+    int n,k;
+    cin>>n>>k;
+    string s;
+    cin>>s;
+    vi a(n);
+    ll shift = 0;
+    for(int i=0;i<k;i++){
+        cin>>a[i];
+        if(a[i]<0){
+            shift-=a[i];
+        }else{
+            shift+=n-a[i];
+        }
+    }
 
+    shift%=n;
+    //cout<<shift<<'\n';
+    s = s.substr(n-shift) + s.substr(0,n-shift);
+
+    cout<<s<<'\n';
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

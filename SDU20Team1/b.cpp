@@ -137,15 +137,68 @@ struct segtree {
 };
 
 
-void solve(){
+vector<string> alph;
+map<string,int> ma;
+vi g[200100];
+int deg[200100];
 
+
+void solve(){
+    int n;
+    cin>>n;
+    set<string> st;
+    vector<vector<string>> a(n);
+    for(int i=0;i<n;i++){
+        int m;
+        cin>>m;
+        for(int j=0;j<m;j++){
+            string s;
+            cin>>s;
+            a[i].pb(s);
+            st.insert(s);
+        }
+    }
+    for(auto x: st){
+        alph.pb(x);
+    }
+    sort(all(alph));
+    for(int i=0;i<alph.size();i++){
+        ma[alph[i]] = i;
+    }
+
+    for(int i=0;i<n;i++){
+        for(int j = 0;j<a[i].size()-1;j++){
+            g[ma[a[i][j]]].pb(ma[a[i][j+1]]);
+            deg[ma[a[i][j+1]]]++;
+        }
+    }
+    vector<string> ans;
+
+    while(ans.size()!=alph.size()){
+
+        for(int i=0;i<alph.size();i++){
+            if(deg[i]==0){
+                ans.pb(alph[i]);
+                deg[i]--;
+                for(auto x: g[i]){
+                    deg[x]--;
+                }
+                break;
+            }
+        }
+    }
+
+    cout<<alph.size()<<'\n';
+    for(auto x: ans){
+        cout<<x<<'\n';
+    }
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

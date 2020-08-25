@@ -136,8 +136,24 @@ struct segtree {
 
 };
 
-
+bool is[26];
+int was[100100];
 void solve(){
+    int n,m;
+    cin>>n>>m;
+    vi a(n);
+    ll sm = 0;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        sm+=a[i];
+    }
+
+    if(sm%m==0){
+        yes();
+    }else{
+        no();
+    }
+    //cout<<was[m]<<'\n';
 
 }
 
@@ -145,7 +161,7 @@ int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

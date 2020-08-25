@@ -10,11 +10,11 @@
 #define vl vector<long long>
 #define pii pair<int, int>
 #define pll pair<long long, long long>
-#define watch(x) (#x)<<" : "<<(x)<<" ";
+#define watch(x) (#x)<<": "<<(x)<<" \t"
 #define abu ios_base::sync_with_stdio(0)
 #define said cin.tie(0)
 using namespace std;
-ll const MOD = 998244353;
+ll const MOD = 1e9+7;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -135,11 +135,77 @@ struct segtree {
     }
 
 };
+vi g[200100];
+ll ch[200100];
+vl edg;
+int n;
+
+void dfs(int v,int par){
+    ch[v] = 1;
+    for(auto x: g[v]){
+        if(x!=par){
+            dfs(x,v);
+            ch[v] += ch[x];
+        }
+    }
+
+    for(auto x: g[v]){
+        if(x!=par){
+            edg.pb(ch[x]*(n-ch[x]));
+        }
+    }
+}
 
 
 void solve(){
+    cin>>n;
+    edg.clear();
 
-}
+    for(int i=0;i<=n;i++){
+        g[i].clear();
+        ch[i] = 0;
+    }
+
+    for(int i=0;i<n-1;i++){
+        int u,v;
+        cin>>u>>v;
+        g[u].pb(v);
+        g[v].pb(u);
+    }
+
+    int  m;
+    cin>>m;
+    vl p(m);
+    for(int i=0;i<m;i++){
+        cin>>p[i];
+    }
+    for(int i = m;i<n-1;i++){
+        p.pb(1);
+    }
+    sort(rall(p));
+
+    if(m>n-1){
+        ll nw = 1;
+        while(p.size()>n-1){
+            nw=((nw%MOD)*(p.front()%MOD))%MOD;
+            p.erase(p.begin());
+        }
+        p[0]=(p[0]*nw)%MOD;
+    }
+    dfs(1,-1);
+    sort(rall(edg));
+    int ind = 0;
+    ll ans = 0;
+    //cout<<edg.size()<<'\n';
+    for(int i=0;i<n-1;i++){
+        //cout<<watch(edg[i])<<watch(p[i])<<'\n';
+        ans+=(edg[i] * p[i])%MOD;
+        ans = ans%MOD;
+    }
+    cout<<ans%MOD<<'\n';
+
+
+}   
 
 int main(){
     abu;

@@ -10,7 +10,6 @@
 #define vl vector<long long>
 #define pii pair<int, int>
 #define pll pair<long long, long long>
-#define watch(x) (#x)<<" : "<<(x)<<" ";
 #define abu ios_base::sync_with_stdio(0)
 #define said cin.tie(0)
 using namespace std;
@@ -138,7 +137,18 @@ struct segtree {
 
 
 void solve(){
-
+    int n,k;
+    cin>>n>>k;
+    int ans = -(n-k);
+    if(ans>0){
+        cout<<ans<<'\n';
+    }else{
+        if(ans%2==0)
+            cout<<0<<'\n';
+        else{
+            cout<<1<<'\n';
+        }
+    }
 }
 
 int main(){

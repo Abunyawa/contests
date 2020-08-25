@@ -138,6 +138,39 @@ struct segtree {
 
 
 void solve(){
+    int n,m,k;
+    cin>>n>>m>>k;
+    vi a(n);
+    vector<pii> q;
+
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        if(i*m>=k || i*m+a[i]>k){
+
+        }else{
+            q.pb({i*m+a[i],i*m});
+        }
+    }    
+
+    sort(all(q));
+    int ans = 1;
+    int curL = q[0].S;
+    int curR = q[0].F;
+    if(q.empty()){
+        cout<<0<<'\n';
+        return;
+    }
+    //cout<<curL<<' '<<curR<<'\n';
+    for(int i=1;i<q.size();i++){
+        //cout<<q[i].S<<' '<<q[i].F<<'\n';
+        if(q[i].S>=curR){
+            ans++;
+            curR = q[i].F;
+            curL = q[i].S;
+        }
+    }
+
+    cout<<ans<<'\n';
 
 }
 
@@ -145,7 +178,7 @@ int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }
