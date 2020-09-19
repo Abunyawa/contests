@@ -4,6 +4,13 @@
         "iostream": "cpp",
         "ostream": "cpp",
         "type_traits": "cpp",
-        "b": "cpp"
+        "b": "cpp",
+        "array": "cpp",
+        "bitset": "cpp",
+        "string_view": "cpp",
+        "initializer_list": "cpp",
+        "regex": "cpp",
+        "utility": "cpp",
+        "valarray": "cpp"
     }
 }
