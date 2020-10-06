@@ -14,7 +14,7 @@
 #define abu ios_base::sync_with_stdio(0)
 #define said cin.tie(0)
 using namespace std;
-ll const MOD = 998244353;
+ll const MOD = 1e8;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -136,26 +136,85 @@ struct segtree {
 
 };
 
+bool prime(ll n){
+    for(ll i = 2;i<=sqrt(n);i++){
+        if(n%i==0){
+            return false;
+        }
+    }
+    return true;
+}
+
+int gcd(int a, int b)
+{
+    if (b == 0)
+    {
+        return a;
+    }
+    return gcd(b, a % b);
+}
+int n;
+bool is[110][110];
+bool used[110][110];
+int dp[] = {1,2,-1,-2,1,2,-1,-2};
+int dq[] = {2,1,-2,-1,-2,-1,2,1};
+vector<pii> ans;
+
+void dfs(int p,int q){
+    used[p][q] = true;
+    ans.pb({p,q});
+    for(int i=0;i<8;i++){
+        int top = p+dp[i];
+        int toq = q+dq[i];
+        if(top<=n && toq<=n && top>=1 && toq>=1){
+            if(!used[top][toq] && is[top][toq]){
+                dfs(top,toq);
+                ans.pb({p,q});
+            }
+        }
+    }
+}
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
+    cin>>n;
+    if(n<=2){
+        cout<<-1<<'\n';
         return;
+    }    
+    for(int i=1;i<=n;i++){
+        for(int j = 1;j<=n;j++){
+            if(gcd(i,j)==1){
+                is[i][j] = true;
+            }
+        }
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+    dfs(1,1);
+    
+    for(int i=1;i<=n;i++){
+        for(int j = 1;j<=n;j++){
+            if(is[i][j] && !used[i][j]){
+                cout<<-1<<'\n';
+                return;
+            }
+        }
+    }
+
+    cout<<ans.size()<<'\n';
+    for(auto x: ans){
+        cout<<x.F<<" / "<<x.S<<' ';
+    }
+    cout<<'\n';
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }
 
     return 0;
 }
+

@@ -23,16 +23,7 @@ void yes(){
 void no(){
     cout<<"NO"<<'\n';
 }
-
-ll fact(int n){
-    ll ans = 1;
-    for(int i=2;i<=n;i++){
-        ans = (ans*i)%MOD;
-    }
-
-    return ans;
-}
-
+ll fact[100099];
 ll powM(int n, int x){
     if(x==0){
         return 1;
@@ -50,11 +41,7 @@ ll powM(int n, int x){
 }
 
 ll C(int n, int k){
-    return (fact(n) * powM((fact(k)*fact(n-k))%MOD,MOD-2))%MOD;
-}
-
-ll A(int n, int k){
-    return (fact(n) * powM(fact(n-k)%MOD,MOD-2))%MOD;
+    return (fact[n] * powM((fact[k]*fact[n-k])%MOD,MOD-2))%MOD;
 }
 
 void add_self(int &a, int b){
@@ -138,21 +125,54 @@ struct segtree {
 
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
-        return;
+    int n,k;
+    cin>>n>>k;
+    vector<pll> a(n);
+    for(int i=0;i<n;i++){
+        cin>>a[i].F>>a[i].S;
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+
+    sort(all(a));
+    /*
+    for(int i=0;i<n;i++){
+        ll tmp = a[i].S;
+        a[i].S = a[i].F;
+        a[i].F = tmp;
+    }
+    */
+     
+    int l = 0;
+    int r = 0;
+    ll ans = 0;
+    while(r<n){
+        cout<<ans<<'\n';
+        if(r!=0 && l!=r){
+            if(r - l+1>=k) ans-=C(r-l+1,k);
+        }
+        while(r<n && a[r].F<=a[l].S){
+            r++;
+            
+        }
+        //cout<<ans<<'\n';
+        ans+=C(r-l,k);
+        while(l<r && a[r].F>a[l].S){
+            l++;
+        }
+
+    }   
+
+    cout<<ans%MOD<<'\n';
 }
 
 int main(){
     abu;
     said;
+    fact[0] = fact[1] = 1;
+    for(int i=2;i<100100;i++){
+        fact[i] = fact[i-1]*i;
+    }
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

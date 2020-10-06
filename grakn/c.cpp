@@ -10,7 +10,7 @@
 #define vl vector<long long>
 #define pii pair<int, int>
 #define pll pair<long long, long long>
-#define watch(x) (#x)<<" : "<<(x)<<" ";
+#define watch(x) (#x)<<" : "<<(x)<<" "
 #define abu ios_base::sync_with_stdio(0)
 #define said cin.tie(0)
 using namespace std;
@@ -138,14 +138,56 @@ struct segtree {
 
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
-        return;
+    ll n,d;
+    cin>>n>>d;
+    vector<double> a(n);
+    for(int i=0;i<n;i++){
+        cin>>a[i];
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+    double cur = 0;
+    int l = 0;
+    int r = n-1;
+    double curPos1 = 0;
+    double curPos2 = d;
+    double sp1=1;
+    double sp2=1;
+    double curT = 0;
+    while(curPos1<=curPos2 && l<=r){
+        //cout<<watch(cur)<<watch(curT)<<watch(l)<<watch(r)<<'\n';
+
+        if((double)abs((a[l]-curPos1))/sp1<(double)abs((a[r]-curPos2))/sp2){
+            l++;
+            curPos2 -= sp2*((double)abs((a[l-1]-curPos1))/sp1);
+            curT = curT + (double)abs((a[l-1]-curPos1))/sp1;
+            curPos1=a[l-1];
+            sp1++;
+        }else if((double)abs((a[l]-curPos1))/sp1>(double)abs((a[r]-curPos2))/sp2){
+            r--;
+            curPos1 += sp1 * ((double)abs((a[r+1]-curPos2))/sp2);
+            curT = curT + ((double)abs((a[r+1]-curPos2))/sp2);
+            
+            curPos2 = a[r+1];
+
+            sp2++;
+        }else{
+            l++;
+            r--;
+            curT =curT + ((double)abs((a[r+1]-curPos2))/sp2);
+            
+            sp1++;
+            sp2++;
+
+            curPos1 = a[l-1];
+            curPos2 = a[r+1];
+        }
+        if((curPos2-curPos1)/(sp1+sp2)>=0){
+            cur = (curPos2-curPos1)/(sp1+sp2);
+        }
+        //cout<<watch(cur)<<watch(curT)<<'\n';
+        
+    }
+    printf("%.10f\n",curT+cur);
+    //cout<<"----------\n";
 }
 
 int main(){

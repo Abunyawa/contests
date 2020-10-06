@@ -138,14 +138,62 @@ struct segtree {
 
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
-        return;
+    int n;
+    cin>>n;
+    vi a(n),b(n),c(n);
+    for(int i = 0;i<n;i++){
+        cin>>a[i];
+        //cout<<a[i]<<' ';
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+ //   cout<<'\n';
+    for(int i = 0;i<n;i++){
+        cin>>b[i];
+        //cout<<b[i]<<' ';
+
+    }
+//    cout<<'\n';
+    for(int i = 0;i<n;i++){
+        cin>>c[i];
+        //cout<<b[i]<<' ';
+
+    }
+    vi ans;
+    ans.pb(a[0]);
+    for(int i=1;i<n;i++){
+        if(i!=n-1){
+            if(a[i]!=ans[ans.size()-1]){
+                ans.pb(a[i]);
+                continue;
+            }
+            if(b[i]!=ans[ans.size()-1]){
+                ans.pb(b[i]);
+                continue;
+            }
+            if(c[i]!=ans[ans.size()-1]){
+                ans.pb(c[i]);
+                continue;
+            }
+        }else{
+            
+            if(a[i]!=ans[ans.size()-1] && a[i]!=ans[0]){
+                ans.pb(a[i]);
+                continue;
+            }
+            if(b[i]!=ans[ans.size()-1] && b[i]!=ans[0]){
+                ans.pb(b[i]);
+                continue;
+            }
+            if(c[i]!=ans[ans.size()-1] && c[i]!=ans[0]){
+                ans.pb(c[i]);
+                continue;
+            }
+        }
+    }
+
+    for(auto x: ans){
+        cout<<x<<' ';
+    }
+    cout<<'\n';
 }
 
 int main(){

@@ -135,24 +135,63 @@ struct segtree {
     }
 
 };
+vi g[200100];
+int d[200100];
+int d2[200100];
+int ans[200100];
+
+void dfs(int v, int p){
+    for(auto x: g[v]){
+        if(x!=p){
+            d[x] = d[v]+1;
+            dfs(x,v);
+        }
+    }
+}
+
+void dfs2(int v, int p){
+    if(d2[v]<d[v]){
+        ans[v] = d[v]*2;
+    }else{
+        ans[v] = -1;
+    }
+    for(auto x: g[v]){
+        if(x!=p){
+            d2[x] = d2[v]+1;
+            dfs2(x,v);
+        }
+    }
+}
 
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
-        return;
+    int n,x;
+    cin>>n>>x;
+    for(int i=0;i<n-1;i++){
+        int u,v;
+        cin>>u>>v;
+        g[u].pb(v);
+        g[v].pb(u);
+    }  
+    d[1] = 0;
+    dfs(1,0);  
+    d2[x] = 0;
+    dfs2(x,0);
+
+    int mx = 0;
+    for(int i =1 ;i<=n;i++){
+        mx = max(ans[i],mx);
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+
+    cout<<mx<<'\n';
 }
+
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

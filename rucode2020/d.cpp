@@ -14,7 +14,7 @@
 #define abu ios_base::sync_with_stdio(0)
 #define said cin.tie(0)
 using namespace std;
-ll const MOD = 998244353;
+ll const MOD = 1e8;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -138,24 +138,65 @@ struct segtree {
 
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
-        return;
+    int n,s;
+    cin>>n>>s;
+    vl a(n);
+    for(int i = 0;i<n;i++){
+        cin>>a[i];
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+    vi dp(n,1);
+    vi prev(n,-1);
+    vi sm(n,0);
+    sm[0] = a[0];
+    for(int i=1;i<n;i++){
+        sm[i] = a[i];
+        for(int j = 0;j<i;j++){
+            if(a[i]>a[j] && a[i]+sm[j]<=s){
+                if(dp[i]<dp[j]+1){
+                    dp[i] = dp[j]+1;
+                    sm[i] = sm[j]+a[i];
+                    prev[i] = j;
+                }else if(dp[i]==dp[j]+1){
+                    if(sm[j]+a[i]<sm[i]){
+                        dp[i] = dp[j]+1;
+                        sm[i] = sm[j]+a[i];
+                        prev[i] = j;
+                    }
+                }
+            }
+        }
+    }
+    int mxI = 0;
+    for(int i=0;i<n;i++){
+        if(dp[i]>dp[mxI]){
+            mxI  = i;
+        }
+    }
+    vi ans(n,0);
+    int cnt  =0;
+    while(mxI!=-1){
+        ans[mxI] = 1;
+        cnt++;
+        mxI = prev[mxI];
+    }
+    cout<<cnt<<'\n';
+    for(int i=0;i<n;i++){
+        cout<<ans[i]<<' ';
+    }
+
+
+
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }
 
     return 0;
 }
+

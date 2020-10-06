@@ -14,7 +14,7 @@
 #define abu ios_base::sync_with_stdio(0)
 #define said cin.tie(0)
 using namespace std;
-ll const MOD = 998244353;
+ll const MOD = 1e8;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -138,21 +138,20 @@ struct segtree {
 
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
-        return;
+    ll n;
+    cin>>n;
+    if(n==1){
+        cout<<2<<'\n';
+    }else{
+        cout<<4<<'\n';
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

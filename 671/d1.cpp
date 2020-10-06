@@ -10,7 +10,7 @@
 #define vl vector<long long>
 #define pii pair<int, int>
 #define pll pair<long long, long long>
-#define watch(x) (#x)<<" : "<<(x)<<" ";
+#define watch(x) (#x)<<" : "<<(x)<<" "
 #define abu ios_base::sync_with_stdio(0)
 #define said cin.tie(0)
 using namespace std;
@@ -138,21 +138,74 @@ struct segtree {
 
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
-        return;
+    int n;
+    cin>>n;
+    vl a(n);
+    for(int i=0;i<n;i++){
+        cin>>a[i];
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+    sort(rall(a));
+    int l = 0;
+    int r = n-1;
+    vl ans(n);
+    for(int i =0;i<n;i+=2){
+        ans[i] = a[l++];        
+    }
+    if(n%2==0){
+        for(int i = n-1;i>=0;i-=2){
+            ans[i] = a[l++];
+        }
+    }
+    else{
+        for(int i = n-2;i>=0;i-=2){
+            ans[i] = a[l++];
+        }
+    }
+    int ans1 = 0;
+    for(int i=1;i<n-1;i++){
+        if(ans[i]<ans[i-1] && ans[i]<ans[i+1]){
+            ans1++;
+        }
+    }
+    vl ans2(n);
+    l = 0;
+
+    for(int i =0;i<n;i+=2){
+        ans2[i] = a[l++];        
+    }
+    for(int i = 1;i<n;i+=2){
+        ans2[i] = a[l++];
+    }
+    int ans22 = 0;
+    for(int i=1;i<n-1;i++){
+        if(ans2[i]<ans2[i-1] && ans2[i]<ans2[i+1]){
+            ans22++;
+        }
+    }
+    if(ans1>ans22){
+
+        cout<<ans1<<'\n';
+        for(auto x: ans){
+
+            cout<<x<<' ';
+        }
+        cout<<'\n';
+    }else{
+        cout<<ans22<<'\n';
+        for(auto x: ans2){
+
+            cout<<x<<' ';
+        }
+        cout<<'\n';
+    }
+
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

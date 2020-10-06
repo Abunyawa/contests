@@ -135,18 +135,62 @@ struct segtree {
     }
 
 };
+vector<int> m[300100];
 
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
-        return;
+    int n;
+    cin>>n;
+    vi a(n);
+    for(int i=0;i<=n;i++){
+        m[i].clear();
+        m[i].pb(-1);
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        m[a[i]].pb(i);
+    }
+    for(int i=0;i<=n;i++){
+        m[i].pb(n);
+    }
+    
+    /*
+    for(auto x: m){
+        if(x.size()!=0){
+            for(auto y: x){
+                cout<<y<<' ';
+            }
+            cout<<endl;
+        }
+    }
+    */
+    vi ans(n+1,-1);
+    int ptr = n;
+    for(int i=1;i<=n;i++){
+        if(m[i].size()>=3){
+            int big=0;
+            for(int j=0;j<m[i].size()-1;j++){
+                if((m[i][j+1]-m[i][j]-1)>big){
+                    big = m[i][j+1]-m[i][j]-1;
+                }
+            }
+            //cout<<big<<" "<<i<<endl;
+            for(int j = big+1;j<=ptr;j++){
+                ans[j] = i;
+            }
+            if(big<ptr)
+                ptr = big;
+        }
+        
+    }
+
+
+    for(int i=1;i<=n;i++){
+        cout<<ans[i]<<' ';
+    }
+    cout<<'\n';
 }
+
 
 int main(){
     abu;

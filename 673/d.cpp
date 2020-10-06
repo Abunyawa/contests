@@ -135,18 +135,59 @@ struct segtree {
     }
 
 };
+vector<int> m[300100];
 
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
+    int n;
+    cin>>n;
+    vl a(n);
+    ll sm = 0;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        sm+=a[i];
+    }
+    if(sm%n!=0){
+        cout<<-1<<'\n';
         return;
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+
+    ll mid = sm/n;
+    vector<pair<pll,ll>> ans;
+    for(int i=1;i<n;i++){
+        if(a[i]>0){
+            ll x = a[i]/(i+1);
+            if(a[i]%(i+1)==0){
+                ans.pb({{i,0},x});
+                
+            }   
+        }
+    }
+
+    for(int i=1;i<n;i++){
+        if(a[i]%(i+1)!=0){
+            
+            ans.pb({{0,i},i+1-a[i]%(i+1)});
+            ans.pb({{i,0},(a[i]+i+1-a[i]%(i+1))/(i+1)});
+            
+        }
+    
+    }
+    for(int i=1;i<n;i++){
+            
+            ans.pb({{0,i},mid});
+            
+        
+    }
+
+    cout<<ans.size()<<'\n';
+    for(auto x: ans){
+        cout<<x.F.F+1<<' '<<x.F.S+1<<' '<<x.S<<'\n';
+    }
+    cout<<'\n';
+;
 }
+
 
 int main(){
     abu;

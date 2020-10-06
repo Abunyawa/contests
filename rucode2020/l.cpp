@@ -14,7 +14,7 @@
 #define abu ios_base::sync_with_stdio(0)
 #define said cin.tie(0)
 using namespace std;
-ll const MOD = 998244353;
+ll const MOD = 1e8;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -136,26 +136,86 @@ struct segtree {
 
 };
 
+bool prime(ll n){
+    for(ll i = 2;i<=sqrt(n);i++){
+        if(n%i==0){
+            return false;
+        }
+    }
+    return true;
+}
+
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
-        return;
+    int n;
+    cin>>n;
+    vi a(n);
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        a[i]--;
+    }   
+    vi cycles;
+    vi used(n,0);
+    for(int i=0;i<n;i++){
+        if(used[i]!=1){
+            int x = i;
+            int sz = 0;
+            while(used[x]!=1){
+                used[x] = 1;
+                x = a[x];
+                sz++;
+            }
+            cycles.pb(sz);
+        }
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+    sort(all(cycles));
+    vi ans(n+1,0);
+    for(int i=1;i<=cycles[cycles.size()-1];i++){
+        ans[i] = 1;
+    }
+    map<int,int> m;
+    for(auto x: cycles){
+        m[x]++;
+        //cout<<x<<' ';
+    }
+    //cout<<'\n';
+    if(cycles.size()>=2){
+        for(int i = cycles[cycles.size()-1]+1;i<=cycles[cycles.size()-1]+cycles[cycles.size()-2];i++){
+            for(auto x: cycles){
+                if(i-x!=x){
+                    if(m[i-x]>=1){
+                        ans[i] = true;
+                        break;
+                    }
+                }else{
+                    if(m[x]>=2){
+                        ans[i] = true;
+                    }
+                }
+            }
+        }
+
+    }
+
+    for(int i=1;i<=n;i++){
+        if(ans[i]==1){
+            cout<<"Yes\n";
+        }else{
+            cout<<"No\n";
+        }
+    }
+
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }
 
     return 0;
 }
+

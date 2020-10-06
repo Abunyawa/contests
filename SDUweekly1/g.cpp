@@ -135,24 +135,39 @@ struct segtree {
     }
 
 };
+ll func(ll mid, ll n, ll m){
+    ll ctr = 0;
+    for(int i=0;i<n;i++){
+        ctr += min(m,mid/(i+1));
+    }
+    return ctr;
+    
+}
 
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
-        return;
+    ll n,m,k;
+    cin>>n>>m>>k;
+    ll l = 1;
+    ll r = n*m;
+    while(l<r){
+        ll mid = (l+r)/2;
+        if(func(mid,n,m)>=k){
+            r = mid;
+        }else{
+            l = mid+1;
+        }
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+    cout<<l<<'\n';
+    
 }
+
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

@@ -138,14 +138,33 @@ struct segtree {
 
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
-        return;
+    ll a,b,c,d;
+    cin>>a>>b>>c>>d;
+    if(a==0 && b==0 && c==0 && d==0){
+        cout<<"Tidak Tidak Tidak Tidak\n";
+
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+    if((a+b)%2==0){
+        if(c==0 && b==0){
+            cout<<"Tidak Tidak Tidak Ya\n";
+            return;
+        }
+        if(a==0 && d==0){
+            cout<<"Tidak Tidak Ya Tidak\n";
+            return;
+        }
+        cout<<"Tidak Tidak Ya Ya\n";
+    }else{
+        if(c==0 && b==0){
+            cout<<"Ya Tidak Tidak Tidak \n";
+            return;
+        }
+        if(a==0 && d==0){
+            cout<<"Tidak Ya Tidak Tidak \n";
+            return;
+        }
+        cout<<"Ya Ya Tidak Tidak \n";
+    }
 }
 
 int main(){

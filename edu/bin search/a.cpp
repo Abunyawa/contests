@@ -135,25 +135,71 @@ struct segtree {
     }
 
 };
+ll n;
+ll t[15010],y[15010],z[15010];
 
+ll check(ll tm1){
+    ll ans = 0;
+    for(int i=0;i<n;i++){
+        //cout<<i<<' ';
+        ll has = y[i]+tm1;
+        //cout<<has<<' ';
+        ans += z[i] * (has/(z[i]*t[i]+y[i]));
+        has %= (z[i]*t[i]+y[i]);
+        has -= y[i];
+        if(has>0){
+            ans+= has/t[i];
+        }
+    }
+    return ans;
+}
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
-        return;
+    ll m;
+
+    cin>>m>>n;
+    for(int i=0;i<n;i++){
+        cin>>t[i]>>z[i]>>y[i];
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+    ll l = 0;
+    ll r = 1e9;
+    while(l<r){
+        ll mid = (l+r)/2;
+        //cout<<mid<<'\n';
+
+        ll res = check(mid);
+        if(res>=m){
+            r = mid;
+        }else{
+            l = mid+1;
+        }
+    }
+    cout<<l<<'\n';
+    ll cur = 0;
+    for(int i=0;i<n;i++){
+        ll loc = 0;
+        ll has = l+y[i];
+        loc += z[i] * (has/(z[i]*t[i]+y[i]));
+        has %= (z[i]*t[i]+y[i]);
+        has-=y[i];
+        if(has>0){
+            loc+= has/t[i];
+        }
+        if(loc>(m-cur)){
+            loc = m-cur;
+        }
+        cout<<loc<<' ';
+        cur+=loc;
+    }
+    cout<<'\n';
 }
 
 int main(){
     abu;
     said;
-    int t = 1;
-    cin>>t;
-    while(t--){
+    int tt = 1;
+    //cin>>t;
+    while(tt--){
         solve();
     }
 

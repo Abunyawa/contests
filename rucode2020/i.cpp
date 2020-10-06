@@ -14,7 +14,7 @@
 #define abu ios_base::sync_with_stdio(0)
 #define said cin.tie(0)
 using namespace std;
-ll const MOD = 998244353;
+ll const MOD = 1e8;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -136,26 +136,121 @@ struct segtree {
 
 };
 
-
-void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
-        return;
+bool prime(ll n){
+    for(ll i = 2;i<=sqrt(n);i++){
+        if(n%i==0){
+            return false;
+        }
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+    return true;
+}
+
+int prefix[26][1000100];
+void solve(){
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+    s = '#'+s;
+    for(int i=1;i<=n;i++){
+        for(int j = 0;j<26;j++){
+            prefix[j][i] = prefix[j][i-1];
+        }
+        prefix[s[i]-'a'][i]++;
+    }
+    int q;
+    cin>>q;
+    while(q--){
+        int l,r;
+        cin>>l>>r;
+        int g = 0;
+        int isOdd = false;
+        int oddctr = 0;
+        for(int j = 0;j<26;j++){
+            int cur = prefix[j][r] - prefix[j][l-1];
+            if(cur%2==0){
+                g+=cur;
+            }else{
+                oddctr++;
+                if(!isOdd){
+                    g+=cur;
+                    isOdd = true;
+                }else{
+                    g+=cur-1;
+                }
+            }
+        }
+        vector<int> let(26,0);
+        int nl = l;
+        int nr = r;
+        int ctrsav = oddctr;
+        while((prefix[s[nl]-'a'][r] - prefix[s[nl]-'a'][l-1])%2==1 && nl<r && oddctr>1){
+            if(let[s[nl]-'a']==0){
+                oddctr--;
+                let[s[nl]-'a']=1;
+                nl++;
+            }else{
+                break;
+            }
+        }
+        while((prefix[s[nr]-'a'][r] - prefix[s[nl]-'a'][nl-1])%2==1 && nl<nr && oddctr>1){
+            if(let[s[nr]-'a']==0){
+                oddctr--;
+                let[s[nr]-'a']=1;
+                nr--;
+            }else{
+                break;
+            }
+        }
+        //cout<<nl<<' '<<nr<<'\n';
+        double ans = (double)(g*g)/(double)(nr-nl+1);
+        int l1 = nl;
+        int r1 = nr;
+        nl = l;
+        nr = r;
+        oddctr = ctrsav;
+        for(int i=0;i<26;i++){
+            let[i] = 0;
+        }
+        while((prefix[s[nr]-'a'][r] - prefix[s[nl]-'a'][nl-1])%2==1 && nl<nr && oddctr>1){
+            if(let[s[nr]-'a']==0){
+                oddctr--;
+                let[s[nr]-'a']=1;
+                nr--;
+            }else{
+                break;
+            }
+        }
+        while((prefix[s[nl]-'a'][r] - prefix[s[nl]-'a'][l-1])%2==1 && nl<nr && oddctr>1){
+            if(let[s[nl]-'a']==0){
+                oddctr--;
+                let[s[nl]-'a']=1;
+                nl++;
+            }else{
+                break;
+            }
+        }
+
+        //cout<<nl<<' '<<nr<<'\n';
+
+        if((double)(g*g)/(double)(nr-nl+1)>ans){
+            cout<<nl<<' '<<nr<<'\n';
+        }else{
+            cout<<l1<<' '<<r1<<'\n';            
+        }
+    }
+
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }
 
     return 0;
 }
+

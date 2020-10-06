@@ -138,14 +138,39 @@ struct segtree {
 
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
+    int n;
+    cin>>n;
+    vl a(n);
+    vl x(n);
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        x[i] = a[i];
+    }
+    bool flag = true;
+    for(int i=1;i<n;i++){
+        if(a[i]<a[i-1]){
+            flag = false;
+        }
+    }
+    if(flag){
+        yes();
         return;
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+
+    sort(rall(a));
+    for(int i=0;i<n;i++){
+        if(a[i]!=x[i]){
+            yes();
+            return;
+        }
+    }
+    for(int i=1;i<n;i++){
+        if(a[i]==a[i-1]){
+            yes();
+            return;
+        }
+    }
+    no();
 }
 
 int main(){

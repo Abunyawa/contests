@@ -14,7 +14,7 @@
 #define abu ios_base::sync_with_stdio(0)
 #define said cin.tie(0)
 using namespace std;
-ll const MOD = 998244353;
+ll const MOD = 1e8;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -136,26 +136,86 @@ struct segtree {
 
 };
 
-
-void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
-        return;
+bool prime(ll n){
+    for(ll i = 2;i<=sqrt(n);i++){
+        if(n%i==0){
+            return false;
+        }
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+    return true;
+}
+
+int prefix[26][1000100];
+void solve(){
+    int n;
+    cin>>n;
+    vl a(n);
+    vl b(n);
+    map<ll,int> m;
+    for(int i =0;i<n;i++){
+        cin>>a[i];
+        b[i] = a[i];
+        m[a[i]]++;
+    }
+    sort(all(b));
+    ll mex = 0;
+    for(int i=0;i<n;i++){
+        if(b[i]==mex){
+            mex++;
+        }
+    }
+    int l=0,r=n-1;
+    while(r>l && (a[r]>mex || m[a[r]]>1 || a[l]>mex || m[a[l]]>1)){
+        while(r>l && a[r]>mex || m[a[r]]>1){
+            m[a[r]]--;
+            r--;
+        }
+        while(l<r && a[l]>mex || m[a[l]]>1){
+            
+            m[a[l]]--;
+            l++;
+        }
+    }
+
+
+    int l1=l,r1=r;
+    for(auto x: m){
+        m[x.F] = 0;
+    }
+    for(int i =0;i<n;i++){
+        m[a[i]]++;
+    }
+    l = 0;
+    r= n-1;
+    while(r>l && (a[r]>mex || m[a[r]]>1 || a[l]>mex || m[a[l]]>1)){
+        while(l<r && a[l]>mex || m[a[l]]>1){
+            m[a[l]]--;
+            l++;
+        }
+        while(r>l && a[r]>mex || m[a[r]]>1){
+            m[a[r]]--;
+            r--;
+        }
+        
+    }
+    if(r-l<r1-l1){
+        cout<<l+1<<' '<<r+1<<'\n';
+    }else{
+        cout<<l1+1<<' '<<r1+1<<'\n';
+    }
+
+
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }
 
     return 0;
 }
+

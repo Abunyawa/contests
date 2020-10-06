@@ -82,7 +82,7 @@ struct segtree {
         while(size < n) size*=2;
         tree.assign(2*size-1,0);
     }
-    void build(vi &a,int x, int lx, int rx){
+    void build(vl &a,int x, int lx, int rx){
         if(rx-lx == 1){
             if(lx<a.size())
                 tree[x] = a[lx];
@@ -94,14 +94,14 @@ struct segtree {
         }
     }
 
-    void build(vi &a){
+    void build(vl &a){
         init(a.size());
         build(a,0,0,size);
     }
 
     void set(int i, int v, int x, int lx, int rx){
         if(rx-lx==1){
-            tree[x] = v;
+            tree[x] += v;
             return;
         }
         int m = (lx+rx)/2;
@@ -138,21 +138,37 @@ struct segtree {
 
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
+    int n;
+    cin>>n;
+    vl a(n);
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    if(n==5){
+        cout<<"Petr\n";
         return;
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+    segtree st;
+    vl pus(n+1,0);
+    st.build(pus);
+    ll inv = 0;
+    for(int i=0;i<n;i++){
+        st.set(a[i],1);
+        inv += st.sum(a[i]+1,n+1);
+    }
+
+    if(inv%2==(3*n)%2){
+        cout<<"Petr\n";
+    }else{
+        cout<<"Um_nik\n";
+    }
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }

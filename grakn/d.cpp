@@ -10,7 +10,7 @@
 #define vl vector<long long>
 #define pii pair<int, int>
 #define pll pair<long long, long long>
-#define watch(x) (#x)<<" : "<<(x)<<" ";
+#define watch(x) (#x)<<" : "<<(x)<<"\t"
 #define abu ios_base::sync_with_stdio(0)
 #define said cin.tie(0)
 using namespace std;
@@ -138,21 +138,77 @@ struct segtree {
 
 
 void solve(){
-    ll x, y,k;
-    cin>>x>>y>>k;
-    ll need = k-1+y*k;
-    if(need<=0){
-        cout<<0<<'\n';
-        return;
+    int n,m;
+    cin>>n>>m;
+    vector<pll> g(n);
+    for(int i = 0;i<n;i++){
+        cin>>g[i].F>>g[i].S;
     }
-    cout<<(need+(x-2))/(x-1)+k<<'\n';
+    vector<pll> p(m);
+    for(int i=0;i<m;i++){
+        cin>>p[i].F>>p[i].S;
+    }
+    sort(rall(p));
+    sort(rall(g));
+    vector<pll> need(n,{0,0});
+    ll curR = 0;
+    ll curU = 0;
+    for(int i=0;i<n;i++){
+        for(int j = 0;j<m;j++){
+            ll curX = g[i].F;
+            ll curY = g[i].S;
+            ll projX = p[j].F;
+            ll projY = p[j].S;
+            //cout<<watch(curX)<<watch(curY)<<watch(projX)<<watch(projY)<<'\n';
+            if(curX<=projX && curY<=projY){
+                need[i].F = max(need[i].F,projX-curX+1);
+                need[i].S = max(need[i].S,projY-curY+1);
+            }
+        }
+    }
+    
+    for(auto x: need){
+        cout<<x.F<<' '<<x.S<<'\n';
+    }
+    
+    ll ans = 100000000000000;
+    for(int i=0;i<n;i++){
+        ll curR = need[i].F;
+        ll curU = 0;
+        for(int j=0;j<n;j++){
+            if(i!=j){
+                if(curR<need[j].F){
+                    curU = max(curU,need[j].S);
+                }
+            }
+        }
+        cout<<curR+curU<<" 1 "<<i<<'\n';
+        ans = min(ans,curR+curU);
+    }
+
+    for(int i=0;i<n;i++){
+        ll curU = need[i].S;
+        ll curR = 0;
+        for(int j=0;j<n;j++){
+            if(i!=j){
+                if(curU<need[j].S){
+                    curR = max(curR,need[j].F);
+                }
+            }
+        }
+        cout<<curR+curU<<" 2 "<<i<<'\n';
+
+        ans = min(ans,curR+curU);
+    }
+
+    cout<<ans<<'\n';
 }
 
 int main(){
     abu;
     said;
     int t = 1;
-    cin>>t;
+    //cin>>t;
     while(t--){
         solve();
     }
