@@ -18,6 +18,7 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<ll> vl;
 
+
 void yes(){
     cout<<"YES"<<'\n';
 }
@@ -29,7 +30,27 @@ void no(){
 
 
 void solve() {
-    
+    int n;
+    cin>>n;
+    vector<char> a;
+    int ctr = 0;
+    for(int i=0;i<n;i++){
+        char x;
+        cin>>x;
+        if(x=='b'){
+            ctr++;
+        }else{
+            a.pb(x);
+        }
+    }
+    for(int i=0;i<ctr;i++){
+        cout<<'b';
+    }
+    for(auto x: a){
+        cout<<x;
+    }
+    cout<<'\n';
+
 }
 
 int main() {
@@ -38,7 +59,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    
+    cin>>tt;
     while (tt--) {
         solve();
     }

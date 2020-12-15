@@ -12,6 +12,19 @@
         "regex": "cpp",
         "utility": "cpp",
         "valarray": "cpp",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "random": "cpp",
+        "deque": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "vector": "cpp",
+        "rope": "cpp",
+        "slist": "cpp",
+        "ratio": "cpp",
+        "chrono": "cpp",
+        "complex": "cpp"
     }
 }

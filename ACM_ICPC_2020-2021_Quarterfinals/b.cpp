@@ -1,3 +1,4 @@
+
 // chrono::system_clock::now().time_since_epoch().count()
 #include <bits/stdc++.h>
 
@@ -16,7 +17,6 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-typedef vector<ll> vl;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -29,7 +29,13 @@ void no(){
 
 
 void solve() {
-    
+    int a,x,b,y;
+    cin>>a>>x>>b>>y;
+    int t;
+    cin>>t;
+    int ans1 = a + 21*max(0,t-30)*x;
+    int ans2 = b + 21*max(0,t-45)*y;
+    cout<<ans1<<' '<<ans2<<'\n';
 }
 
 int main() {

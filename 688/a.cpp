@@ -18,6 +18,7 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<ll> vl;
 
+
 void yes(){
     cout<<"YES"<<'\n';
 }
@@ -29,7 +30,24 @@ void no(){
 
 
 void solve() {
-    
+    int n,m;
+    cin>>n>>m;
+    vi a(n);
+    vi b(m);
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    for(int i=0;i<m;i++){
+        cin>>b[i];
+    }
+    int ans = 0;
+    for(int i=0;i<n;i++){
+        for(int j =0;j<m;j++){
+            if(a[i]==b[j]) ans++;
+        }
+    }
+
+    cout<<ans<<'\n';
 }
 
 int main() {
@@ -38,7 +56,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    
+    cin>>tt;
     while (tt--) {
         solve();
     }

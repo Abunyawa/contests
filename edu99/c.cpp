@@ -18,6 +18,7 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<ll> vl;
 
+
 void yes(){
     cout<<"YES"<<'\n';
 }
@@ -29,15 +30,19 @@ void no(){
 
 
 void solve() {
+    ll x,y;
+    cin>>x>>y;
     
+    cout<<x-1<<' '<<y<<'\n';
+
 }
 
 int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-
     int tt = 1;
+    cin>>tt;
     
     while (tt--) {
         solve();
@@ -45,4 +50,4 @@ int main() {
 
     return 0;
 }
-
+ 

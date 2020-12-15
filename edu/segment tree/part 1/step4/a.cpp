@@ -23,54 +23,6 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
-ll fact(int n){
-    ll ans = 1;
-    for(int i=2;i<=n;i++){
-        ans = (ans*i)%MOD;
-    }
-
-    return ans;
-}
-
-ll powM(int n, int x){
-    if(x==0){
-        return 1;
-    }
-    if(x==1){
-        return n%MOD;
-    }
-
-    if(x%2==0){
-        ll a = powM(n,x/2);
-        return (a*a)%MOD;
-    }else{
-        return (n*powM(n,x-1))%MOD;
-    }
-}
-
-ll C(int n, int k){
-    return (fact(n) * powM((fact(k)*fact(n-k))%MOD,MOD-2))%MOD;
-}
-
-ll A(int n, int k){
-    return (fact(n) * powM(fact(n-k)%MOD,MOD-2))%MOD;
-}
-
-void add_self(int &a, int b){
-    a += b;
-    if(a>=MOD){
-        a-=MOD;
-    }
-}
-
-void sub_self(int &a, int b){
-    a -= b;
-    if(a<0){
-        a+=MOD;
-    }
-}
-
-
 struct segtree {
 
     vl tree;
@@ -84,7 +36,11 @@ struct segtree {
     void build(vi &a,int x, int lx, int rx){
         if(rx-lx == 1){
             if(lx<a.size())
-                tree[x] = a[lx];
+                if(lx%2==0){
+                    tree[x] = a[lx];
+                }else{
+                    tree[x] = -a[lx];
+                }
         }else{
             int m = (lx+rx)/2;
             build(a,2*x+1,lx,m);
@@ -100,7 +56,11 @@ struct segtree {
 
     void set(int i, int v, int x, int lx, int rx){
         if(rx-lx==1){
-            tree[x] = v;
+            if(lx%2==0){
+                tree[x] = v;
+            }else{
+                tree[x] = -v;
+            }
             return;
         }
         int m = (lx+rx)/2;
@@ -135,61 +95,42 @@ struct segtree {
 
 };
 
-vi g[200100];
-vi type[110];
-bool used[110][200100];
-int d[200100][110];
+/*
+1 2 3 4 5
+1 1 1 1 1
+*/
 
-
-void bfs(int tp){
-    queue<int> q;
-    for(int i=0;i<type[tp].size();i++){
-        used[tp][type[tp][i]] = true;
-        q.push(type[tp][i]);
-        d[type[tp][i]][tp] = 0;
+void solve(){
+    int n;
+    cin>>n;
+    vi a(n);
+    for(int i=0;i<n;i++){
+        cin>>a[i];
     }
-    while(!q.empty()){
-        int cur = q.front();
-        q.pop();
-        for(int i=0;i<g[cur].size();i++){
-            if(!used[tp][g[cur][i]]){
-                d[g[cur][i]][tp] = d[cur][tp]+1;
-                //cout<<d[g[cur][i]][tp]<<' '<<tp<<'\n';
-
-                used[tp][g[cur][i]] = true;
-                q.push(g[cur][i]);
+    segtree st;
+    st.build(a);
+    int m;
+    cin>>m;
+    for(int i=0;i<m;i++){
+        int x;
+        cin>>x;
+        if(x==0){
+            int u,j;
+            cin>>u>>j;
+            u--;
+            st.set(u,j);
+        }else{
+            int l,r;
+            cin>>l>>r;
+            l--;
+            if(l%2==0){
+                cout<<st.sum(l,r)<<'\n';
+            }else{
+                cout<<-st.sum(l,r)<<'\n';
             }
         }
     }
-}
-
-
-void solve(){
-    int n,m,k,s;
-    cin>>n>>m>>k>>s;
-    for(int i=0;i<n;i++){
-        int tp;
-        cin>>tp;
-        type[tp].pb(i+1);
-    }
-    for(int i=0;i<m;i++){
-        int u,v;
-        cin>>u>>v;
-        g[u].pb(v);
-        g[v].pb(u);
-    }
-    for(int i=1;i<=k;i++){
-        bfs(i);
-    }
-    for(int i=1;i<=n;i++){
-        sort(d[i],d[i]+k+1);
-        ll sm = 0;
-        for(int j=1;j<=s;j++){
-            sm+=d[i][j];
-        }
-        cout<<sm<<' ';
-    }
-
+    
 }
 
 int main(){

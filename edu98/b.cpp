@@ -29,7 +29,35 @@ void no(){
 
 
 void solve() {
-    
+    int n;
+    cin>>n;
+    vl a(n);
+    ll sm = 0;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        sm+=a[i];
+    }
+
+    ll ans = 0;
+    if(sm%(n-1)!=0){
+        ans+=(n-1)-sm%(n-1);
+    }
+    sm+=ans;
+
+    ll mx = 0;
+    for(int i=0;i<n;i++){
+        if(a[i]>mx){
+            mx = a[i];
+        }
+    }
+    if(mx<=(sm/(n-1))){
+        cout<<ans<<'\n';
+        return;
+    }else{
+        ans+=mx*(n-1)-sm;
+        cout<<ans<<'\n';
+    }
+
 }
 
 int main() {
@@ -38,7 +66,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    
+    cin>>tt;
     while (tt--) {
         solve();
     }

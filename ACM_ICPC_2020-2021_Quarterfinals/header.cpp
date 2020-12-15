@@ -16,7 +16,6 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-typedef vector<ll> vl;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -29,7 +28,37 @@ void no(){
 
 
 void solve() {
-    
+    string ans[] = {
+        "ITMO",
+        "SPbSU",
+        "SPbSU",
+        "ITMO",
+        "ITMO", 
+        "SPbSU",
+        "ITMO", 
+        "ITMO", 
+        "ITMO", 
+        "ITMO", 
+        "ITMO", 
+        "PetrSU, ITMO",
+        "SPbSU",
+        "SPbSU",
+        "ITMO", 
+        "ITMO", 
+        "ITMO", 
+        "ITMO", 
+        "SPbSU",
+        "ITMO", 
+        "ITMO", 
+        "ITMO", 
+        "ITMO", 
+        "SPbSU",
+        "ITMO"
+    };
+    int n;
+    cin>>n;
+    n-=1995;
+    cout<<ans[n]<<'\n';
 }
 
 int main() {

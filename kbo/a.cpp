@@ -16,7 +16,6 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-typedef vector<ll> vl;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -29,8 +28,23 @@ void no(){
 
 
 void solve() {
-    
+    int n,k;
+    cin>>n>>k;
+    ll ans = 0;
+    if(k==0){
+        cout<<n*n<<'\n';
+        return;
+    }
+    for(int i=k+1;i<=n;i++){
+        int num = i - k;
+        ans += num * (n/i);
+        if(n%i>=k){
+            ans += n%i - k + 1;
+        }
+    }
+    cout<<ans<<'\n';
 }
+
 
 int main() {
     ios_base::sync_with_stdio(0);

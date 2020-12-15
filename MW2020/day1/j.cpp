@@ -16,7 +16,6 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-typedef vector<ll> vl;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -29,7 +28,26 @@ void no(){
 
 
 void solve() {
-    
+    int a[6];
+    int b[6];
+    for(int i=0;i<6;i++){
+        cin>>a[i];
+    }
+    for(int i=0;i<6;i++){
+        cin>>b[i];
+    }
+    int tot = 6*6;
+    int win = 0;
+    for(int i=0;i<6;i++){
+        for(int j = 0;j<6;j++){
+            if(a[i]>b[j]) win++;
+        }
+    }
+    int gcd = __gcd(win,tot);
+    win/=gcd;
+    tot/=gcd;
+    cout<<win<<'/'<<tot<<'\n';
+
 }
 
 int main() {

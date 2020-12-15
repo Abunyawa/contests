@@ -16,7 +16,6 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-typedef vector<ll> vl;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -29,7 +28,10 @@ void no(){
 
 
 void solve() {
-    
+    int x,y;
+    cin>>x>>y;
+    int ans = min(x,y)*2 + max(0,((max(x,y) - min(x,y))*2-1));
+    cout<<ans<<'\n';
 }
 
 int main() {
@@ -38,7 +40,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    
+    cin>>tt;
     while (tt--) {
         solve();
     }

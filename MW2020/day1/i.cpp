@@ -16,7 +16,6 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-typedef vector<ll> vl;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -26,10 +25,43 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
+int n;
+double d;
+double a1[1000100];
 
+double f(){
+    double mx = -1e16;
+    double mn = 1e16;
+    for(int i=0;i<n;i++){
+        mx = max(mx,a1[i]+d*i);
+        mn = min(mn,a1[i]+d*i);
+    }
+    return (mx-mn)/2;
+}
+
+double f1(){
+    double mx = -1e16;
+    double mn = 1e16;
+    for(int i=0;i<n;i++){
+        mx = max(mx,a1[i]-d*i);
+        mn = min(mn,a1[i]-d*i);
+    }
+    return (mx-mn)/2;
+}
 
 void solve() {
+    scanf("%d%lf",&n,&d);
+
+    for(int i=0;i<n;i++){
+        scanf("%lf",a1+i);
+    }
     
+    for(int i = 0;i<n;i++){
+
+    }
+    
+    printf("%.10f\n",min(f(),f1()));
+
 }
 
 int main() {
@@ -45,4 +77,3 @@ int main() {
 
     return 0;
 }
-

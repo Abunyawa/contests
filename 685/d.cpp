@@ -16,7 +16,6 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-typedef vector<ll> vl;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -25,11 +24,45 @@ void yes(){
 void no(){
     cout<<"NO"<<'\n';
 }
+/*
+abc
 
+bcd
+
+
+*/
 
 
 void solve() {
+    ll d,k;
+    cin>>d>>k;
+    ll st = 0;
+    ll x = 0;
+    ll y = 0;
+    while(x*x+y*y<=d*d){
+        if(st%2==0){
+            if((x+k)*(x+k) + y*y <= d*d){
+                st++;
+                x+=k;
+            }else{
+                break;
+            }
+        }else{
+            if(x*x + (y+k)*(y+k) <= d*d){
+                st++;
+                y+=k;
+            }else{
+                break;
+            }
+        }
+    }
     
+    
+    if(st%2==0){
+        cout<<"Utkarsh\n";
+    }else{
+        cout<<"Ashish\n";
+    }
 }
 
 int main() {
@@ -38,7 +71,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    
+    cin>>tt;
     while (tt--) {
         solve();
     }

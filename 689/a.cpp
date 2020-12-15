@@ -29,7 +29,12 @@ void no(){
 
 
 void solve() {
-    
+    int n,k;
+    cin>>n>>k;
+    for(int i=0;i<n;i++){
+        cout<<(char)('a'+i%3);
+    }
+    cout<<'\n';
 }
 
 int main() {
@@ -38,7 +43,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    
+    cin>>tt;
     while (tt--) {
         solve();
     }

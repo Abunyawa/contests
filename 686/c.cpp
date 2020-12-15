@@ -7,6 +7,7 @@
 #define fi first
 #define se second
 #define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
 #define sz(x) (int)(x).size()
 #define rep(i, a, b) for (int i = (a); i < (b); ++i)
 #define debug(x) cerr << #x << " = " << x << endl
@@ -28,8 +29,34 @@ void no(){
 
 
 
+
 void solve() {
-    
+    int n;
+    cin>>n;
+    vl a(n);
+    map<int,vi> ctr;
+    int mn = n;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        ctr[a[i]].pb(i);
+    }
+    int ans = n;
+    for(auto x: ctr){
+        int  l =-1;
+        int cur = 0;
+        for(auto y: x.se){
+            if(y>l+1){
+                cur++;
+            }
+            l = y;
+        }
+        if(l<n-1) cur++;
+
+        ans = min(ans,cur);
+    }
+    cout<<ans<<'\n';
+
+
 }
 
 int main() {
@@ -38,7 +65,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    
+    cin>>tt;
     while (tt--) {
         solve();
     }

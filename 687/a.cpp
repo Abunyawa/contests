@@ -16,7 +16,6 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-typedef vector<ll> vl;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -29,8 +28,16 @@ void no(){
 
 
 void solve() {
+    int n,m,r,c;
+    cin>>n>>m>>r>>c;
+    r--;
+    c--;
+    ll ans = 0;
     
+    cout<<max(max(abs(r-0)+abs(c-0),abs(r-n+1)+abs(c-0)),max(abs(r-0)+abs(c-m+1),abs(r-n+1)+abs(c-m+1)))<<'\n';
 }
+    
+
 
 int main() {
     ios_base::sync_with_stdio(0);
@@ -38,7 +45,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    
+    cin>>tt;
     while (tt--) {
         solve();
     }

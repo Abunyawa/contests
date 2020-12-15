@@ -16,7 +16,6 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-typedef vector<ll> vl;
 
 void yes(){
     cout<<"YES"<<'\n';
@@ -29,7 +28,33 @@ void no(){
 
 
 void solve() {
-    
+    int n,m;
+    cin>>n>>m;
+    string s;
+    cin>>s;
+    for(int i=0;i<m;i++){
+        int l,r;
+        cin>>l>>r;
+        l--;
+        r--;
+        bool flag = false;
+        for(int j = n-1;j>r;j--){
+            if(s[r]==s[j]){
+                flag = true;
+            }
+        }
+        for(int j = 0;j<l;j++){
+            if(s[l]==s[j]){
+                flag = true;
+            }
+        }
+
+        if(flag){
+            yes();
+        }else{
+            no();
+        }
+    }
 }
 
 int main() {
@@ -38,7 +63,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    
+    cin>>tt;
     while (tt--) {
         solve();
     }
