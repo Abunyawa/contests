@@ -29,23 +29,24 @@ void no(){
 
 
 void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+    int n,k;
+    cin>>n>>k;
+    n-=k-3;
+    for(int i=0;i<k-3;i++){
+        cout<<1<<' ';
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    
+    if(n%2==1){
+        cout<<1<<' '<<(n-1)/2<<' '<<(n-1)/2<<'\n';
+    }else{
+        if((n/2)%2==0){
+            cout<<n/2<<' '<<n/4<<' '<<n/4<<'\n';
+        }else{
+            cout<<n/2-1<<' '<<n/2-1<<' '<<2<<'\n';
+
         }
     }
-    cout<<'\n';
+
 
 }
 

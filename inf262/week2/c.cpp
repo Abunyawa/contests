@@ -29,24 +29,38 @@ void no(){
 
 
 void solve() {
-    int n;
-    cin>>n;
+    int n,k;
+    cin>>n>>k;
     vl a(n);
+
     for(int i=0;i<n;i++){
         cin>>a[i];
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+
+    sort(all(a));
+    ll cur = 0;
+
+    for(int i=0;i<n;i++){
+        if(a[i]-cur==0){
+            continue;
+        }else{
+            if(k>0){
+                k--;
+
+                cout<<a[i]-cur<<'\n';
+                cur+= a[i]-cur;
+
+            }else{
+                break;
+            }
+        }
+    } 
+
+    if(k>0){
+        for(int i=0;i<k;i++){
+            cout<<0<<'\n';
         }
     }
-    cout<<'\n';
-
 }
 
 int main() {
@@ -55,7 +69,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

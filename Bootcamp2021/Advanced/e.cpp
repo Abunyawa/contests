@@ -27,27 +27,29 @@ void no(){
 }
 
 
+bool check(ll x, ll y, ll p, ll q, ll t){
 
-void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
-        }
-    }
-    cout<<'\n';
-
+    return x <= p*t && q*t - p*t >= y-x;
 }
+
+
+ll ans(ll l, ll r){
+    ll pow = log2(r);
+    if(l==r){
+        return l;
+    }else  if((1LL<<pow)<=l){
+        return (1LL<<pow)+ans(l-(1LL<<pow),r-(1LL<<pow));
+    }else if((1LL<<(pow+1))-1<=r){
+        return (1LL<<(pow+1))-1;
+    }else{
+        return (1LL<<(pow))-1;
+    }
+}
+void solve() {
+    ll l,r;
+    cin>>l>>r;
+    cout<<ans(l,r)<<'\n';
+}  
 
 int main() {
     ios_base::sync_with_stdio(0);
@@ -56,6 +58,7 @@ int main() {
 
     int tt = 1;
     cin>>tt;
+
     while (tt--) {
         solve();
     }

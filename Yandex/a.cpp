@@ -15,6 +15,7 @@ using namespace std;
 
 typedef long long ll;
 typedef pair<int, int> pii;
+typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 typedef vector<ll> vl;
 
@@ -27,26 +28,58 @@ void no(){
 }
 
 
+struct otr{
+    ll len;
+    ll l,r;
+    int ind;
+}
+
+
+
+bool cmp(otr a, otr b){
+    if(a.len!=b.len){
+        return a.len>b.len;
+    }else{
+        if(a.r!=b.r){
+            return a.r<b.r;
+        }else{
+            return a.l<b.l;
+        }
+    }
+}
 
 void solve() {
     int n;
     cin>>n;
-    vl a(n);
+    vector<otr> a(n);
+    vector<bool> used(n, true);
     for(int i=0;i<n;i++){
-        cin>>a[i];
+        ll ai;
+        ll x;
+        cin>>ai>>x;
+        otr nw;
+        nw.len = x;
+        nw.l = ai;
+        nw.r = ai+x-1;
+        nw.ind = i;
+        a[i] = nw;
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
-        }
+    sort(all(a),cmp);
+
+
+    vector<otr> ans;
+    ll t=0;
+
+    for(int i=0;i<n;i++){
+        
+    }
+
+
+    cout<<t<<'\n';
+    for(auto x: ans){
+        cout<<x<<' ';
     }
     cout<<'\n';
-
 }
 
 int main() {
@@ -55,7 +88,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

@@ -32,21 +32,33 @@ void solve() {
     int n;
     cin>>n;
     vl a(n);
+    vector<bool> used(n, false);
     for(int i=0;i<n;i++){
         cin>>a[i];
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    sort(all(a));
+
+    int cur = 0;
+    vl ans;
+    for(int i=0;i<n;i++){
+        if(a[i]==cur){
+            ans.pb(a[i]);
+            used[i]=true;
+            cur++;
         }
     }
-    cout<<'\n';
 
+    for(int i=0;i<n;i++){
+        if(!used[i]){
+            ans.pb(a[i]);
+        }
+    }
+
+    for(int i=0;i<n;i++){
+        cout<<ans[i]<<' ';
+    }
+
+    cout<<'\n';
 }
 
 int main() {

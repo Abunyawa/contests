@@ -27,26 +27,26 @@ void no(){
 }
 
 
-
 void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    string s;
+    cin>>s;
+    for(int i=1;i<s.length();i++){
+        if(s[i]==s[i-1]){
+            if(i+1<s.length()){
+                for(char n = 'a';n<='z';n++){
+                    if(n!=s[i-1] && n!=s[i+1]){
+                        s[i]=n;
+                        break;
+                    }
+                }
+            }else{
+                if(s[i]>'a') s[i]--;
+                else s[i]++;
+            }
         }
     }
-    cout<<'\n';
 
+    cout<<s<<'\n';
 }
 
 int main() {
@@ -55,7 +55,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

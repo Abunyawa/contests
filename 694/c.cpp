@@ -7,6 +7,7 @@
 #define fi first
 #define se second
 #define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
 #define sz(x) (int)(x).size()
 #define rep(i, a, b) for (int i = (a); i < (b); ++i)
 #define debug(x) cerr << #x << " = " << x << endl
@@ -29,24 +30,29 @@ void no(){
 
 
 void solve() {
-    int n;
-    cin>>n;
+    int n,m;
+    cin>>n>>m;
     vl a(n);
     for(int i=0;i<n;i++){
         cin>>a[i];
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    vl b(m+1);
+    for(int i=1;i<=m;i++){
+        cin>>b[i];
+    }
+    sort(rall(a));
+    int ptr = 1;
+    ll ans = 0;
+    for(int i = 0;i<n;i++){
+        if(a[i]>ptr){
+            ans+=b[ptr++];
+        }else if(a[i]==ptr){
+            ans+=b[ptr];
+        }else{
+            ans+=b[a[i]];
         }
     }
-    cout<<'\n';
-
+    cout<<ans<<'\n';
 }
 
 int main() {

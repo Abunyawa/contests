@@ -25,6 +25,7 @@
         "slist": "cpp",
         "ratio": "cpp",
         "chrono": "cpp",
-        "complex": "cpp"
+        "complex": "cpp",
+        "thread": "cpp"
     }
 }

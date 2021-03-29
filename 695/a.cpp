@@ -31,22 +31,16 @@ void no(){
 void solve() {
     int n;
     cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    int cur = 8;
+    cout<<9;
+    for(int i=1;i<n;i++){
+        cout<<cur;
+        cur++;
+        if(cur>9){
+            cur=0;
         }
     }
     cout<<'\n';
-
 }
 
 int main() {
@@ -56,6 +50,7 @@ int main() {
 
     int tt = 1;
     cin>>tt;
+
     while (tt--) {
         solve();
     }

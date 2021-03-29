@@ -26,28 +26,50 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
-
-
-void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+int eval(string s, int n){
+    int ans = 0;
+    int cur = 0;
+    for(int i=0;i<s.length();i++){
+        if((1<<i)&n){
+            cur*=10;
+            cur+=s[i]-'0';
+            //cout<<cur<<' ';
+            ans+=cur;
+            cur = 0;
+        }else{
+            cur*=10;
+            cur+=s[i]-'0';
         }
     }
-    cout<<'\n';
-
+    //cout<<cur<<'\n';
+    ans+=cur;
+    return ans;
 }
+
+void solve() {
+    /*
+    string s;
+    cin>>s;
+    int n = s.length();
+    for(int i=0;i<(1<<(n-1));i++){
+        if(eval(s,i)%3==0){
+            yes();
+            return;
+        }
+    }
+    no();
+    */
+
+   ll n;
+   cin>>n;
+   if(n%3==0){
+       yes();
+   }else{
+       no();
+   }
+}
+
+
 
 int main() {
     ios_base::sync_with_stdio(0);
@@ -55,11 +77,13 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }
+    
 
+    
     return 0;
 }
 

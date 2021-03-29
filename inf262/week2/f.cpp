@@ -27,26 +27,45 @@ void no(){
 }
 
 
+ll const MOD = 1e9+7;
 
 void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    string s;
+    cin>>s;
+    string t = "";
+    for(int i=0;i<s.length();i++){
+        if(s[i]=='a' || s[i]=='b'){
+            t+=s[i];
         }
     }
-    cout<<'\n';
 
+    vl blockSize;
+    ll cur = 0;
+    for(int i=0;i<t.length();i++){
+        if(t[i]=='a'){
+            cur++;
+        }else{
+            if(cur!=0){
+                blockSize.pb(cur);
+                cur = 0;
+            }
+        }
+    }
+
+    if(cur!=0){
+        blockSize.pb(cur);
+        cur = 0;
+    }
+
+    ll ans = 1;
+    for(auto x: blockSize){
+        ans*=(x+1)%MOD;
+        ans%=MOD;
+    }
+
+    ans--;
+
+    cout<<ans<<'\n';
 }
 
 int main() {
@@ -55,7 +74,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

@@ -26,28 +26,29 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
-
-
 void solve() {
     int n;
-    cin>>n;
-    vl a(n);
+    cin>>n;                                                                             
+    vi a(n);
     for(int i=0;i<n;i++){
         cin>>a[i];
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+
+    sort(all(a));
+                                                                                
+    ll ans = 0;
+    ll hor=0, ver=0;
+    for(int i=0;i<n;i++){
+        if(i<n/2){
+            ver+=a[i];
+        }else{
+            hor+=a[i];
         }
     }
-    cout<<'\n';
 
+    cout<<hor*hor+ver*ver<<'\n';
 }
+
 
 int main() {
     ios_base::sync_with_stdio(0);
@@ -55,7 +56,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

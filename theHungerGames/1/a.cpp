@@ -27,25 +27,40 @@ void no(){
 }
 
 
+string s[110];
 
-void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+int ans(int n){
+    if(n%2==1){
+        return n;
     }
+
     int l = 0;
     int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
+    while(l<r && s[l]==s[r]){
         l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+        r--;
+    }
+
+    if(l>r){
+        return ans(n/2);
+    }else{
+        return n;
+    }
+}
+
+void solve() {
+    int n,m;
+    cin>>n>>m;
+    for(int i=0;i<n;i++){
+        s[i] = "";
+        for(int j = 0;j<m;j++){
+            char x;
+            cin>>x;
+            s[i]+=x;
         }
     }
-    cout<<'\n';
+
+    cout<<ans(n)<<'\n';
 
 }
 
@@ -55,7 +70,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

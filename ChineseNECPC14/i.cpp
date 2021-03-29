@@ -29,23 +29,41 @@ void no(){
 
 
 void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
+    int n,h,H;
+    cin>>n>>h>>H;
+    vi x(n);
     for(int i=0;i<n;i++){
-        cin>>a[i];
+        cin>>x[i];
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    vi c(n);
+    for(int i=0;i<n;i++){
+        cin>>c[i];
+    }
+    vector<pii> g;
+    for(int i=0;i<n;i++){
+        int pos = 0;
+        int tms = x[i]/H;
+        int th = x[i]%H;
+        if(tms%2==0){
+            pos+=th;
+        }else{
+            pos = H-th;
+        }
+
+        if(pos<=h){
+            g.pb({x[i]+c[i],i});
+        }else{
+            if(tms%2==0){
+                g.pb({x[i]+(H-pos)+(H-h)+c[i],i});
+            }else{
+                g.pb({x[i]+pos-h+c[i],i});
+            }
         }
     }
-    cout<<'\n';
+
+    sort(all(g));
+
+    cout<<g[0].se+1<<'\n';
 
 }
 

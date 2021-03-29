@@ -35,18 +35,23 @@ void solve() {
     for(int i=0;i<n;i++){
         cin>>a[i];
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    int ans = 0;
+    for(int i=0;i<n-1;i++){
+        int st = i;
+        int val = a[i];
+        for(int j=i+1;j<n;j++){
+            if(a[j]<val){
+                val = a[j];
+                st = j;
+            }
         }
-    }
-    cout<<'\n';
 
+        ans+=st-i+1;
+
+        reverse(a.begin()+i, a.begin()+st+1);
+    }
+
+    cout<<ans<<'\n';
 }
 
 int main() {
@@ -56,7 +61,8 @@ int main() {
 
     int tt = 1;
     cin>>tt;
-    while (tt--) {
+    for(int i=1;i<=tt;i++){
+        cout<<"Case #"<<i<<": ";
         solve();
     }
 

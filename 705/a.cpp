@@ -29,24 +29,35 @@ void no(){
 
 
 void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+    int n,k;
+    cin>>n>>k;
+    vector<bool> dp(2*n+1,true);
+    dp[k] = false;
+    for(int i=1;i<=k;i++){
+        if(dp[i]==true){
+            for(int j = 1;j<=k;j++){
+                if(j!=i){
+                    if(dp[i+j]==false && dp[j] == true){
+                        dp[i] = false;
+                        break;
+                    }
+                }
+            }
+        }
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    int ctr  = 0;
+    for(int i=1;i<=n;i++){
+        if(dp[i]) ctr++;
+    }
+ 
+    cout<<ctr<<'\n';
+ 
+    for(int i=1;i<=n;i++){
+        if(dp[i]){
+            cout<<i<<' ';
         }
     }
     cout<<'\n';
-
 }
 
 int main() {

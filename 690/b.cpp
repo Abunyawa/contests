@@ -31,21 +31,13 @@ void no(){
 void solve() {
     int n;
     cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+    string s;
+    cin>>s;
+    if(s.substr(0,4)=="2020" || (s.substr(0,3)=="202" && s.substr(n-1,1)=="0") || (s.substr(0,2)=="20" && s.substr(n-2,2)=="20") || (s.substr(0,1)=="2" && s.substr(n-3,3)=="020") || s.substr(n-4,4)=="2020"){
+        yes();
+    }else{
+        no();
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
-        }
-    }
-    cout<<'\n';
 
 }
 

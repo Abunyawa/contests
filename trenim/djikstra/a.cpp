@@ -26,25 +26,45 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
+ll INF = 2009000999;
+int n,m;
+
 
 
 void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+    cin>>n>>m;
+    vector<pair<int,int>> g[n];
+    for(int i=0;i<m;i++){
+        int u,v,w;
+        cin>>u>>v>>w;
+        g[u].pb({v,w});
+        g[v].pb({u,w});
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    int s;
+    cin>>s;
+    vi d(n,INF);
+    d[s] = 0;
+    priority_queue<pii> q;
+    q.push({0,s});
+    while(!q.empty()){
+        int v = q.top().se;
+        int cur = -q.top().fi;
+        q.pop();
+        if(cur>d[v]) continue;
+
+        for(int i=0;i<g[v].size();i++){
+            int to = g[v][i].fi;
+            int len = g[v][i].se;
+            if(d[v]+len<d[to]){
+                d[to] = d[v] + len;
+                q.push({-d[to],to});
+            }
         }
     }
+    for(int i=0;i<n;i++){
+        cout<<d[i]<<' ';
+    }
+
     cout<<'\n';
 
 }

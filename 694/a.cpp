@@ -29,24 +29,18 @@ void no(){
 
 
 void solve() {
-    int n;
-    cin>>n;
+    ll n,x;
+    cin>>n>>x;
     vl a(n);
+    ll sm = 0;
+    ll ans1 = 0;
     for(int i=0;i<n;i++){
         cin>>a[i];
+        ans1+=(a[i]+x-1)/x;
+        sm+=a[i];
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
-        }
-    }
-    cout<<'\n';
-
+    ll ans2 = (sm+x-1)/x;
+    cout<<min(ans1,ans2)<<' '<<max(ans1,ans2)<<'\n';
 }
 
 int main() {

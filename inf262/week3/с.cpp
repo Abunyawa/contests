@@ -29,23 +29,32 @@ void no(){
 
 
 void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    int a,b;
+    cin>>a>>b;
+    ll ans = 0;
+    while(a!=0 && b!=0){
+        int mn = min(a,b);
+        int mx = max(a,b);
+        mn+=(mx-1)/2;
+        ans+=(mx-1)/2;
+        if(mx%2==0){
+            mx = 2;
+        }else{
+            mx = 1;
+        }
+
+        a = mx;
+        b = mn;
+
+        if(a<=2 && b<=2){
+            
+            if(a==2 || b==2){
+                ans++;
+            }
+            break;
         }
     }
-    cout<<'\n';
+    cout<<ans<<'\n';
 
 }
 
@@ -55,7 +64,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

@@ -25,27 +25,34 @@ void yes(){
 void no(){
     cout<<"NO"<<'\n';
 }
+bool check(int x){
+    int tmp = x;
+    while(tmp!=0){
+        if(tmp%10==7){
+            return false;
+        }
+        tmp/=10;
+    }
+    tmp = x;
+    while(tmp!=0){
+        if(tmp%8==7){
+            return false;
+        }
+        tmp/=8;
+    }
 
+    return true;
+}
 
 
 void solve() {
     int n;
     cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+    int ctr = 0;
+    for(int i=1;i<=n;i++){
+        if(check(i)) ctr++;
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
-        }
-    }
-    cout<<'\n';
+    cout<<ctr<<'\n';
 
 }
 
@@ -55,7 +62,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

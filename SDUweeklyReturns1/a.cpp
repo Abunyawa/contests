@@ -31,22 +31,21 @@ void no(){
 void solve() {
     int n;
     cin>>n;
-    vl a(n);
+    vi a(n);
+    int sm =0;
     for(int i=0;i<n;i++){
         cin>>a[i];
+        sm+=a[i];
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    int ans = 0;
+    for(int i=0;i<n;i++){
+        if((sm-a[i])%2==0){
+            ans++;
         }
     }
-    cout<<'\n';
 
+
+    cout<<ans<<'\n';
 }
 
 int main() {
@@ -55,7 +54,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

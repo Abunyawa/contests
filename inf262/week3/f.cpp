@@ -26,27 +26,46 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
+ll fact[2000100];
+ll MOD = 998244353;
 
+ll powM(int n, int x){
+    if(x==0){
+        return 1;
+    }
+    if(x==1){
+        return n%MOD;
+    }
+
+    if(x%2==0){
+        ll a = powM(n,x/2);
+        return (a*a)%MOD;
+    }else{
+        return (n*powM(n,x-1))%MOD;
+    }
+}
+
+ll C(int n, int k){
+    return (fact[n] * powM((fact[k]*fact[n-k])%MOD,MOD-2))%MOD;
+}
 
 void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+    fact[1] = 1;
+    fact[0] = 1;
+    for(int i = 2;i<2000100;i++){
+        fact[i] = (fact[i-1]*i)%MOD;
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    ll n;
+    cin>>n;
+    ll ans = (n * fact[n])%MOD;
+    for(int i = 1;i<n;i++){
+        ans-= (C(n,i) * fact[n-i])%MOD;
+        if(ans<0){
+            ans+=MOD;
         }
     }
-    cout<<'\n';
 
+    cout<<ans<<'\n';
 }
 
 int main() {
@@ -55,7 +74,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

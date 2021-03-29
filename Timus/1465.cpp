@@ -26,27 +26,39 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
+vi grandi(1000,-1);
 
+int mex(vector<int> a) {
+	set<int> b(a.begin(), a.end());
+	for (int i=0; ; ++i)
+		if (!b.count(i))
+			return i;
+}
+
+int gr(int n){
+    if(grandi[n] == -1){
+        vi a;
+        a.pb(gr(n-2));
+        for(int i=2;i<n;i++){
+            a.pb(gr(i-2) ^ gr(n-i-1));
+        }
+        grandi[n] = mex(a);
+    }
+
+    return grandi[n];
+}
 
 void solve() {
     int n;
     cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+    grandi[0] = 0;
+    grandi[1] = grandi[2] = 1;
+    int ans = gr(n%(2*68));
+    if(ans!=0){
+        cout<<"White\n";
+    }else{
+        cout<<"Black\n";
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
-        }
-    }
-    cout<<'\n';
-
 }
 
 int main() {
@@ -55,7 +67,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

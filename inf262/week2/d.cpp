@@ -29,24 +29,22 @@ void no(){
 
 
 void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    ll n,k;
+    cin>>n>>k;
+
+    ll x = n*k+1;
+
+    for(ll i = 1;i < k;i++){
+        if(n%i==0){
+            // (x/k) * (x%k) = n
+            // x/k = n/(x%k)
+            // x = n*k/(x%k)
+            ll locAns = n*k/i + i;
+            x = min(x,locAns);
         }
     }
-    cout<<'\n';
 
+    cout<<x<<'\n';
 }
 
 int main() {
@@ -55,7 +53,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

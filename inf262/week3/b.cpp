@@ -30,23 +30,27 @@ void no(){
 
 void solve() {
     int n;
-    cin>>n;
+    ll k;
+    cin>>n>>k;
     vl a(n);
     for(int i=0;i<n;i++){
         cin>>a[i];
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+
+    ll ans = 0;
+    for(int i = 0;i<n;i++){
+        if(a[i-1]+a[i]<k){
+            ans+=k-(a[i-1]+a[i]);
+            a[i] += k-(a[i-1]+a[i]);
         }
     }
-    cout<<'\n';
 
+
+    cout<<ans<<'\n';
+    for(int i=0;i<n;i++){
+        cout<<a[i]<<' ';
+    }
+    cout<<'\n';
 }
 
 int main() {
@@ -55,7 +59,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

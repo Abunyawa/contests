@@ -29,23 +29,45 @@ void no(){
 
 
 void solve() {
-    int n;
-    cin>>n;
+    int n, m;
+    cin>>n>>m;
     vl a(n);
+
+    vi ctr(m,0);
     for(int i=0;i<n;i++){
         cin>>a[i];
+        ctr[a[i]%m]++;
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    int ans = 0;
+    if(ctr[0]>0){
+        ans++;
+        ctr[0] = 0;
+    }
+    for(int i=1;i<=m/2;i++){
+        if(m%2==0 && m/2==i){
+            break;
+        }
+        int del = min(ctr[i], ctr[(m-i)%m]);
+        ctr[i] -=del;
+        ctr[m-i] -= del;
+        if(del>0){
+            ans++;
+        }
+        if(ctr[i]>0 && del>0){
+            ctr[i]--;
+        }
+        if(ctr[m-i]>0 && del>0){
+            ctr[m-i]--;
+        }
+        ans+=max(ctr[i], ctr[(m-i)%m]);
+    }
+    if(m%2==0){
+        if(ctr[m/2]>0){
+            ans++;
         }
     }
-    cout<<'\n';
+
+    cout<<ans<<'\n';
 
 }
 

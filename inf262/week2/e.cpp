@@ -29,24 +29,31 @@ void no(){
 
 
 void solve() {
-    int n;
-    cin>>n;
+    ll n,s;
+    cin>>n>>s;
     vl a(n);
     for(int i=0;i<n;i++){
         cin>>a[i];
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+
+    sort(all(a));
+
+    ll sm = 0;
+    for(int i =1; i<n;i++){
+        sm+=a[i]-a[0];
+    }
+
+    if(sm>=s){
+        cout<<a[0];
+    }else{
+        s -= sm;
+        ll levels = (s+n-1) / n;
+        if((a[0]-levels)<0){
+            cout<<-1<<'\n';
+        }else{
+            cout<<a[0]-levels<<'\n';
         }
     }
-    cout<<'\n';
-
 }
 
 int main() {
@@ -55,7 +62,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

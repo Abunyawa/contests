@@ -29,24 +29,34 @@ void no(){
 
 
 void solve() {
-    int n;
-    cin>>n;
+    ll n,x;
+    cin>>n>>x;
     vl a(n);
+    ll sm = 0;
+    queue<pair<ll,ll>> q;
     for(int i=0;i<n;i++){
         cin>>a[i];
+        q.push({a[i],1});
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+
+    while(!q.empty()){
+        ll cur = q.front().fi;
+        ll qua = q.front().se;
+        sm+=cur*qua;
+        q.pop();
+        if(cur%x!=0){
+            break;
+        }else{
+            q.push({cur/x,qua*x});
         }
     }
-    cout<<'\n';
-
+    while(!q.empty()){
+        ll cur = q.front().fi;
+        ll qua = q.front().se;
+        sm+=cur*qua;
+        q.pop();
+    }
+    cout<<sm<<'\n';
 }
 
 int main() {

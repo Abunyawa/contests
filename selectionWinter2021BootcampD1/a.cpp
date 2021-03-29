@@ -27,26 +27,39 @@ void no(){
 }
 
 
+int f[1000100];
 
-void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+void fill(int i, int j, int k){
+    int num = i*j*k;
+    for(int del = 1;del<=sqrt(num);del++){
+        if(num%del==0){
+            if(del==num/del){
+                f[num]++;
+            }else{
+                f[num]+=2;
+            }
         }
     }
-    cout<<'\n';
+}
 
+void solve() {
+    int a,b,c;
+    cin>>a>>b>>c;
+    ll mod = (1<<30);
+    ll ans = 0;
+
+    
+    for(int i=1;i<=a;i++){
+        for(int j = 1;j<=b;j++){
+            for(int k = 1;k<=c;k++){
+                if(f[i*j*k]==0){
+                    fill(i,j,k);
+                }
+                ans+=f[i*j*k];
+            }
+        }
+    }
+    cout<<ans%mod<<'\n';
 }
 
 int main() {
@@ -55,7 +68,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

@@ -29,24 +29,43 @@ void no(){
 
 
 void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
+    int n,b;
+    cin>>n>>b;
+    vi cost;
+    int ev=0;
+    int od=0;
+    vi a(n);
     for(int i=0;i<n;i++){
         cin>>a[i];
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    for(int i=0;i<n;i++){
+        if(a[i]%2==0){
+            ev++;
+        }else{
+            od++;
+        }
+        if(od==ev){
+            if(i+1<n){
+                cost.pb(abs(a[i+1]-a[i]));
+            }
+            ev = 0;
+            od = 0;
         }
     }
-    cout<<'\n';
 
+    sort(all(cost));
+    int ans = 0;
+    int cur = 0;
+    for(int i=0;i<cost.size();i++){
+        cur+=cost[i];
+        if(cur<=b){
+            ans++;
+        }else{
+            break;
+        }
+    }
+
+    cout<<ans<<'\n';
 }
 
 int main() {
@@ -55,7 +74,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

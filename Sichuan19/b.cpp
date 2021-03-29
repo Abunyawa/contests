@@ -29,24 +29,43 @@ void no(){
 
 
 void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+    double h1,w1,h2,w2;
+    cin>>h1>>w1>>h2>>w2;
+    double area = 0;
+    area+=h1*w1+h2*w2;
+    double dop1;
+    double dop2;
+    double dop3;
+    double dop4;
+    if(h1<h2){
+        dop1 = (h2-h1)*w1/2.0;
+    }else{
+        dop1 = (h1-h2)*w2/2.0;
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
-        }
-    }
-    cout<<'\n';
 
+
+    if(w1<w2){
+        dop2 = (w2-w1)*h1/2.0;
+    }else{
+        dop2 = (w1-w2)*h2/2.0;
+    }
+
+    if(w1<h2){
+        dop3 = (h2-w1) * h1/2.0;
+    }else{
+        dop3 = (w1-h2)*w2/2.0;
+    }
+
+    if(w2<h1){
+        dop4 = (h1-w2)*h2/2.0;
+    }else{
+        dop4 = (w2-h1)*w1/2.0;
+    }
+
+    area+=min(min(dop1,dop2),min(dop3,dop4));
+
+
+    printf("%.10f\n",area);
 }
 
 int main() {
@@ -56,7 +75,8 @@ int main() {
 
     int tt = 1;
     cin>>tt;
-    while (tt--) {
+    for(int i=1;i<=tt;i++){
+        printf("Case %d: ", i);
         solve();
     }
 

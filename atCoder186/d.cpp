@@ -25,7 +25,24 @@ void yes(){
 void no(){
     cout<<"NO"<<'\n';
 }
+bool check(int x){
+    int tmp = x;
+    while(tmp!=0){
+        if(tmp%10==7){
+            return false;
+        }
+        tmp/=10;
+    }
+    tmp = x;
+    while(tmp!=0){
+        if(tmp%8==7){
+            return false;
+        }
+        tmp/=8;
+    }
 
+    return true;
+}
 
 
 void solve() {
@@ -35,18 +52,17 @@ void solve() {
     for(int i=0;i<n;i++){
         cin>>a[i];
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
-        }
+    sort(all(a));
+    vl suf(n);
+    suf[n-1] = a[n-1];
+    for(int i = n-2;i>=0;i--){
+        suf[i] = suf[i+1]+a[i];
     }
-    cout<<'\n';
-
+    ll ans = 0;
+    for(int i=0;i<n-1;i++){
+        ans += suf[i+1] - a[i]*(n-i-1);
+    }
+    cout<<ans<<'\n';
 }
 
 int main() {
@@ -55,7 +71,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

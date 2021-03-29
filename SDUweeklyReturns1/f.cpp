@@ -26,28 +26,26 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
-
+bool cmp(string a, string b){
+    return a+b < b+a;
+}
 
 void solve() {
     int n;
     cin>>n;
-    vl a(n);
+    vector<string> a(n);
     for(int i=0;i<n;i++){
         cin>>a[i];
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
-        }
+    sort(all(a),cmp);
+
+    for(int i=0;i<n;i++){
+        cout<<a[i];
     }
     cout<<'\n';
 
 }
+
 
 int main() {
     ios_base::sync_with_stdio(0);
@@ -55,7 +53,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

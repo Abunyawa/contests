@@ -26,28 +26,37 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
-
-
 void solve() {
     int n;
     cin>>n;
     vl a(n);
+    ll pro = 1;
     for(int i=0;i<n;i++){
         cin>>a[i];
-    }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+        if(a[i]>=0){
+            a[i] = -a[i]-1LL;
         }
+        pro *= a[i];
+    }
+    if(n%2==1){
+        int mn = 1;
+        int ind = -1;
+        for(int i=0;i<n;i++){
+            if(a[i]<mn){
+                mn = a[i];
+                ind = i;
+            }
+        }
+
+        a[ind] = -a[ind]-1;
+    }
+
+    for(int i=0;i<n;i++){
+        cout<<a[i]<<' ';
     }
     cout<<'\n';
-
 }
+
 
 int main() {
     ios_base::sync_with_stdio(0);
@@ -55,7 +64,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

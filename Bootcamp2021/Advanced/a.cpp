@@ -26,27 +26,27 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
-
-
 void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+    ll n,m;
+    cin>>n>>m;
+    vi u(10,0);
+    ll s = m%10;
+    vi was;
+    ll sm = 0;
+    while(u[s]==0){
+        was.pb(s);
+        sm+=s;
+        u[s] = 1;
+        s+=m;
+        s%=10;
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
-        }
+    ll b = n/m;
+    ll ans = b/was.size() * sm;
+    for(int i=0;i<b%was.size();i++){
+        ans+=was[i];
     }
-    cout<<'\n';
 
+    cout<<ans<<'\n';
 }
 
 int main() {
@@ -56,6 +56,7 @@ int main() {
 
     int tt = 1;
     cin>>tt;
+
     while (tt--) {
         solve();
     }

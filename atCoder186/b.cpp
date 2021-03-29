@@ -29,23 +29,24 @@ void no(){
 
 
 void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
+    int n,m;
+    cin>>n>>m;
+    int d[n][m];
+    int mn = 99999999999;
     for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+        for(int j = 0;j<m;j++){
+            cin>>d[i][j];
+            mn = min(mn,d[i][j]);
         }
     }
-    cout<<'\n';
+    int ans =0;
+    for(int i=0;i<n;i++){
+        for(int j = 0;j<m;j++){
+            ans+=d[i][j]-mn;
+        }
+    }
+
+    cout<<ans<<'\n';
 
 }
 
@@ -55,7 +56,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

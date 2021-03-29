@@ -27,26 +27,37 @@ void no(){
 }
 
 
-
 void solve() {
     int n;
     cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    vector<pii> sz;
+    sz.pb({1,8});
+    sz.pb({6,18});
+    sz.pb({28,28});
+    sz.pb({88,58});
+    sz.pb({198,128});
+    sz.pb({328,198});
+    sz.pb({648,388});
+    int ans  =0;
+    for(int mask = 1;mask<(1<<8);mask++){
+        int loca = 0;
+        int locn = n;
+        for(int i=0;i<7;i++){
+            if(mask&(1<<i)){
+                if(locn>=sz[i].fi){
+                    loca+=sz[i].fi*10;
+                    loca+=sz[i].se;
+                    locn-=sz[i].fi;
+                }
+            }
         }
+        loca+=locn*10;
+        ans=max(ans,loca);
+        
     }
-    cout<<'\n';
 
+
+    cout<<ans<<'\n';
 }
 
 int main() {
@@ -55,7 +66,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

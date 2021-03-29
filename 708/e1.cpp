@@ -26,26 +26,46 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
+int primes[] = {4,9,16,25,36,49,64,81,100,121,144,169,196,225,256,289,324,361,400};
 
 
 void solve() {
-    int n;
-    cin>>n;
+    int n,k;
+    cin>>n>>k;
     vl a(n);
     for(int i=0;i<n;i++){
         cin>>a[i];
-    }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+        for(int j=2;j*j<=a[i];j++){
+            while(a[i]%(j*j)==0){
+                a[i]/=j*j;
+            }
         }
     }
+    /*
+    for(int i=0;i<n;i++){
+        cout<<a[i]<<' ';
+    }
     cout<<'\n';
+    */
+    set<int> st;
+    int ans = 1;
+    int ctr = 0;
+    for(int i=0;i<n;i++){
+        int prev = st.size();
+        st.insert(a[i]);
+        if(st.size()==prev){
+            if(k>0){
+                k--;
+                st.insert(primes[ctr++]);
+            }else{
+                st.erase(all(st));
+                ans++;
+                st.insert(a[i]);
+            }
+        }
+    }
+
+    cout<<ans<<'\n';
 
 }
 

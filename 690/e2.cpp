@@ -27,26 +27,25 @@ void no(){
 }
 
 
+ll ctr[200100];
 
 void solve() {
-    int n;
-    cin>>n;
+    int n,m,k;
+    cin>>n>>m>>k;
     vl a(n);
+    for(int i=0;i<=n;i++){
+        ctr[i] = 0;
+    }
     for(int i=0;i<n;i++){
         cin>>a[i];
+        ctr[a[i]]++;
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
-        }
-    }
-    cout<<'\n';
+    vl pref(200100,0);
+    for(int i=1;i<=n;i++){
 
+    }
+    ll ans = 0;
+    
 }
 
 int main() {

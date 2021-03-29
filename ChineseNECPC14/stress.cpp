@@ -29,23 +29,22 @@ void no(){
 
 
 void solve() {
-    int n;
-    cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    cout<<"100 100 100\n";
+    for(int i=1;i<101;i++){
+        for(int j=1;j<101;j++){
+            for(int k=1;k<101;k++){
+                if(k==1){
+                    cout<<"@";
+                }else if(k==2){
+                    cout<<".";
+                }else{
+                    cout<<"*";
+                }
+            }
+            cout<<'\n';
         }
+        cout<<"\n";
     }
-    cout<<'\n';
 
 }
 
@@ -55,7 +54,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    //cin>>tt;
     while (tt--) {
         solve();
     }

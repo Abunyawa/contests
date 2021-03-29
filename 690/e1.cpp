@@ -27,26 +27,41 @@ void no(){
 }
 
 
+ll ctr[200100];
+ll count(ll n){
+    if(n<3){
+        return 0;
+    }else{
+        return (n*(n-1)*(n-2))/6;
+    }
+}
 
 void solve() {
     int n;
     cin>>n;
     vl a(n);
+    for(int i=0;i<=n;i++){
+        ctr[i] = 0;
+    }
     for(int i=0;i<n;i++){
         cin>>a[i];
+        ctr[a[i]]++;
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+    ll ans = 0;
+    for(int i=1;i<=n;i++){
+        ans+=count(ctr[i]);
+        if(i+1<=n){
+            ans+=(ctr[i]*(ctr[i]-1)/2LL*(ctr[i+1]));
+            ans+=(ctr[i+1]*(ctr[i+1]-1)/2LL*(ctr[i]));
+        }
+        if(i+2<=n){
+            ans+=(ctr[i]*(ctr[i]-1)/2LL*(ctr[i+2]));
+            ans+=(ctr[i+2]*(ctr[i+2]-1)/2LL*(ctr[i]));
+            ans+=(ctr[i]*(ctr[i+2])*(ctr[i+1]));
         }
     }
-    cout<<'\n';
-
+    cout<<ans<<'\n';
+    
 }
 
 int main() {

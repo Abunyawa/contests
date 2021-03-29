@@ -27,26 +27,34 @@ void no(){
 }
 
 
-
 void solve() {
     int n;
-    cin>>n;
+    ll k;
+    cin>>n>>k;
     vl a(n);
     for(int i=0;i<n;i++){
         cin>>a[i];
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+
+    sort(all(a));
+    int mid = n/2;
+    ll cur = a[mid];
+    int went = 1;
+    ll ans = 0;
+    for(int i=mid+1;i<n;i++){
+        if(went*a[i]-cur>k){
+            ans = a[mid] + k/went;
+            break;
+        }else{
+            a[mid] = a[i];
+            k-=went*a[i]-cur;
+            went++;
+            cur=a[i]*went;
         }
     }
-    cout<<'\n';
+    ans = a[mid] + k/went;
 
+    cout<<ans<<'\n';
 }
 
 int main() {
@@ -55,7 +63,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

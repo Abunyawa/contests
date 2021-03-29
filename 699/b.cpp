@@ -30,23 +30,40 @@ void no(){
 
 void solve() {
     int n;
-    cin>>n;
-    vl a(n);
+    ll k;
+    cin>>n>>k;
+    vi a(n);
+    int sm =0;
+    int mx= -1;
     for(int i=0;i<n;i++){
         cin>>a[i];
-    }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+        sm+=a[i];
+        if(a[i]>mx){
+            mx = a[i];
         }
     }
-    cout<<'\n';
 
+    int ans = -1;
+    for(int i=0;i<min(k,1LL*mx*n);i++){
+        int cur = 0;
+        while(cur<n-1){
+            if(a[cur]>=a[cur+1]){
+                cur++;
+            }else{
+                break;
+            }
+        }
+        if(cur!=n-1){
+            a[cur]++;
+            if(i==k-1){
+                ans = cur+1;
+            }
+        }
+    }
+
+
+    cout<<ans<<'\n';
+    
 }
 
 int main() {
@@ -56,6 +73,7 @@ int main() {
 
     int tt = 1;
     cin>>tt;
+
     while (tt--) {
         solve();
     }

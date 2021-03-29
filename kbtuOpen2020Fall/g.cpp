@@ -19,11 +19,11 @@ typedef vector<int> vi;
 typedef vector<ll> vl;
 
 void yes(){
-    cout<<"YES"<<'\n';
+    cout<<"Yes"<<'\n';
 }
 
 void no(){
-    cout<<"NO"<<'\n';
+    cout<<"No"<<'\n';
 }
 
 
@@ -31,22 +31,11 @@ void no(){
 void solve() {
     int n;
     cin>>n;
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+    if(n==1){
+        cout<<1<<'\n';
+        return;
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
-        }
-    }
-    cout<<'\n';
-
+    cout<<(n+2)/3 + 1<<'\n';
 }
 
 int main() {
@@ -55,7 +44,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

@@ -29,24 +29,34 @@ void no(){
 
 
 void solve() {
-    int n;
-    cin>>n;
+
+    cout<<__gcd(__gcd(1+25,25+25),__gcd(121+25,169+25));
+    /*
+    int n,m;
+    cin>>n>>m;
     vl a(n);
     for(int i=0;i<n;i++){
         cin>>a[i];
     }
-    int l = 0;
-    int r = n-1;
-    while(l<=r){
-        cout<<a[l]<<' ';
-        l++;
-        if(r>=l){
-            cout<<a[r]<<' ';
-            r--;
+
+    vl b(n);
+
+    for(int i=0;i<m;i++){
+        cin>>b[i];
+    }
+
+    ll gcd = __gcd(a[0],a[min(n-1,1)]);
+    for(int i = 2;i<n;i++){
+        gcd = __gcd(gcd,a[i]);
+    }
+    for(int i=0;i<m;i++){
+        if(b[i]%gcd!=0){
+            cout<<1<<' ';
+        }else{
+
         }
     }
-    cout<<'\n';
-
+    */
 }
 
 int main() {
@@ -55,7 +65,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }
