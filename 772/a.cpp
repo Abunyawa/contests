@@ -29,35 +29,20 @@ void no(){
 
 
 void solve() {
-    int n,k;
-    cin>>n>>k;
-    string s;
-    cin>>s;
-
-    string t = s;
-    reverse(all(t));
-
-    if(k==0){
-        cout<<1<<'\n';
-        return;
-    }
-    if(s==t){
-        cout<<1<<'\n';
-    }else{
-        cout<<2<<'\n';
-    }
+    
 }
 
 int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
+
     int tt = 1;
     cin>>tt;
-    
     while (tt--) {
         solve();
     }
 
     return 0;
 }
+
