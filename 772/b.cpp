@@ -32,13 +32,30 @@ void solve() {
     int n;
     cin>>n;
     vl a(n);
-    ll ans = 0;
     for(int i=0;i<n;i++){
         cin>>a[i];
-        ans |= a[i];
+    }
+    
+    ll ans = 0;
+
+    for(int i=1;i<n-1;i++){
+        if(a[i]>a[i-1] && a[i]>a[i+1]){
+            if(i+2<n){
+                ans++;
+                a[i+1] = max(a[i],a[i+2]);
+            }else{
+                ans++;
+                a[i] = max(a[i-1], a[i+1]);
+            }
+        }
     }
 
     cout<<ans<<'\n';
+    for(int i=0;i<n;i++){
+        cout<<a[i]<<' ';
+    }
+
+    cout<<'\n';
 }
 
 int main() {

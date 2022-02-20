@@ -32,13 +32,30 @@ void solve() {
     int n;
     cin>>n;
     vl a(n);
-    ll ans = 0;
     for(int i=0;i<n;i++){
         cin>>a[i];
-        ans |= a[i];
     }
 
-    cout<<ans<<'\n';
+    if(a[n-1]<a[n-2]){
+        cout<<-1<<'\n';
+        return;
+    }
+
+    if(a[n-1]>=0){
+        cout<<n-2<<'\n';
+        for(int i=n-3;i>=0;i--){
+            cout<<i+1<<' '<<n-1<<' '<<n<<'\n';
+        }
+    }else{
+        for(int i=1;i<n;i++){
+            if(a[i]<a[i-1]){
+                cout<<-1<<'\n';
+                return;
+            }
+        }
+
+        cout<<0<<'\n';
+    }
 }
 
 int main() {
