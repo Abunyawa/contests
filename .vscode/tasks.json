@@ -24,7 +24,11 @@
           "output.txt",
           "&&",
           "rm",
-          "*out"
+          "*out",
+          "&&",
+          "rm",
+          "-rf",
+          "*dSYM"
         ],
         "group": {
           "kind": "build",
