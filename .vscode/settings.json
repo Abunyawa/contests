@@ -26,6 +26,15 @@
         "ratio": "cpp",
         "chrono": "cpp",
         "complex": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "span": "cpp",
+        "__hash_table": "cpp",
+        "__split_buffer": "cpp",
+        "__tree": "cpp",
+        "queue": "cpp",
+        "stack": "cpp",
+        "ranges": "cpp"
     }
 }
