@@ -29,19 +29,33 @@ void no(){
 
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
+    string s;
+    cin>>s;
+    int o=-1;
+    int z=-1;
+    for(int i=0;i<n-1;i++){
+        int have = i+2;
 
-    ll free = n-4;
+        if(s[i]=='0'){
+            int base = have-1;
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+            int red = i-o-1;
+
+            cout<<base-red<<' ';
+            z=i;
+        }else{
+            int base = have-1;
+
+            int red = i-z-1;
+
+            cout<<base-red<<' ';
+            o=i;
+        }
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    cout<<'\n';
 }
 
 int main() {

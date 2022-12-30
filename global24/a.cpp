@@ -29,19 +29,15 @@ void no(){
 
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
+    vi a(n);
 
-    ll free = n-4;
-
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    cout<<1<<' '<<n<<'\n';
 }
 
 int main() {

@@ -26,22 +26,46 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
-
+const ll MOD = 998244353;
 
 void solve() {
-    ll n;
-    cin>>n;
+    int n;
+    ll m;
+    cin>>n>>m;
 
-    ll free = n-4;
+    vl a(n);
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    ll cur = a[0];
+    ll ans = 1;
+    for(int i=1;i<n;i++){
+        if(__gcd(cur,a[i])!=a[i]){
+            cout<<0<<'\n';
+            return;
+        }
+
+        ll have = m/a[i];
+        
+        ll left = cur/a[i];
+        ll fix = cur/a[i];
+
+        for(int i=2;i<=sqrt(fix);i++){
+            if(left%i==0){
+                have -= (fix/i);
+            }
+            while(left%i==0){
+                left/=i;
+            }
+        }    
+    
+        cur = a[i];
+        ans = (ans*have)%MOD;
+    }
+
+    cout<<ans<<'\n';
 }
 
 int main() {

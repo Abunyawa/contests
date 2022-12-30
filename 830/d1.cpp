@@ -9,7 +9,7 @@
 #define all(x) (x).begin(), (x).end()
 #define sz(x) (int)(x).size()
 #define rep(i, a, b) for (int i = (a); i < (b); ++i)
-#define debug(x) cerr << #x << " = " << x << endl
+#define debug(x) cerr << #x << " = " << (x) << endl
 
 using namespace std;
 
@@ -29,19 +29,32 @@ void no(){
 
 
 void solve() {
-    ll n;
-    cin>>n;
+    int q;
+    cin>>q;
+    map<ll,ll> ans;
+    map<ll, bool> have;
+    for(int i=0;i<q;i++){
+        char op;
+        cin>>op;
+        ll x;
+        cin>>x;
 
-    ll free = n-4;
+        if(op=='+'){
+            have[x] = 1;
+        }else{
+            ll lastAns = ans[x];
+            if(lastAns==0){
+                lastAns=x;
+            }
+            while(have[lastAns]==1){
+                lastAns+=x;
+            }
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+            ans[x] = lastAns;
+
+            cout<<lastAns<<'\n';
+        }
     }
-    cout<<min(a-1, b-a)<<'\n';
 }
 
 int main() {
@@ -50,7 +63,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    //cin>>tt;
     while (tt--) {
         solve();
     }

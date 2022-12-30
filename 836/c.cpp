@@ -26,22 +26,36 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
-
-
 void solve() {
-    ll n;
-    cin>>n;
+    int n,x;
+    cin>>n>>x;
 
-    ll free = n-4;
-
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    if(n%x!=0){
+        cout<<-1<<'\n';
+        return;
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    vi ans(n+1);
+
+    for(int i=1;i<=n;i++){
+        ans[i] = i;
+    }
+    ans[n] = 1;
+
+    ans[1] = x;
+
+    for(int i = x+1;i<=n;i++){
+        if(i%x==0 && n%i==0){
+            ans[x] = i;
+            x = i;
+        }
+    }
+
+    for(int i=1;i<=n;i++){
+        cout<<ans[i]<<' ';
+    }
+
+    cout<<'\n';
 }
 
 int main() {

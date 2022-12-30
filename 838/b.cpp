@@ -29,19 +29,31 @@ void no(){
 
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
 
-    ll free = n-4;
+    vector<pair<ll,int>>  a(n);
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    for(int i=0;i<n;i++){
+        cin>>a[i].fi; a[i].se = i;
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    sort(all(a));
+
+    vector<pair<int,ll>> ans;
+    for(int i=1;i<n;i++){
+        if(a[i].fi%a[i-1].fi!=0){
+            ans.pb({a[i].se, a[i-1].fi - a[i].fi%a[i-1].fi});
+            a[i].fi+=a[i-1].fi - a[i].fi%a[i-1].fi;
+        }
+    }
+
+    cout<<sz(ans)<<'\n';
+
+    for(auto x: ans){
+        cout<<x.fi+1<<' '<<x.se<<'\n';
+    }
+
 }
 
 int main() {

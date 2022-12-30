@@ -26,22 +26,38 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
-
-
 void solve() {
     ll n;
     cin>>n;
 
-    ll free = n-4;
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    ll sm = (n+1LL)*n/2LL;
+
+    for(ll k = n-1;;k++){
+        ll need = k*k;
+
+        ll x = need-sm;
+        if(x<0){
+            continue;
+        }
+        x -= k+1-n;
+
+        if(x%n<=((n-2)*(k-n+1))){
+            ll add = x/n;
+            ll left = x%n;
+
+            cout<<1+add<<' '<<k+1+add<<' ';
+            for(int i=n-1;i>=2;i--){
+                ll dop = min(left,k-n+1);
+                left-=dop;
+
+                cout<<i+add+dop<<' ';
+            }
+
+            cout<<'\n';
+            return;
+        }
     }
-    cout<<min(a-1, b-a)<<'\n';
 }
 
 int main() {

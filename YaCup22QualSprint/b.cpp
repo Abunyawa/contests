@@ -19,29 +19,38 @@ typedef vector<int> vi;
 typedef vector<ll> vl;
 
 void yes(){
-    cout<<"YES"<<'\n';
+    cout<<"Yes"<<'\n';
 }
 
 void no(){
-    cout<<"NO"<<'\n';
+    cout<<"No"<<'\n';
 }
 
+bool check(ll s, int d){
 
+    while(s!=0){
+        int cur = s%10;
+        s/=10;
+        if(cur%d!=0){
+            return false;
+        }
+    }
+
+    return true;
+}
 
 void solve() {
     ll n;
-    cin>>n;
-
-    ll free = n-4;
-
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    int d;
+    cin>>n>>d;
+    int ans  = 0;
+    for(int i=1;i<=n;i++){
+        if(check(i,d)){
+            ans++;
+        }
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    cout<<ans<<'\n';
 }
 
 int main() {

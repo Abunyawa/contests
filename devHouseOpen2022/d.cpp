@@ -26,22 +26,40 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
-
+const ll MOD = 1e9+7;
+vi let[26];
 
 void solve() {
-    ll n;
-    cin>>n;
+    string s;
+    cin>>s;
+    ll ans = 0;
+    int n = s.length();
 
-    ll free = n-4;
-
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    for(int i=0;i<26;i++){
+        let[i].pb(-1);
     }
-    cout<<min(a-1, b-a)<<'\n';
+    for(int i=0;i<n;i++){
+        let[s[i]-'A'].pb(i);
+    }
+
+    for(int i=0;i<26;i++){
+        let[i].pb(n);
+    }
+
+    for(int i=0;i<26;i++){
+        for(int cur=1;cur<let[i].size()-1;cur++){
+            ll left = (let[i][cur] - let[i][cur-1]);
+            ll right = (let[i][cur+1] - let[i][cur]);
+
+            ans += (left*right)%MOD;
+            if(ans>=MOD){
+                ans-=MOD;
+            }
+        }
+    }
+
+    cout<<ans<<'\n';
+
 }
 
 int main() {
@@ -50,7 +68,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

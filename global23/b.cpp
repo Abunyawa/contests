@@ -29,19 +29,36 @@ void no(){
 
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
 
-    ll free = n-4;
+    vi a(n);
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    int l=0;
+    int r = n-1;
+    int ans= 0 ;
+    while(l<r){
+        while(r>l && a[r]!=0){
+            r--;
+        }
+
+        while(r>l && a[l]!=1){
+            l++;
+        }
+
+        if(l<r){
+            ans++;
+            l++;
+            r--;
+        }
+    }
+
+    cout<<ans<<'\n';
 }
 
 int main() {
@@ -51,6 +68,7 @@ int main() {
 
     int tt = 1;
     cin>>tt;
+
     while (tt--) {
         solve();
     }

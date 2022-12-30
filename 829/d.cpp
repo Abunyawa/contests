@@ -26,22 +26,40 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
-
+ll ctr[500100];
 
 void solve() {
-    ll n;
-    cin>>n;
+    int n, x;
+    cin>>n>>x;
 
-    ll free = n-4;
-
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    for(int i=0;i<n;i++){
+        int a;
+        cin>>a;
+        ctr[a]++;
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+
+    for(int i=1;i<500100;i++){
+        if(ctr[i]>i){
+            ctr[i+1]+=ctr[i]/(i+1);
+            ctr[i]=ctr[i]%(i+1);
+        }
+
+        //cout<<ctr[i]<<'\n';
+    }
+
+    
+    for(int j=x-1;j>0;j--){
+        if(ctr[j]>0){
+            //cout<<j<<'\n';
+            no();
+            return;
+        }
+    }
+    yes();
+    return;
+
+    no();
 }
 
 int main() {
@@ -50,7 +68,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    //cin>>tt;
     while (tt--) {
         solve();
     }

@@ -29,19 +29,48 @@ void no(){
 
 
 void solve() {
-    ll n;
-    cin>>n;
+    ll l,r;
+    cin>>l>>r;
 
-    ll free = n-4;
+    ll lb = min(l/(ll)sqrt(l), (ll)sqrt(l));
+    ll rb = min(r/(ll)sqrt(r), (ll)sqrt(r));
+    //cout<<lb<<' '<<rb<<'\n';
+    ll ans = 0;
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    ll asd = 1e9;
+
+    if(lb*lb>=l && lb*lb<=r){
+        ans++;
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    if(lb*(lb+1LL)>=l && lb*(lb+1LL)<=r){
+        ans++;
+    }
+
+    if(lb*(lb+2LL)>=l && lb*(lb+2LL)<=r){
+        ans++;
+    }
+
+
+    if(rb!=lb){
+        if(rb*rb>=l && rb*rb<=r){
+            ans++;
+        }
+
+        if(rb*(rb+1LL)>=l && rb*(rb+1LL)<=r){
+            ans++;
+        }
+
+        if(rb*(rb+2LL)>=l && rb*(rb+2LL)<=r){
+            ans++;
+        }
+    }
+
+    if(rb-lb-1LL>0){
+        ans+= 3LL*(rb-lb-1LL);
+    }
+
+    cout<<ans<<'\n';
 }
 
 int main() {

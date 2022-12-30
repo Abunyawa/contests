@@ -25,23 +25,34 @@ void yes(){
 void no(){
     cout<<"NO"<<'\n';
 }
-
-
+const ll MOD = 999983;
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
+    vl a(n);
+    ll cur = 1;
 
-    ll free = n-4;
-
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    bool ans = false;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    sort(all(a));
+
+    cur = a[0];
+
+    for(int i=1;i<n;i++){
+        if(__gcd(cur,a[i])!=1){
+            yes();
+            return;
+        }else{
+            cur = (cur*a[i])%MOD;
+        }
+    }
+
+    no();
+
 }
 
 int main() {
@@ -51,6 +62,7 @@ int main() {
 
     int tt = 1;
     cin>>tt;
+
     while (tt--) {
         solve();
     }

@@ -29,19 +29,41 @@ void no(){
 
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
+    vl a(n);
 
-    ll free = n-4;
+    ll last = 0;
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        last+=a[i];
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    map<ll,int> m;
+
+    ll ans = 0;
+    int mx = 0;
+    for(int i=n-1;i>=0;i--){
+        m[last]++;
+        mx = max(mx, m[last]);
+        
+
+        if(a[i]==0){
+            ans += mx;
+            mx = 0;
+            m.clear();
+            continue;
+        }
+        
+        last-=a[i];
+    }
+
+    ans+=m[0];
+
+    cout<<ans<<'\n';
+
+
 }
 
 int main() {

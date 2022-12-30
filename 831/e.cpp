@@ -15,6 +15,7 @@ using namespace std;
 
 typedef long long ll;
 typedef pair<int, int> pii;
+typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 typedef vector<ll> vl;
 
@@ -26,22 +27,52 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
+vi g[200100];
+ll sum[200100];
+ll mx[200100];
+ll ans = 0;
 
+void dfs(int v){
+    
+    sum[v] = 0;
+    mx[v] = 0;
+    for(int to:g[v]){
+        dfs(to);
+        sum[v]+=max(sum[to], mx[to]);
+        mx[v] = max(mx[v], mx[to]+1);
+    }
+
+    if(g[v].size()==0){
+        sum[v] = 1;
+        mx[v]  =1;
+        return;
+    }
+
+    if(v==1){
+        if(g[v].size()==1){
+            ans = max(sum[v], mx[v]);
+        }else{
+            for(int to:g[v]){
+                ans += max(sum[to], mx[to]);
+            }
+        }
+    }
+}
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
 
-    ll free = n-4;
+    for(int i=2;i<=n;i++){
+        int x;
+        cin>>x;
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+        g[x].pb(i);
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    dfs(1);
+
+    cout<<ans<<'\n';
 }
 
 int main() {
@@ -50,7 +81,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+
     while (tt--) {
         solve();
     }

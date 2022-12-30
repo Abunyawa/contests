@@ -29,19 +29,29 @@ void no(){
 
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
-
-    ll free = n-4;
-
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    string s;
+    cin>>s;
+    if(n<=2){
+        no();
+        return;
     }
-    cout<<min(a-1, b-a)<<'\n';
+    map<pii,int> ctr;
+    pii last = {s[0]-'a', s[1]-'a'};
+    for(int i=1;i<s.length()-1;i++){
+        pii cur = {s[i]-'a',s[i+1]-'a'};
+
+        if(ctr[cur]>0){
+            yes();
+            return;
+        }
+
+        ctr[last]++;
+        last = cur;
+    }
+
+    no();
 }
 
 int main() {

@@ -29,19 +29,26 @@ void no(){
 
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
+    int k;
+    cin>>k;
+    vi a(n);
 
-    ll free = n-4;
+    bool has = false;
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        if(a[i]==1){
+            has = true;
+        }
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    if(has){
+        yes();
+    }else{
+        no();
+    }
 }
 
 int main() {
@@ -51,6 +58,7 @@ int main() {
 
     int tt = 1;
     cin>>tt;
+
     while (tt--) {
         solve();
     }

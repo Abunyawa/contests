@@ -29,19 +29,45 @@ void no(){
 
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
 
-    ll free = n-4;
+    vi a(n);
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    vector<pii> dif;
+
+    for(int i=0;i<n-1;i++){
+        if(a[i+1]<a[i]){
+            dif.pb({a[i]-a[i+1], i+1});
+        }
+    }
+
+    sort(all(dif));
+
+    vi ans(n+1,1);
+
+    int p = 0;
+    int cur = 1;
+    while(p<dif.size()){
+        //debug(dif[p].fi);
+        ans[cur] = dif[p].se + 1;
+        dif[p].fi-=cur;
+        //debug(dif[p].fi);
+        cur++;
+        if(dif[p].fi<=0){
+            p++;
+        }
+    }
+
+    for(int i=1;i<=n;i++){
+        cout<<ans[i]<<' ';
+    }
+
+    cout<<'\n';
 }
 
 int main() {
@@ -51,6 +77,7 @@ int main() {
 
     int tt = 1;
     cin>>tt;
+
     while (tt--) {
         solve();
     }

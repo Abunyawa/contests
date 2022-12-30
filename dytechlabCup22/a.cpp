@@ -29,19 +29,33 @@ void no(){
 
 
 void solve() {
-    ll n;
-    cin>>n;
+    int n, k;
+    cin>>n>>k;
+    string s;
+    cin>>s;
 
-    ll free = n-4;
+    vi a(26,0);
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    for(int i=0;i<n;i++){
+        a[s[i]-'a']++;
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    vi ans(k,0);
+
+    for(int i=0;i<26;i++){
+        for(int j=0;j<k;j++){
+            if(ans[j]==i && a[i]>0 && ans[j]<n/k){
+                ans[j]++;
+                a[i]--;
+            }
+        }
+    }
+
+    for(int i=0;i<k;i++){
+        cout<<(char)(ans[i]+'a');
+    }
+
+    cout<<'\n';
 }
 
 int main() {

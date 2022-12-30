@@ -29,19 +29,28 @@ void no(){
 
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
+    string s;
+    cin>>s;
+    int a = 0;
 
-    ll free = n-4;
-
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    for(int i=0;i<n;i++){
+        if(s[i]=='Q'){
+            a++;
+        }else{
+            if(a>0){
+                a--;
+            }
+        }
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+
+    if(a<=0){
+        yes();
+    }else{
+        no();
+    }
 }
 
 int main() {

@@ -26,22 +26,24 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
-
-
 void solve() {
-    ll n;
+    int n;
     cin>>n;
 
-    ll free = n-4;
+    if(n%2==1){
+        for(int i=0;i<n;i++){
+            cout<<1<<' ';
+        }
+        cout<<'\n';
+    }else{
+        cout<<3<<' '<<1<<' ';
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+        for(int i=2;i<n;i++){
+            cout<<2<<' ';
+        }
+
+        cout<<'\n';
     }
-    cout<<min(a-1, b-a)<<'\n';
 }
 
 int main() {

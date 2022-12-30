@@ -15,6 +15,7 @@ using namespace std;
 
 typedef long long ll;
 typedef pair<int, int> pii;
+typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 typedef vector<ll> vl;
 
@@ -29,19 +30,27 @@ void no(){
 
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
 
-    ll free = n-4;
+    vector<pll> a(n);
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    ll p = 0;
+    for(int i=0;i<n;i++){
+        cin>>a[i].fi>>a[i].se;
+         
+        if(a[i].fi<a[i].se){
+            swap(a[i].fi,a[i].se);
+        }
+
+        p+=2LL*a[i].se;
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    sort(all(a));
+
+    p+=a[n-1].fi*2LL;
+
+    cout<<p<<'\n';
 }
 
 int main() {

@@ -29,20 +29,47 @@ void no(){
 
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
 
-    ll free = n-4;
+    string s;
+    cin>>s;
+    s = " "+s;
+    vector<vi> pref(n+1,vi(10,0));
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    for(int i=1;i<=n;i++){
+        for(int j=0;j<10;j++){
+            pref[i][j] = pref[i-1][j];
+        }
+
+        pref[i][s[i]-'0']++;
     }
-    cout<<min(a-1, b-a)<<'\n';
+    int ans = 0;
+    for(int k=1;k<=100;k++){
+        for(int i=1;i+k-1<=n;i++){
+            int nl = 0;
+            int mx = 0;
+            for(int j=0;j<10;j++){
+                int have = pref[i+k-1][j] - pref[i-1][j];
+                mx = max(mx, have);
+                if(have!=0){
+                    nl++;
+                }
+            }
+
+            if(mx<=nl){
+                ans++;
+            }
+
+
+        }
+    }
+
+    cout<<ans<<'\n';
+    
 }
+
+
 
 int main() {
     ios_base::sync_with_stdio(0);

@@ -7,6 +7,7 @@
 #define fi first
 #define se second
 #define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
 #define sz(x) (int)(x).size()
 #define rep(i, a, b) for (int i = (a); i < (b); ++i)
 #define debug(x) cerr << #x << " = " << x << endl
@@ -29,19 +30,52 @@ void no(){
 
 
 void solve() {
-    ll n;
+    int n = 0;
     cin>>n;
 
-    ll free = n-4;
+    vector<ll> b(n);
+    vector<pair<ll,int>> a(n);
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    for(int i=0;i<n;i++){
+        cin>>a[i].fi;
+        b[i] = a[i].fi;
+        a[i].se = i;
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    vector<bool> used(n, false);
+
+    vector<ll> ans;
+    for(int i=35;i>=0;i--){
+        ll cur = (1<<i);
+
+        
+
+        sort(rall(a));
+
+        for(int j=0;j<n;j++){
+            if(a[j].fi>=cur){
+                a[j].fi-=cur;
+            }
+        }
+
+    
+        if(!used[a[0].se]){
+            ans.pb(b[a[0].se]);
+            used[a[0].se] = true;
+        }
+    }
+
+    for(int i=0;i<n;i++){
+        if(!used[a[i].se]){
+            ans.pb(b[a[i].se]);
+        }
+    }
+
+    for(int i=0;i<n;i++){ 
+        cout<<ans[i]<<' ';
+    }
+
+    cout<<'\n';
 }
 
 int main() {

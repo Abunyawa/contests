@@ -9,7 +9,7 @@
         "type": "shell",
         "command": "",
         "args": [
-          "g++-11",
+          "g++-12",
           "-g",
           "${relativeFile}",
           "-o",

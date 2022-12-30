@@ -26,22 +26,27 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
-
-
 void solve() {
-    ll n;
+    int n;
     cin>>n;
 
-    ll free = n-4;
+    vl a(n);
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    sort(all(a));
+
+    ll cur = 0;
+    ll ans = n;
+    for(int i=0;i<n;i++){
+        ll locA = a[i] + (n-i-1);
+
+        ans = min(ans,locA);
+    }
+
+    cout<<ans<<'\n';
 }
 
 int main() {
@@ -50,7 +55,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

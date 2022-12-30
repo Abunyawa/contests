@@ -29,19 +29,23 @@ void no(){
 
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
+    vl a(n);
 
-    ll free = n-4;
-
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    ll gcd = -1;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        if(i==0){
+            gcd = a[i];
+        }else{
+            gcd = __gcd(gcd,a[i]);
+        }
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    cout<<a[n-1]/gcd<<'\n';
+
+    
 }
 
 int main() {

@@ -29,19 +29,22 @@ void no(){
 
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
+    
+    int step = n/2;
 
-    ll free = n-4;
+    vector<bool> used(n+1,false);
+    for(int i=step;i>=1;i--){
+        if(used[i]) continue;
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+        for(int j = i; j<=n; j+=step){
+            used[j] = true;
+            cout<<j<<' ';
+        }
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    cout<<'\n';
 }
 
 int main() {

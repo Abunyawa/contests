@@ -29,19 +29,7 @@ void no(){
 
 
 void solve() {
-    ll n;
-    cin>>n;
-
-    ll free = n-4;
-
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
-    }
-    cout<<min(a-1, b-a)<<'\n';
+    
 }
 
 int main() {
@@ -50,7 +38,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

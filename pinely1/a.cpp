@@ -29,19 +29,25 @@ void no(){
 
 
 void solve() {
-    ll n;
-    cin>>n;
+    int n,a,b;
+    cin>>n>>a>>b;
 
-    ll free = n-4;
-
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    if(a+b == 2*n){
+        yes();
+        return;
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    if(a+b>=n){
+        no();
+        return;
+    }
+    
+    if((a+b)==n-1){
+        no();
+        return;
+    }
+
+    yes();
 }
 
 int main() {

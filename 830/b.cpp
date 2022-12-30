@@ -29,19 +29,30 @@ void no(){
 
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
+    string s;
+    cin>>s;
 
-    ll free = n-4;
+    int cur = 0;
+    int ans =0;
+    for(int i=1;i<n;i++){
+        int x = s[i]-'0';
+        if(cur%2==1){
+            x^=1;
+        }
 
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+        if(x>=(s[i-1]-'0')){
+            s[i] = x+'0';
+            continue;
+        }else{
+            ans++;
+            cur^=1;
+            s[i] = x^1 +'0';
+        }
     }
-    cout<<min(a-1, b-a)<<'\n';
+    cout<<ans<<'\n';
+
 }
 
 int main() {

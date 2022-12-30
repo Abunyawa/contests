@@ -29,19 +29,20 @@ void no(){
 
 
 void solve() {
-    ll n;
+    int n;
     cin>>n;
+    int ans = 0;
+    while(n>0){
+        if(n>=10){
+            ans+=9;
+        }else{
+            ans+=n;
+        }
 
-    ll free = n-4;
-
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+        n/=10;
     }
-    cout<<min(a-1, b-a)<<'\n';
+
+    cout<<ans<<'\n';
 }
 
 int main() {

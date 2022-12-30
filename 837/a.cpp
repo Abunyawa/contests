@@ -31,17 +31,27 @@ void no(){
 void solve() {
     ll n;
     cin>>n;
+    vl a(n);
 
-    ll free = n-4;
-
-    ll a = free/3;
-    ll b = a*2;
-    if(free%3==1){
-        a++;
-    }else if(free%3==2){
-        a++;b++;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
     }
-    cout<<min(a-1, b-a)<<'\n';
+    sort(all(a));
+
+    if(a[0]==a[n-1]){
+        ll ans = n*(n-1LL);
+        cout<<ans<<'\n';
+        return;
+    }
+    ll mn = 0;
+    ll mx = 0;
+    for(int i=0;i<n;i++){
+        if(a[i]==a[0]) mn++;
+        if(a[i]==a[n-1]) mx++;
+    }
+    ll ans = 2LL*mn*mx;
+
+    cout<<ans<<'\n';
 }
 
 int main() {
@@ -51,6 +61,7 @@ int main() {
 
     int tt = 1;
     cin>>tt;
+
     while (tt--) {
         solve();
     }
