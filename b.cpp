@@ -29,39 +29,40 @@ void no(){
 
 
 void solve() {
-    int n,m;
-    cin>>n>>m;
+    int n,k,d,w;
+    cin>>n>>k>>d>>w;
+    vector<pii> t(n);
 
-    vl a(n);
     for(int i=0;i<n;i++){
-        cin>>a[i];
+        cin>>t[i].fi;
+        t[i].se = t[i].fi+w;
     }
 
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
-    }
+    int st = 0;
+    int cur = 0;
+    int ans =0;
 
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
-            }
+    for(int i=0;i<n;i++){
+        if(cur==k){
+            ans++;
+            cur = 0;
+            st = i;
         }
-
-        a[ind] = b[i];
+        if(t[i].fi<=t[st].se+d){
+            cur++;
+        }else{
+            ans++;
+            cur = 1;
+            st = i;
+        }
     }
-
-    for(int i=0;i<n;i++){
-        ans+=a[i];
+    if(cur!=0){
+        ans++;
+        cur = 0;
     }
 
     cout<<ans<<'\n';
+
 }
 
 int main() {

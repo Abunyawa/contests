@@ -29,36 +29,12 @@ void no(){
 
 
 void solve() {
-    int n,m;
-    cin>>n>>m;
+    int x,y;
+    cin>>x>>y;
 
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
-    }
-
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
-            }
-        }
-
-        a[ind] = b[i];
-    }
-
-    for(int i=0;i<n;i++){
-        ans+=a[i];
+    int ans = min(abs(x), abs(y))*2;
+    if(min(abs(x), abs(y))<max(abs(x), abs(y))){
+        ans += (max(abs(x), abs(y)) - min(abs(x), abs(y)))*2-1;
     }
 
     cout<<ans<<'\n';

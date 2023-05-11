@@ -26,42 +26,59 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
-
-
 void solve() {
-    int n,m;
-    cin>>n>>m;
+    int n, k;
+    cin>>n>>k;
 
-    vl a(n);
+    vi a(n);
+    vi b(n);
+
     for(int i=0;i<n;i++){
         cin>>a[i];
+        b[i] = a[i];
     }
 
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
-    }
+    sort(all(b));
+    map<int,int> m;
+    map<int,int> ans;
+    for(int i=0;i<n;i++){
+        int cur = b[i];
 
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
+        ans[cur] = 0;
+        for(int j = 1;j<=sqrt(cur);j++){
+            if(cur%j==0){
+                if(cur/j==cur/(cur/j)){
+                    ans[cur] += m[j];
+                }else{
+                    ans[cur] += m[j];
+                    ans[cur] += m[cur/j];
+                }
             }
         }
-
-        a[ind] = b[i];
+        //cout<<ans[cur]<<' ';
+        m[cur]++;
     }
-
+    //cout<<'\n';
     for(int i=0;i<n;i++){
-        ans+=a[i];
+        b[i] = ans[a[i]];
+        //cout<<b[i]<<' ';
     }
 
-    cout<<ans<<'\n';
+    ll sm = 0;
+    ll smb = 0;
+    for(int i=0;i<k;i++){
+        sm+=b[i];
+    }
+    smb = sm;
+    for(int i=k;i<n;i++){
+        sm+=b[i];
+        sm-=b[i-k];
+
+        smb = min(sm,smb);
+    }
+
+
+    cout<<smb<<'\n';
 }
 
 int main() {
@@ -70,7 +87,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

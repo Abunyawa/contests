@@ -31,37 +31,27 @@ void no(){
 void solve() {
     int n,m;
     cin>>n>>m;
-
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-
-    vl b(m);
-    ll ans = 0;
+    vi ans(n,-1);
+    vi was(m+1,0);
+    int ctr = n-1;
     for(int i=0;i<m;i++){
-        cin>>b[i];
-    }
-
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
+        int x;
+        cin>>x;
+        x-=n;
+        if(!was[x]){
+            was[x] = 1;
+            if(ctr>=0){
+                ans[ctr] = i+1;
+                ctr--;
             }
         }
-
-        a[ind] = b[i];
     }
 
     for(int i=0;i<n;i++){
-        ans+=a[i];
+        cout<<ans[i]<<' ';
     }
 
-    cout<<ans<<'\n';
+    cout<<'\n';
 }
 
 int main() {

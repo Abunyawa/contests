@@ -29,37 +29,46 @@ void no(){
 
 
 void solve() {
-    int n,m;
-    cin>>n>>m;
-
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-
-    vl b(m);
+    ll n;
+    cin>>n;
+    ll fix = sqrt(n);
     ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
+
+    vector<pii> div;
+    for(int i=2;i<=fix;i++){
+        int ctr = 0;
+        while(n%i==0){
+            ctr++;
+            n/=i;
+        }
+
+        if(ctr!=0){
+            div.pb({i,ctr});
+        }
     }
 
-    sort(all(a));
+    if(n>1){
+        div.pb({n,1});
+    }
 
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
+
+    while(true){
+        ll add = 1;
+
+        for(int i=0;i<div.size();i++){
+            if(div[i].se>0){
+                add*=div[i].fi;
+                div[i].se--;
             }
         }
 
-        a[ind] = b[i];
+        if(add==1){
+            break;
+        }else{
+            ans+=add;
+        }
     }
-
-    for(int i=0;i<n;i++){
-        ans+=a[i];
-    }
+    
 
     cout<<ans<<'\n';
 }

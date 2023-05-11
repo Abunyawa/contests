@@ -1,6 +1,7 @@
 // chrono::system_clock::now().time_since_epoch().count()
 #include <bits/stdc++.h>
 
+
 #define pb push_back
 #define eb emplace_back
 #define mp make_pair
@@ -29,36 +30,36 @@ void no(){
 
 
 void solve() {
-    int n,m;
-    cin>>n>>m;
+    ll n;
+    ll c,d;
+    cin>>n>>c>>d;
 
-    vl a(n);
+    vl a;
+    ll ans =n*c+d;
+    set<ll> st;
+    ll fx = 0;
     for(int i=0;i<n;i++){
-        cin>>a[i];
+        ll x;
+        int szs = st.size();
+        cin>>x;
+        st.insert(x);
+        if(st.size()==szs){
+            fx+=c;
+        }else{
+            a.pb(x);
+        }
     }
 
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
-    }
-
+    ll left = 0;
+    ll right = a.size();
     sort(all(a));
 
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
-            }
-        }
+    for(int i=0;i<a.size();i++){
+        ll pr = (a[i]-1LL - left)*d + (a.size()-1LL-i)*c;
 
-        a[ind] = b[i];
-    }
-
-    for(int i=0;i<n;i++){
-        ans+=a[i];
+        //cout<<pr+fx<<"----\n";
+        ans = min(ans, pr+fx);
+        left++;
     }
 
     cout<<ans<<'\n';
@@ -70,7 +71,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    cin>>tt; 
     while (tt--) {
         solve();
     }

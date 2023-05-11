@@ -29,39 +29,17 @@ void no(){
 
 
 void solve() {
-    int n,m;
-    cin>>n>>m;
+   int n;
+   cin>>n;
 
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
+   vector<array<3,int>> a(n);
+   for(int i=0;i<n;i++){
+        cin>>a[i][1]>>a[i][2];
 
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
-    }
+        a[i][0] = a[i][1]*a[i][2];
+   } 
 
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
-            }
-        }
-
-        a[ind] = b[i];
-    }
-
-    for(int i=0;i<n;i++){
-        ans+=a[i];
-    }
-
-    cout<<ans<<'\n';
+   
 }
 
 int main() {
@@ -70,7 +48,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    cin>>tt; 
     while (tt--) {
         solve();
     }

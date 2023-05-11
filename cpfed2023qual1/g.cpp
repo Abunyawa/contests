@@ -25,43 +25,39 @@ void yes(){
 void no(){
     cout<<"NO"<<'\n';
 }
-
-
+int n,m;
+int dy[] = {1,0,-1,0};
+int dx[] = {0,-1,0,1};
+int gr[110][110];
+vector<pii> g[110][110];
+int in[110][110];
+int used[110][110];
+bool bad = false;
+vector<pii> moves;
 
 void solve() {
-    int n,m;
-    cin>>n>>m;
+    int n, k;
+    cin>>n>>k;
 
     vl a(n);
+
+    ll sm = 0;
     for(int i=0;i<n;i++){
         cin>>a[i];
+        sm+=a[i];
     }
 
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
+    if(sm%k!=0){
+        no();
+        return;
+    }
+    ll piece_size = sm/k;
+
+    vl left;
+    for(int i = 0;i<n;i++){
+        
     }
 
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
-            }
-        }
-
-        a[ind] = b[i];
-    }
-
-    for(int i=0;i<n;i++){
-        ans+=a[i];
-    }
-
-    cout<<ans<<'\n';
 }
 
 int main() {

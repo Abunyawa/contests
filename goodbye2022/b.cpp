@@ -29,39 +29,27 @@ void no(){
 
 
 void solve() {
-    int n,m;
-    cin>>n>>m;
+    int n,k;
+    cin>>n>>k;
 
-    vl a(n);
+    vi a(n,0);
+    int ctr = 1;
+    for(int i=k-1;i<n;i+=k){
+        a[i] = ctr++;
+    }
+    ctr = n;
     for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
-    }
-
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
-            }
+        if(a[i]==0){
+            a[i] = ctr--;
         }
-
-        a[ind] = b[i];
     }
+
 
     for(int i=0;i<n;i++){
-        ans+=a[i];
+        cout<<a[i]<<' ';
     }
 
-    cout<<ans<<'\n';
+    cout<<'\n';
 }
 
 int main() {

@@ -29,36 +29,42 @@ void no(){
 
 
 void solve() {
-    int n,m;
-    cin>>n>>m;
+    int n;
+    cin>>n;
 
-    vl a(n);
-    for(int i=0;i<n;i++){
+    vi a(2*n);
+
+    for(int i=0;i<2*n;i++){
         cin>>a[i];
     }
 
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
+    int sm1 = 0;
+    int sm2 = 0;
+
+    if(n==1){
+        cout<<abs(a[0]-a[1])<<'\n';
+        return;
     }
-
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
-            }
-        }
-
-        a[ind] = b[i];
-    }
-
     for(int i=0;i<n;i++){
-        ans+=a[i];
+        sm1+=abs(a[i]);
+    }
+
+    for(int i=n;i<2*n;i++){
+        sm2+=abs(a[i]);
+    }
+    int ans = abs(sm1) + abs(sm2);
+    for(int i =0;i<n;i++){
+
+        int lsm1 = sm1;
+
+        int lsm2 = sm2;
+
+        lsm1 -= a[i];
+        lsm2 -= a[i+n];
+        lsm2 += a[i+n] - a[i];
+        lsm2 += a[i];
+
+        ans = min(ans, abs(lsm1) + abs(lsm2));
     }
 
     cout<<ans<<'\n';

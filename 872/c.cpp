@@ -32,35 +32,45 @@ void solve() {
     int n,m;
     cin>>n>>m;
 
-    vl a(n);
+    vi x(n);
+    set<int> a;
+    int l = 0;
+    int r = 0;
     for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
-    }
-
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
+        cin>>x[i];
+        if(x[i]>0){
+            a.insert(x[i]);
+        }else{
+            if(x[i]==-1){
+                l++;
+            }else{
+                r++;
             }
         }
-
-        a[ind] = b[i];
     }
 
-    for(int i=0;i<n;i++){
-        ans+=a[i];
+    vi s;
+    for(auto x: a){
+        s.pb(x);
     }
 
+    int ans = 0;
+    sort(all(s));
+    for(int i=0;i<s.size();i++){
+        int loc = s.size();
+
+        int freeL = s[i] - 1 - i;
+        int freeR = m-s[i] - (s.size()-i-1);
+        // debug(freeL);
+        // debug(i);
+        // debug(s[i]);
+        loc += min(freeL,l) + min(freeR, r);
+
+        ans = max(ans, loc);
+    }
+    //cout<<ans<<'\n';
+    ans = max(ans, min(m,l+(int)s.size()));
+    ans = max(ans, min(m,r+(int)s.size()));
     cout<<ans<<'\n';
 }
 
@@ -70,7 +80,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    cin>>tt; 
     while (tt--) {
         solve();
     }

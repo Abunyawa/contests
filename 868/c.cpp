@@ -29,39 +29,51 @@ void no(){
 
 
 void solve() {
-    int n,m;
-    cin>>n>>m;
-
+    int n;
+    cin>>n;
     vl a(n);
+    map<ll,int> m;
     for(int i=0;i<n;i++){
         cin>>a[i];
-    }
 
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
-    }
+        ll cur = a[i];
 
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
+        for(int j=2;j<=sqrt(a[i]);j++){
+            while(cur%j==0){
+                m[j]++;
+                cur/=j;
             }
         }
 
-        a[ind] = b[i];
+        if(cur>1){
+            m[cur]++;
+        }
     }
 
-    for(int i=0;i<n;i++){
-        ans+=a[i];
+    int ans = 0;
+    for(auto x: m){
+        ans+=x.se/2;
+        m[x.fi]%=2;
     }
 
-    cout<<ans<<'\n';
+    ll cur = 1;
+    ll ctr = 0;
+
+    for(auto x: m){
+        if(x.se!=0){
+            ctr++;
+            if(ctr==3){
+                ans++;
+                ctr = 0;
+            }
+        }
+    }
+
+    if(ans==0){
+        cout<<0<<'\n';
+    }else{
+        cout<<ans<<'\n';
+    }
 }
 
 int main() {
@@ -70,7 +82,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    cin>>tt; 
     while (tt--) {
         solve();
     }

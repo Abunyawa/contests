@@ -25,40 +25,42 @@ void yes(){
 void no(){
     cout<<"NO"<<'\n';
 }
-
-
+int n,m;
+int dy[] = {1,0,-1,0};
+int dx[] = {0,-1,0,1};
+int gr[110][110];
+vector<pii> g[110][110];
+int in[110][110];
+int used[110][110];
+bool bad = false;
+vector<pii> moves;
 
 void solve() {
-    int n,m;
+    int n;
+    ll m;
     cin>>n>>m;
+    vl c(n);
+    vl d(n);
 
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-
-    vl b(m);
     ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
+    for(int i=0;i<n-1;i++){
+        cin>>c[i];
+    }
+    for(int i=0;i<n-1;i++){
+        cin>>d[i];
     }
 
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
-            }
+    for(int i=1;i<n-1;i++){
+        if(c[i]>c[i-1]){
+            c[i] = c[i-1];
         }
-
-        a[ind] = b[i];
     }
-
-    for(int i=0;i<n;i++){
-        ans+=a[i];
+    ll pack_size = m;
+    ll del = 0;
+    for(int i=0;i<n-1;i++){
+        ll tot_packs = (m+c[i]-1)/c[i];
+        ans += d[i] + max(0LL,tot_packs-1-del);
+        del += max(0LL,tot_packs-1-del);
     }
 
     cout<<ans<<'\n';
@@ -70,7 +72,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

@@ -29,37 +29,35 @@ void no(){
 
 
 void solve() {
-    int n,m;
-    cin>>n>>m;
-
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
-    }
+    vl a(3);
+    cin>>a[0]>>a[1]>>a[2];
 
     sort(all(a));
 
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
-            }
+    ll ans = 0;
+    ans+=(a[2]-a[0])/5;
+    a[0] += (a[2]-a[0])/5*5; 
+
+    ans+=(a[2]-a[1])/5;
+    a[1] += (a[2]-a[1])/5*5; 
+
+
+    ll mn = a[2]-a[0] + a[2]-a[1];
+    for(int i=0;i<2;i++){
+        ll loc = 1;
+        ll df = a[i]+5;
+        for(int j=0;j<3;j++){
+            if(i==j) continue;
+            loc+=(df-a[j])/5;
+            //cout<<df<<' '<<a[j]<<' '<<loc<<'\n';
+            loc+=df-(a[j]+((df-a[j])/5*5));
+            //cout<<loc<<'\n';
         }
-
-        a[ind] = b[i];
+        //cout<<i<<' '<<loc<<'\n';
+        mn = min(mn,loc);
     }
 
-    for(int i=0;i<n;i++){
-        ans+=a[i];
-    }
+    ans+=mn;
 
     cout<<ans<<'\n';
 }
@@ -70,7 +68,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

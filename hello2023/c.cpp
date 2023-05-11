@@ -33,34 +33,60 @@ void solve() {
     cin>>n>>m;
 
     vl a(n);
+
     for(int i=0;i<n;i++){
         cin>>a[i];
     }
-
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
+    if(n==1){
+        cout<<0<<'\n';
+        return;
+    }
+    int ans = 0;
+    if(a[m-1]>0 && m!=1){
+        ans++;
+        a[m-1] = -a[m-1];
     }
 
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
-            }
+    ll sm = 0;
+    vector<ll> p(m);
+    p[0] = 1e17;
+    for(int i=0;i<m-1;i++){
+        sm += a[i];
+        p[i] = min(p[i], sm);
+        p[i+1] = p[i];
+    }
+    sm+=a[m-1];
+    ll cur = sm-a[m-1];
+    priority_queue<ll> q;
+    for(int i=m-2;i>=0;i--){
+        if(a[i]>0){
+            q.push(a[i]);
+        }
+        while(cur-a[i]<sm){
+            ll mx = q.top();
+            q.pop();
+            sm-=mx;
+            //cout<<i<<' ';
+            ans++;
+            sm+=-mx;
         }
 
-        a[ind] = b[i];
+        cur-=a[i];
+        
     }
 
-    for(int i=0;i<n;i++){
-        ans+=a[i];
-    }
 
+    ll lm = sm;
+    for(int i= m;i<n;i++){
+        if(sm+a[i]<lm){
+            //cout<<i<<' ';
+            a[i] = -a[i];
+            ans++;
+        }
+
+        sm+=a[i];
+    }
+    //cout<<'\n';
     cout<<ans<<'\n';
 }
 

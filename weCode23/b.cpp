@@ -27,41 +27,30 @@ void no(){
 }
 
 
+/*
+b2 = a2 + x
 
+x = b2-a2
+1 2 3 4  5  6
+  3 8 15 24 35
+    5 12 21 32
+      7  16
+         9
+*/
 void solve() {
-    int n,m;
-    cin>>n>>m;
-
-    vl a(n);
+    int n;
+    cin>>n;
+    vi a(n);
     for(int i=0;i<n;i++){
         cin>>a[i];
     }
 
-    vl b(m);
-    ll ans = 0;
+    int m;
+    cin>>m;
+    vi b(n);
     for(int i=0;i<m;i++){
         cin>>b[i];
-    }
-
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
-            }
-        }
-
-        a[ind] = b[i];
-    }
-
-    for(int i=0;i<n;i++){
-        ans+=a[i];
-    }
-
-    cout<<ans<<'\n';
+    } 
 }
 
 int main() {
@@ -70,7 +59,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

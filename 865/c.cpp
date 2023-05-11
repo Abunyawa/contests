@@ -29,40 +29,47 @@ void no(){
 
 
 void solve() {
-    int n,m;
-    cin>>n>>m;
-
+    int n;
+    cin>>n;
     vl a(n);
+
     for(int i=0;i<n;i++){
         cin>>a[i];
     }
 
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
-    }
+    for(int i=0;i<n-1;i++){
+        if(i+2<n){
+            ll dif = a[i]-a[i+1];
 
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
-            }
+            a[i+1]+=dif;
+            a[i+2] += dif; 
         }
-
-        a[ind] = b[i];
+    }
+    int unsrt = false;
+    for(int i=0;i<n-1;i++){
+        if(a[i]>a[i+1]){
+            
+            unsrt++;
+        }
     }
 
-    for(int i=0;i<n;i++){
-        ans+=a[i];
+    if(unsrt == 0){
+        yes();
+    }else{
+        if(unsrt==1){
+            if(a[n-2]>a[n-1]){
+                if((n-1)%2==0){
+                    yes();
+                }else{
+                    no();
+                }
+            }
+        }else{
+            no
+        }
     }
-
-    cout<<ans<<'\n';
 }
+
 
 int main() {
     ios_base::sync_with_stdio(0);

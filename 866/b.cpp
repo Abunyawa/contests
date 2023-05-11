@@ -29,39 +29,49 @@ void no(){
 
 
 void solve() {
-    int n,m;
-    cin>>n>>m;
-
-    vl a(n);
+    string s;
+    cin>>s;
+    int n = s.length();
+    vl bl;
+    int cur = 0;
     for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
-    }
-
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
-            }
+        if(s[i]=='1'){
+            cur++;
+        }else{
+            if(cur!=0) bl.pb(cur);
+            cur = 0;
         }
-
-        a[ind] = b[i];
     }
 
-    for(int i=0;i<n;i++){
-        ans+=a[i];
+    if(cur!=0){
+        if(bl.size()>0){
+            if(s[0]=='1') bl[0]+=cur;
+            else bl.pb(cur);
+        }else{
+            if(cur!=0) bl.pb(cur);
+        }
     }
 
-    cout<<ans<<'\n';
+    sort(all(bl));
+
+
+    if(bl.size()<=0){
+        cout<<0<<'\n';
+        return;
+    }else{
+        ll ans = bl[bl.size()-1];
+        ll pd =bl[bl.size()-1];
+
+        if(pd==n){
+            cout<<pd*pd<<'\n';
+            return;
+        }
+        for(ll i=1;i<=pd;i++){
+            ans = max(i*(pd-i+1), ans);
+        }
+        cout<<ans<<'\n';
+    }
+
 }
 
 int main() {
@@ -70,7 +80,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    cin>>tt; 
     while (tt--) {
         solve();
     }

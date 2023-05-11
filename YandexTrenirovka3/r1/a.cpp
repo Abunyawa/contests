@@ -29,39 +29,35 @@ void no(){
 
 
 void solve() {
-    int n,m;
-    cin>>n>>m;
-
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
-    }
-
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
+    string s;
+    int mx = 0;
+    map<char,int> m;
+    while(cin>>s){
+        for(int i=0;i<s.length();i++){
+            if(s[i]!=' ' && s[i]!='\n'){
+                m[s[i]]++;
+                if(m[s[i]]>mx){
+                    mx = m[s[i]];
+                }
             }
         }
-
-        a[ind] = b[i];
     }
 
-    for(int i=0;i<n;i++){
-        ans+=a[i];
+    for(int i=mx;i>0;i--){
+        for(auto x: m){
+            if(x.se >= i){
+                cout<<"#";
+            }else{
+                cout<<" ";
+            }
+        }
+        cout<<'\n';
     }
 
-    cout<<ans<<'\n';
+    for(auto x: m){
+        cout<<x.fi;     
+    }
+    cout<<'\n';
 }
 
 int main() {
@@ -70,7 +66,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

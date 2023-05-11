@@ -26,43 +26,54 @@ void no(){
     cout<<"NO"<<'\n';
 }
 
-
-
 void solve() {
-    int n,m;
+    ll n,m;
     cin>>n>>m;
+    
+    vl ctr[n+m+1];
+    ll tot[n+m+1];
 
     vl a(n);
+
     for(int i=0;i<n;i++){
         cin>>a[i];
+        ctr[a[i]].pb(0);
     }
 
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
-    }
-
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
-            }
-        }
-
-        a[ind] = b[i];
+    for(int i=1;i<=m;i++){
+        int p,v;
+        cin>>p>>v;
+        ctr[a[p-1]].pb(i);
+        ctr[v].pb(i);
+        a[p-1] = v;
     }
 
     for(int i=0;i<n;i++){
-        ans+=a[i];
+        ctr[a[i]].pb(m+1);
     }
 
+    ll ans = 0;
+
+    for(int i=0;i<=n+m;i++){
+        if(ctr[i].size()!=0){
+            ll have = 0;
+
+            for(int j=0;j<ctr[i].size();j+=2){
+                have+=ctr[i][j+1]-ctr[i][j];
+            }
+            tot[i] = have;
+
+            ll free = m+1-have;
+
+            ans += (m+1)*m/2 - free*(free-1)/2;
+        }
+    }
+
+    
     cout<<ans<<'\n';
+    
 }
+
 
 int main() {
     ios_base::sync_with_stdio(0);

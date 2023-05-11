@@ -29,39 +29,15 @@ void no(){
 
 
 void solve() {
-    int n,m;
-    cin>>n>>m;
+    ll n;
+    cin>>n;
 
-    vl a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
+    ll meds = (n+1)/2;
+    ll g = (n+11)/12;
+    ll s = (n+3)/4 - g;
+    ll b = (n+1)/2 - g - s;
 
-    vl b(m);
-    ll ans = 0;
-    for(int i=0;i<m;i++){
-        cin>>b[i];
-    }
-
-    sort(all(a));
-
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
-            }
-        }
-
-        a[ind] = b[i];
-    }
-
-    for(int i=0;i<n;i++){
-        ans+=a[i];
-    }
-
-    cout<<ans<<'\n';
+    cout<<g<<' '<<s<<' '<<b<<'\n';
 }
 
 int main() {
@@ -70,7 +46,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }

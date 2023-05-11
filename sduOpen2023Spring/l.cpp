@@ -32,36 +32,47 @@ void solve() {
     int n,m;
     cin>>n>>m;
 
-    vl a(n);
+    vi a(n);
     for(int i=0;i<n;i++){
         cin>>a[i];
-    }
+    } 
 
-    vl b(m);
-    ll ans = 0;
+    vi b(n);
     for(int i=0;i<m;i++){
         cin>>b[i];
     }
 
-    sort(all(a));
+    map<int, array<int, 3>> mm;
+    for(int i=0;i<n;i++){
+        for(int j=i+1;j<n;j++){
+            for(int k=j+1;k<n;k++){
+                int sm = a[i]+a[j]+a[k];
 
-    for(int i=0;i<m;i++){
-        ll cur = b[i];
-        int ind = 0;
-        for(int j=0;j<n;j++){
-            if(cur-a[j] > cur -a[ind]){
-                ind = j;
+                mm[sm] = {i,j,k};
             }
         }
-
-        a[ind] = b[i];
     }
 
-    for(int i=0;i<n;i++){
-        ans+=a[i];
+    int ans = -1;
+    array<int,3> ansI;
+    int tr;
+    for(int i=0;i<m;i++){
+        for(int cur = b[i]-1;cur>=3;cur--){
+            if(mm.find(cur)!=mm.end()){
+                if(ans==-1 || (b[i]-cur)<ans){
+                    tr = i;
+                    ans = b[i]-cur;
+                    ansI = mm[cur];
+                }
+            }
+        }   
     }
 
-    cout<<ans<<'\n';
+    if(ans==-1){
+        cout<<ans<<'\n';
+        return;
+    }
+    cout<<ansI[0]+1<<' '<<ansI[1]+1<<' '<<ansI[2]+1<<' '<<tr+1<<'\n';
 }
 
 int main() {
@@ -70,7 +81,7 @@ int main() {
     cout.tie(0);
 
     int tt = 1;
-    cin>>tt;
+    
     while (tt--) {
         solve();
     }
